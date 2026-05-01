@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CogniThink — Tumbuh Bersama</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#DC1E1E;--orange:#FF4800;--black:#0A0A0A;--dark:#1A1A1A;--white:#FFFFFF;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow Condensed',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.5;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--red);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(220,30,30,0.15);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;cursor:pointer;}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:30px;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.6);text-decoration:none;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--red);}
+.nav-cta{background:var(--red);color:#fff;border:none;padding:10px 22px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.nav-cta:hover{background:var(--orange);transform:translateY(-1px);}
+
+/* CANVAS BG */
+#neural-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.35;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;z-index:1;padding:120px 40px 80px;}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.hero-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:16px;}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:80px;line-height:0.92;margin-bottom:24px;letter-spacing:1px;}
+.hero-title .accent{color:var(--red);}
+.hero-title .glitch{position:relative;display:inline-block;}
+.hero-title .glitch::before,.hero-title .glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;}
+.hero-title .glitch::before{color:var(--red);animation:glitch1 4s infinite;clip-path:polygon(0 0,100% 0,100% 45%,0 45%);}
+.hero-title .glitch::after{color:#00f5ff;animation:glitch2 4s infinite;clip-path:polygon(0 55%,100% 55%,100% 100%,0 100%);}
+@keyframes glitch1{0%,90%,100%{transform:translate(0)}92%{transform:translate(-3px,1px)}94%{transform:translate(3px,-1px)}96%{transform:translate(-2px,0)}}
+@keyframes glitch2{0%,90%,100%{transform:translate(0)}92%{transform:translate(3px,-1px)}94%{transform:translate(-3px,1px)}96%{transform:translate(2px,0)}}
+.hero-tagline{font-size:17px;color:rgba(255,255,255,0.65);border-left:3px solid var(--red);padding-left:16px;margin-bottom:36px;line-height:1.6;}
+.typed-cursor{color:var(--red);animation:blink 0.8s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-form{display:flex;gap:10px;max-width:480px;}
+.hero-form input{flex:1;padding:14px 18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:16px;outline:none;transition:border-color 0.3s;}
+.hero-form input:focus{border-color:var(--red);}
+.hero-form input::placeholder{color:rgba(255,255,255,0.35);}
+.btn-primary{background:var(--red);color:#fff;border:none;padding:14px 28px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;white-space:nowrap;}
+.btn-primary:hover{background:var(--orange);transform:translateY(-2px);box-shadow:0 8px 24px rgba(220,30,30,0.4);}
+.hero-stats{display:flex;gap:30px;margin-top:36px;}
+.stat{display:flex;flex-direction:column;}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);line-height:1;}
+.stat-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.45);text-transform:uppercase;}
+
+/* HERO VISUAL */
+.hero-visual{display:flex;align-items:center;justify-content:center;position:relative;}
+.brain-canvas-wrap{position:relative;width:420px;height:420px;}
+#brain-canvas{width:100%;height:100%;}
+.brain-ring{position:absolute;border-radius:50%;border:1px solid rgba(220,30,30,0.15);animation:expandRing 3s ease-out infinite;top:50%;left:50%;transform:translate(-50%,-50%);}
+.brain-ring:nth-child(1){width:88%;height:88%;animation-delay:0s;}
+.brain-ring:nth-child(2){width:105%;height:105%;animation-delay:1s;}
+.brain-ring:nth-child(3){width:122%;height:122%;animation-delay:2s;}
+@keyframes expandRing{0%{opacity:0.4}100%{opacity:0}}
+
+/* SECTIONS */
+section{position:relative;z-index:1;padding:90px 40px;}
+.container{max-width:1200px;margin:0 auto;}
+.sec-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:12px;text-align:center;}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:52px;text-align:center;margin-bottom:60px;line-height:1;}
+.sec-title span{color:var(--red);}
+
+/* PROBLEM */
+.problem{background:linear-gradient(180deg,rgba(220,30,30,0.04) 0%,transparent 100%);}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);}
+.problem-item{background:var(--black);padding:40px 30px;position:relative;overflow:hidden;transition:background 0.3s;}
+.problem-item:hover{background:rgba(220,30,30,0.06);}
+.problem-item::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--red);transition:height 0.4s;}
+.problem-item:hover::before{height:100%;}
+.problem-num{font-family:'Bebas Neue',sans-serif;font-size:64px;color:rgba(220,30,30,0.12);line-height:1;margin-bottom:16px;}
+.problem-title{font-size:22px;font-weight:700;margin-bottom:10px;color:#fff;}
+.problem-desc{font-size:15px;color:rgba(255,255,255,0.5);line-height:1.6;}
+
+/* PILLARS */
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.pillar-card{background:var(--dark);padding:40px 30px;position:relative;overflow:hidden;cursor:default;transition:all 0.4s;}
+.pillar-card::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--red);transform:scaleX(0);transition:transform 0.4s;}
+.pillar-card:hover::after{transform:scaleX(1);}
+.pillar-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,0.6);}
+.pillar-icon{font-size:44px;margin-bottom:22px;display:block;}
+.pillar-title{font-family:'Bebas Neue',sans-serif;font-size:30px;margin-bottom:14px;color:#fff;}
+.pillar-desc{font-size:15px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:20px;}
+.pillar-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;padding:5px 10px;border:1px solid rgba(220,30,30,0.4);color:rgba(220,30,30,0.8);}
+
+/* WHY */
+.why{background:rgba(26,26,26,0.4);}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.why-item{display:flex;gap:20px;padding:28px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);transition:border-color 0.3s;}
+.why-item:hover{border-color:rgba(220,30,30,0.4);}
+.why-icon{font-size:32px;flex-shrink:0;margin-top:4px;}
+.why-title{font-size:20px;font-weight:700;margin-bottom:8px;}
+.why-desc{font-size:15px;color:rgba(255,255,255,0.55);line-height:1.6;}
+
+/* RESOURCES */
+.tabs{display:flex;justify-content:center;gap:12px;margin-bottom:40px;flex-wrap:wrap;}
+.tab{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;padding:10px 22px;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);cursor:pointer;text-transform:uppercase;transition:all 0.3s;}
+.tab.active,.tab:hover{border-color:var(--red);color:var(--red);}
+.tab.active{background:rgba(220,30,30,0.08);}
+.resources-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+.res-card{background:var(--dark);padding:28px;border-left:3px solid var(--red);transition:all 0.3s;cursor:pointer;}
+.res-card:hover{transform:translateY(-6px);box-shadow:0 16px 32px rgba(0,0,0,0.5);}
+.res-badge{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--red);margin-bottom:14px;display:block;}
+.res-icon{font-size:36px;margin-bottom:14px;display:block;}
+.res-title{font-size:20px;font-weight:700;margin-bottom:10px;}
+.res-desc{font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px;line-height:1.6;}
+.btn-outline{background:transparent;color:var(--red);border:1px solid var(--red);padding:10px 20px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.btn-outline:hover{background:var(--red);color:#fff;}
+
+/* INNER CIRCLE — SOON */
+.premium{background:linear-gradient(135deg,rgba(220,30,30,0.05) 0%,rgba(10,10,10,0) 60%);}
+.soon-wrap{border:1px solid rgba(220,30,30,0.2);padding:80px 60px;text-align:center;position:relative;overflow:hidden;}
+.soon-wrap::before{content:'INNER CIRCLE';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;font-size:140px;color:rgba(220,30,30,0.04);letter-spacing:12px;pointer-events:none;white-space:nowrap;line-height:1;}
+.soon-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:rgba(220,30,30,0.7);text-transform:uppercase;margin-bottom:24px;}
+.soon-title{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:0.95;margin-bottom:24px;}
+.soon-title span{color:var(--red);}
+.soon-line{width:48px;height:2px;background:var(--red);margin:0 auto 28px;}
+.soon-desc{font-size:18px;color:rgba(255,255,255,0.45);max-width:480px;margin:0 auto 40px;line-height:1.7;font-style:italic;}
+.soon-notify{display:flex;gap:10px;max-width:420px;margin:0 auto;}
+.soon-notify input{flex:1;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:16px;outline:none;transition:border-color 0.3s;}
+.soon-notify input:focus{border-color:var(--red);}
+.soon-notify input::placeholder{color:rgba(255,255,255,0.25);}
+.soon-badge{display:inline-flex;align-items:center;gap:8px;margin-top:28px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.2);text-transform:uppercase;}
+.soon-dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse-dot 1.5s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+
+/* CTA BANNER */
+.cta-banner{background:var(--red);padding:72px 40px;text-align:center;position:relative;overflow:hidden;}
+.cta-banner::before{content:'COGNI';position:absolute;left:-20px;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:200px;color:rgba(0,0,0,0.12);letter-spacing:10px;pointer-events:none;line-height:1;}
+.cta-banner::after{content:'THINK';position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:200px;color:rgba(0,0,0,0.12);letter-spacing:10px;pointer-events:none;line-height:1;}
+.cta-inner{position:relative;z-index:1;}
+.cta-banner h2{font-family:'Bebas Neue',sans-serif;font-size:66px;line-height:1.0;margin-bottom:12px;}
+.cta-banner p{font-size:18px;color:rgba(255,255,255,0.8);margin-bottom:32px;}
+.btn-white{background:#fff;color:var(--red);border:none;padding:16px 36px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.btn-white:hover{background:var(--black);color:#fff;transform:translateY(-2px);}
+
+/* FOOTER */
+footer{background:var(--dark);padding:50px 40px;border-top:1px solid rgba(255,255,255,0.06);}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:30px;}
+.footer-logo span{color:var(--red);}
+.footer-tagline{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-top:6px;}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap;}
+.footer-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.4);text-decoration:none;text-transform:uppercase;transition:color 0.3s;}
+.footer-links a:hover{color:var(--red);}
+.footer-copy{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:1px;width:100%;text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .brain-canvas-wrap{width:280px;height:280px;margin:0 auto;}
+  .pillars-grid{grid-template-columns:1fr;}
+  .problem-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .hero-title{font-size:56px;}
+  .soon-wrap{padding:50px 24px;}
+  .soon-title{font-size:52px;}
+  nav{padding:14px 20px;}
+  .nav-links{display:none;}
+  section{padding:60px 20px;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="neural-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">COGNI<span>THINK</span></div>
+  <div class="nav-links">
+    <a href="#pillars">Topik</a>
+    <a href="artikel/">Artikel</a>
+    <a href="#resources">Resources</a>
+    <a href="#community">Community</a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('hero-email').focus()">Join Gratis</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-label">Mari Tumbuh Bersama — @cognithink_</div>
+      <h1 class="hero-title">
+        OTAK LU<br>
+        TERLALU<br>
+        <span class="accent glitch" data-text="MAHAL">MAHAL</span><br>
+        BUAT<br>
+        <span class="accent">MISKIN</span>
+      </h1>
+      <p class="hero-tagline">
+        <span id="typed-text"></span><span class="typed-cursor">|</span>
+      </p>
+      <div class="hero-form">
+        <input type="email" id="hero-email" placeholder="email lu di sini...">
+        <button class="btn-primary" id="hero-btn">Daftar Gratis</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Pilar Utama</span></div>
+        <div class="stat"><span class="stat-num">100%</span><span class="stat-label">No Bullshit</span></div>
+        <div class="stat"><span class="stat-num">FREE</span><span class="stat-label">Mulai Sekarang</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="brain-canvas-wrap">
+        <div class="brain-ring"></div>
+        <div class="brain-ring"></div>
+        <div class="brain-ring"></div>
+        <canvas id="brain-canvas" width="420" height="420"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="sec-label reveal">Pain Points</div>
+    <h2 class="sec-title reveal">KENAPA LU <span>STUCK</span> DI SINI?</h2>
+    <div class="problem-grid reveal">
+      <div class="problem-item">
+        <div class="problem-num">01</div>
+        <div class="problem-title">Informasi Berserakan</div>
+        <div class="problem-desc">YouTube, TikTok, Twitter — semua ada, tapi gak ada yang ngajarin dari mana mulainya. Lo scroll, lo bingung, lo tutup.</div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">02</div>
+        <div class="problem-title">Bahasa Terlalu Teknikal</div>
+        <div class="problem-desc">Konten finansial dibuat sama orang yang lupa rasanya jadi pemula. Penuh jargon, minim konteks, boring habis.</div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">03</div>
+        <div class="problem-title">Gak Ada yang Bahas Psikologinya</div>
+        <div class="problem-desc">Semua ngajarin "cara beli saham" — tapi gak ada yang jelasin kenapa otak lo selalu salah timing. Itu yang paling krusial.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section id="pillars">
+  <div class="container">
+    <div class="sec-label reveal">Core Topics</div>
+    <h2 class="sec-title reveal">3 PILAR <span>COGNITHINK</span></h2>
+    <div class="pillars-grid reveal">
+      <div class="pillar-card">
+        <span class="pillar-icon">🤖</span>
+        <div class="pillar-title">Artificial Intelligence</div>
+        <div class="pillar-desc">Bukan cuma "AI itu keren". Kita bahas gimana AI beneran ngubah cara orang cari uang, kerja, dan berpikir — sekarang, bukan 10 tahun lagi.</div>
+        <div class="pillar-tags"><span class="tag">LLM & Tools</span><span class="tag">AI Economy</span><span class="tag">Automation</span><span class="tag">Prompt Thinking</span></div>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">📈</span>
+        <div class="pillar-title">Market & Trading</div>
+        <div class="pillar-desc">Crypto, saham, makro — dikupas dari angle yang lo bisa langsung apply. Bukan tips "beli ini besok naik" — tapi cara baca pola dan data sendiri.</div>
+        <div class="pillar-tags"><span class="tag">Crypto</span><span class="tag">Stock Market</span><span class="tag">Makroekonomi</span><span class="tag">Technical Analysis</span></div>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-icon">🧠</span>
+        <div class="pillar-title">Psychology of Both</div>
+        <div class="pillar-desc">Kenapa lo FOMO? Kenapa lo panic sell? Kenapa otak lo musuh terbesar di market? Ini layer yang hampir semua konten finansial skip.</div>
+        <div class="pillar-tags"><span class="tag">Cognitive Bias</span><span class="tag">Behavioral Finance</span><span class="tag">Decision Making</span><span class="tag">Risk Mindset</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="container">
+    <div class="sec-label reveal">Differentiator</div>
+    <h2 class="sec-title reveal">KENAPA <span>COGNITHINK</span>?</h2>
+    <div class="why-grid reveal">
+      <div class="why-item">
+        <div class="why-icon">🎯</div>
+        <div>
+          <div class="why-title">No Fluff, No Guru Act</div>
+          <div class="why-desc">Gua bukan pakar. Gua cuma orang yang udah duluan salah dan mau jujur soal itu. Lebih relatable, lebih useful.</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">⚡</div>
+        <div>
+          <div class="why-title">Straight to the Point</div>
+          <div class="why-desc">Gak ada basa-basi, gak ada intro panjang. Tiap konten langsung ke inti — karena waktu lu lebih berharga dari filler.</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🧩</div>
+        <div>
+          <div class="why-title">3 Dimensi Sekaligus</div>
+          <div class="why-desc">AI + Market + Psikologi. Tiga hal yang saling terhubung tapi hampir gak pernah dibahas bareng di satu tempat.</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🔥</div>
+        <div>
+          <div class="why-title">Actionable, Bukan Motivational</div>
+          <div class="why-desc">Setiap konten ada takeaway konkret. Bukan "percaya diri aja" — tapi "ini yang harus lo pahami dulu sebelum beli apapun".</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE RESOURCES -->
+<section id="resources">
+  <div class="container">
+    <div class="sec-label reveal">Free Resources</div>
+    <h2 class="sec-title reveal">AMBIL <span>GRATIS</span>, MULAI SEKARANG</h2>
+    <div class="tabs reveal">
+      <div class="tab active" data-cat="all">Semua</div>
+      <div class="tab" data-cat="market">Market</div>
+      <div class="tab" data-cat="ai">AI</div>
+      <div class="tab" data-cat="psychology">Psikologi</div>
+    </div>
+    <div class="resources-grid reveal">
+      <div class="res-card" data-cat="psychology">
+        <span class="res-badge">Psikologi Investasi</span>
+        <span class="res-icon">📉</span>
+        <div class="res-title">7 Kesalahan Mental Gen Z dalam Berinvestasi</div>
+        <div class="res-desc">Bias kognitif yang diam-diam nguras portfolio lu — tanpa lo sadarin.</div>
+        <a href="artikel/7-kesalahan-mental-gen-z.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
+      </div>
+      <div class="res-card" data-cat="market">
+        <span class="res-badge">Market Intelligence</span>
+        <span class="res-icon">📊</span>
+        <div class="res-title">Panduan Analisis Market 10 Menit</div>
+        <div class="res-desc">Framework baca kondisi pasar tiap pagi — tanpa harus duduk 2 jam di depan chart.</div>
+        <a href="artikel/panduan-analisis-market-10-menit.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
+      </div>
+      <div class="res-card" data-cat="psychology">
+        <span class="res-badge">Psikologi Investasi</span>
+        <span class="res-icon">🔍</span>
+        <div class="res-title">Tes Profil Psikologi Investor</div>
+        <div class="res-desc">Tipe lo: panic seller, FOMO buyer, atau overthinking holder? Tau dulu, baru bergerak.</div>
+        <a href="artikel/tes-profil-psikologi-investor.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
+      </div>
+      <div class="res-card" data-cat="ai">
+        <span class="res-badge">AI & Teknologi</span>
+        <span class="res-icon">🤖</span>
+        <div class="res-title">AI Tools buat Analisis Market</div>
+        <div class="res-desc">Tools AI yang beneran berguna buat trader dan investor pemula — bukan yang cuma viral doang.</div>
+        <a href="artikel/ai-tools-analisis-market.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
+      </div>
+      <div class="res-card" data-cat="market">
+        <span class="res-badge">Market Intelligence</span>
+        <span class="res-icon">💸</span>
+        <div class="res-title">Blueprint Investasi Pertama</div>
+        <div class="res-desc">Dari nol sampai posisi pertama — langkah konkret tanpa harus punya modal gede dulu.</div>
+        <a href="artikel/blueprint-investasi-pertama.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
+      </div>
+      <div class="res-card" data-cat="ai">
+        <span class="res-badge">AI & Teknologi</span>
+        <span class="res-icon">⚡</span>
+        <div class="res-title">Cara Kerja AI: Explained Simply</div>
+        <div class="res-desc">Gimana LLM, trading bot, dan AI analyst beneran bekerja — tanpa jargon teknikal yang nyiksa.</div>
+        <a href="artikel/cara-kerja-ai-explained-simply.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INNER CIRCLE — SOON -->
+<section class="premium" id="community">
+  <div class="container">
+    <div class="sec-label reveal">Premium Tier</div>
+    <div class="soon-wrap reveal">
+      <div class="soon-eyebrow">CogniThink Inner Circle</div>
+      <h2 class="soon-title">SOMETHING<br><span>WORTH</span> WAITING.</h2>
+      <div class="soon-line"></div>
+      <p class="soon-desc">Kami sedang membangun ruang eksklusif untuk mereka yang serius tumbuh — bukan sekadar scroll. Jadilah yang pertama tahu.</p>
+      <div class="soon-notify">
+        <input type="email" id="soon-email" placeholder="notifikasi ke email lu...">
+        <button class="btn-primary" id="soon-btn">Notify Me</button>
+      </div>
+      <div class="soon-badge">
+        <span class="soon-dot"></span>
+        Currently in development
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="cta-inner">
+    <h2>OTAK LU UDAH SIAP.<br>MULAI AJA DULU.</h2>
+    <p>Gratis. Tanpa CC. Tanpa bullshit.</p>
+    <button class="btn-white" onclick="document.getElementById('hero-email').scrollIntoView({behavior:'smooth'});setTimeout(()=>document.getElementById('hero-email').focus(),600)">Daftar Sekarang — Gratis</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">COGNI<span>THINK</span></div>
+      <div class="footer-tagline">// Bukan pakar — cuma orang penasaran yang nolak miskin.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://instagram.com/cognithink_" target="_blank">Instagram</a>
+      <a href="#">Email</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 CogniThink. All rights reserved. — Built for the next generation.</div>
+</footer>
+
+<script>
+// ── NEURAL BG CANVAS ──
+const bgC = document.getElementById('neural-canvas');
+const bgX = bgC.getContext('2d');
+let W,H,bgNodes=[],mouse={x:0,y:0};
+function resize(){W=bgC.width=window.innerWidth;H=bgC.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+class BgNode{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.4;this.vy=(Math.random()-.5)*.4;this.r=Math.random()*2+1;}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();}draw(){bgX.beginPath();bgX.arc(this.x,this.y,this.r,0,Math.PI*2);bgX.fillStyle=`rgba(220,30,30,${.4+Math.random()*.3})`;bgX.fill();}}
+for(let i=0;i<60;i++)bgNodes.push(new BgNode());
+window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+function bgLoop(){
+  bgX.clearRect(0,0,W,H);
+  for(let i=0;i<bgNodes.length;i++){
+    for(let j=i+1;j<bgNodes.length;j++){
+      const dx=bgNodes[i].x-bgNodes[j].x,dy=bgNodes[i].y-bgNodes[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<150){bgX.beginPath();bgX.moveTo(bgNodes[i].x,bgNodes[i].y);bgX.lineTo(bgNodes[j].x,bgNodes[j].y);bgX.strokeStyle=`rgba(220,30,30,${(1-d/150)*.2})`;bgX.lineWidth=.5;bgX.stroke();}
+    }
+    const mdx=bgNodes[i].x-mouse.x,mdy=bgNodes[i].y-mouse.y,md=Math.sqrt(mdx*mdx+mdy*mdy);
+    if(md<120){bgX.beginPath();bgX.moveTo(bgNodes[i].x,bgNodes[i].y);bgX.lineTo(mouse.x,mouse.y);bgX.strokeStyle=`rgba(255,72,0,${(1-md/120)*.35})`;bgX.lineWidth=.8;bgX.stroke();}
+  }
+  bgNodes.forEach(n=>{n.update();n.draw();});
+  requestAnimationFrame(bgLoop);
+}
+bgLoop();
+
+// ── BRAIN CANVAS — HEAD + NEURON OVERLAY ──
+const bc = document.getElementById('brain-canvas');
+const bx = bc.getContext('2d');
+const BW = 420, BH = 420, CX = BW/2, CY = BH/2;
+let brainAngle = 0;
+
+// Generate neuron nodes — shaped in an ellipse (brain-ish)
+const neurons = [];
+for(let i=0;i<52;i++){
+  const layer = Math.random();
+  // Cluster more nodes towards center-top (brain region)
+  const rx = (70 + Math.random()*80) * (layer < 0.6 ? 1 : 0.6);
+  const ry = (55 + Math.random()*65) * (layer < 0.6 ? 1 : 0.6);
+  const a = Math.random()*Math.PI*2;
+  neurons.push({
+    lx: rx*Math.cos(a),
+    ly: ry*Math.sin(a) - 30, // offset up slightly (brain sits above center)
+    pulse: Math.random()*Math.PI*2,
+    speed: 0.02+Math.random()*0.03,
+    size: 1.5+Math.random()*2
+  });
+}
+
+function drawHead(){
+  // ── OUTER GLOW ──
+  const outerGlow = bx.createRadialGradient(CX,CY-10,60,CX,CY-10,210);
+  outerGlow.addColorStop(0,'rgba(220,30,30,0.07)');
+  outerGlow.addColorStop(0.6,'rgba(180,20,20,0.03)');
+  outerGlow.addColorStop(1,'rgba(0,0,0,0)');
+  bx.fillStyle=outerGlow;
+  bx.beginPath();bx.arc(CX,CY,210,0,Math.PI*2);bx.fill();
+
+  // ── NECK ──
+  bx.save();
+  const neckGrad=bx.createLinearGradient(CX-22,CY+90,CX+22,CY+90);
+  neckGrad.addColorStop(0,'rgba(50,35,35,0.9)');
+  neckGrad.addColorStop(0.5,'rgba(80,55,55,0.95)');
+  neckGrad.addColorStop(1,'rgba(50,35,35,0.9)');
+  bx.fillStyle=neckGrad;
+  bx.beginPath();
+  bx.moveTo(CX-22,CY+88);
+  bx.bezierCurveTo(CX-24,CY+108,CX-26,CY+128,CX-20,CY+148);
+  bx.lineTo(CX+20,CY+148);
+  bx.bezierCurveTo(CX+26,CY+128,CX+24,CY+108,CX+22,CY+88);
+  bx.closePath();bx.fill();bx.restore();
+
+  // ── FACE / HEAD BASE ──
+  bx.save();
+  const faceGrad=bx.createRadialGradient(CX-15,CY+20,10,CX,CY+30,115);
+  faceGrad.addColorStop(0,'rgba(95,68,68,1)');
+  faceGrad.addColorStop(0.4,'rgba(72,50,50,1)');
+  faceGrad.addColorStop(0.75,'rgba(50,32,32,0.95)');
+  faceGrad.addColorStop(1,'rgba(20,10,10,0.9)');
+  bx.fillStyle=faceGrad;
+  bx.beginPath();
+  // Head outline — oval with slightly pointed chin
+  bx.moveTo(CX,CY-80);
+  bx.bezierCurveTo(CX+75,CY-78,CX+92,CY-20,CX+88,CY+40);
+  bx.bezierCurveTo(CX+82,CY+80,CX+40,CY+105,CX,CY+112);
+  bx.bezierCurveTo(CX-40,CY+105,CX-82,CY+80,CX-88,CY+40);
+  bx.bezierCurveTo(CX-92,CY-20,CX-75,CY-78,CX,CY-80);
+  bx.closePath();bx.fill();
+  // Subtle face shading
+  const shadeGrad=bx.createLinearGradient(CX-88,CY,CX+88,CY);
+  shadeGrad.addColorStop(0,'rgba(0,0,0,0.25)');
+  shadeGrad.addColorStop(0.5,'rgba(0,0,0,0)');
+  shadeGrad.addColorStop(1,'rgba(0,0,0,0.25)');
+  bx.fillStyle=shadeGrad;
+  bx.beginPath();
+  bx.moveTo(CX,CY-80);
+  bx.bezierCurveTo(CX+75,CY-78,CX+92,CY-20,CX+88,CY+40);
+  bx.bezierCurveTo(CX+82,CY+80,CX+40,CY+105,CX,CY+112);
+  bx.bezierCurveTo(CX-40,CY+105,CX-82,CY+80,CX-88,CY+40);
+  bx.bezierCurveTo(CX-92,CY-20,CX-75,CY-78,CX,CY-80);
+  bx.closePath();bx.fill();
+  bx.restore();
+
+  // ── CLOSED EYES ──
+  bx.save();
+  bx.strokeStyle='rgba(220,30,30,0.5)';bx.lineWidth=2;bx.lineCap='round';
+  // left eye
+  bx.beginPath();bx.moveTo(CX-42,CY+28);bx.bezierCurveTo(CX-34,CY+22,CX-22,CY+22,CX-14,CY+28);bx.stroke();
+  // right eye
+  bx.beginPath();bx.moveTo(CX+14,CY+28);bx.bezierCurveTo(CX+22,CY+22,CX+34,CY+22,CX+42,CY+28);bx.stroke();
+  bx.restore();
+
+  // ── SUBTLE NOSE BRIDGE ──
+  bx.save();
+  bx.strokeStyle='rgba(220,30,30,0.15)';bx.lineWidth=1.5;
+  bx.beginPath();bx.moveTo(CX,CY+32);bx.bezierCurveTo(CX-8,CY+50,CX-10,CY+62,CX-5,CY+68);bx.stroke();
+  bx.restore();
+
+  // ── LIPS (thin, closed) ──
+  bx.save();
+  bx.strokeStyle='rgba(220,30,30,0.3)';bx.lineWidth=1.5;
+  bx.beginPath();bx.moveTo(CX-18,CY+82);bx.bezierCurveTo(CX-8,CY+78,CX+8,CY+78,CX+18,CY+82);bx.stroke();
+  bx.restore();
+
+  // ── BRAIN CAVITY (top of head, slightly open) ──
+  bx.save();
+  // Brain base fill
+  const brainBase=bx.createRadialGradient(CX,CY-55,10,CX,CY-55,95);
+  brainBase.addColorStop(0,'rgba(180,60,60,0.55)');
+  brainBase.addColorStop(0.5,'rgba(120,30,30,0.4)');
+  brainBase.addColorStop(1,'rgba(40,10,10,0.2)');
+  bx.fillStyle=brainBase;
+  bx.beginPath();
+  bx.ellipse(CX,CY-55,82,72,0,0,Math.PI*2);
+  bx.fill();
+
+  // Brain surface texture — gyri (folds)
+  bx.strokeStyle='rgba(220,30,30,0.25)';bx.lineWidth=3;bx.lineCap='round';
+  const folds=[
+    [{x:CX-60,y:CY-60},{x:CX-30,y:CY-80},{x:CX,y:CY-85},{x:CX+30,y:CY-80},{x:CX+60,y:CY-60}],
+    [{x:CX-55,y:CY-45},{x:CX-20,y:CY-65},{x:CX+20,y:CY-65},{x:CX+55,y:CY-45}],
+    [{x:CX-50,y:CY-30},{x:CX-15,y:CY-50},{x:CX+15,y:CY-50},{x:CX+50,y:CY-30}],
+    [{x:CX-40,y:CY-18},{x:CX-5,y:CY-35},{x:CX+5,y:CY-35},{x:CX+40,y:CY-18}],
+  ];
+  folds.forEach(fold=>{
+    bx.beginPath();
+    bx.moveTo(fold[0].x,fold[0].y);
+    for(let k=1;k<fold.length;k++) bx.lineTo(fold[k].x,fold[k].y);
+    bx.stroke();
+  });
+  // Center divide
+  bx.strokeStyle='rgba(220,30,30,0.18)';bx.lineWidth=2;bx.setLineDash([4,6]);
+  bx.beginPath();bx.moveTo(CX,CY-125);bx.lineTo(CX,CY-18);bx.stroke();
+  bx.setLineDash([]);
+  bx.restore();
+
+  // ── GLOW FROM BRAIN CENTER ──
+  bx.save();
+  const innerGlow=bx.createRadialGradient(CX,CY-60,0,CX,CY-60,80);
+  innerGlow.addColorStop(0,`rgba(255,80,0,${0.12+Math.sin(brainAngle*2)*0.06})`);
+  innerGlow.addColorStop(0.5,'rgba(220,30,30,0.06)');
+  innerGlow.addColorStop(1,'rgba(0,0,0,0)');
+  bx.fillStyle=innerGlow;
+  bx.beginPath();bx.ellipse(CX,CY-60,90,80,0,0,Math.PI*2);bx.fill();
+  bx.restore();
+}
+
+function drawNeuronOverlay(){
+  bx.save();
+  bx.translate(CX, CY-30); // center on brain region
+  bx.rotate(brainAngle);
+
+  // Clip to ellipse (brain shape)
+  bx.beginPath();
+  bx.ellipse(0,0,88,78,0,0,Math.PI*2);
+  bx.clip();
+
+  // Connections
+  for(let i=0;i<neurons.length;i++){
+    for(let j=i+1;j<neurons.length;j++){
+      const dx=neurons[i].lx-neurons[j].lx,dy=neurons[i].ly-neurons[j].ly;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<72){
+        const op=(1-d/72)*0.55;
+        bx.beginPath();
+        bx.moveTo(neurons[i].lx,neurons[i].ly);
+        bx.lineTo(neurons[j].lx,neurons[j].ly);
+        bx.strokeStyle=`rgba(255,100,30,${op})`;
+        bx.lineWidth=0.7;
+        bx.stroke();
+      }
+    }
+  }
+
+  // Nodes
+  neurons.forEach(n=>{
+    n.pulse+=n.speed;
+    const s=n.size+Math.sin(n.pulse)*0.8;
+    const g=bx.createRadialGradient(n.lx,n.ly,0,n.lx,n.ly,s*5);
+    g.addColorStop(0,`rgba(255,80,0,0.5)`);
+    g.addColorStop(1,`rgba(220,30,30,0)`);
+    bx.beginPath();bx.arc(n.lx,n.ly,s*5,0,Math.PI*2);
+    bx.fillStyle=g;bx.fill();
+    bx.beginPath();bx.arc(n.lx,n.ly,s,0,Math.PI*2);
+    bx.fillStyle='rgba(255,120,50,0.9)';bx.fill();
+  });
+
+  bx.restore();
+}
+
+function animateBrain(){
+  bx.clearRect(0,0,BW,BH);
+  drawHead();
+  drawNeuronOverlay();
+  brainAngle+=0.003;
+  requestAnimationFrame(animateBrain);
+}
+animateBrain();
+
+// ── TYPED TEXT ──
+const phrases=['Membongkar ilusi Uang, AI, & Manusia.','Bukan pakar — cuma orang yang tau lebih dulu.','Berhenti miskin bukan soal kerja keras doang.','Otak yang paham market itu beda mainnya.'];
+let pIdx=0,cIdx=0,deleting=false,delay=100;
+const el=document.getElementById('typed-text');
+function type(){
+  const cur=phrases[pIdx];
+  if(!deleting){el.textContent=cur.substring(0,cIdx+1);cIdx++;if(cIdx===cur.length){deleting=true;delay=3000;}else delay=60;}
+  else{el.textContent=cur.substring(0,cIdx-1);cIdx--;if(cIdx===0){deleting=false;pIdx=(pIdx+1)%phrases.length;delay=400;}else delay=30;}
+  setTimeout(type,delay);
+}
+type();
+
+// ── SCROLL REVEAL ──
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.12});
+reveals.forEach(r=>obs.observe(r));
+
+// ── TABS ──
+const tabs=document.querySelectorAll('.tab');
+const cards=document.querySelectorAll('.res-card');
+tabs.forEach(t=>{
+  t.addEventListener('click',()=>{
+    tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');
+    const cat=t.dataset.cat;
+    cards.forEach(c=>{
+      const match=cat==='all'||c.dataset.cat===cat;
+      if(match){c.style.opacity='1';c.style.transform='none';c.style.display='';}
+      else{c.style.opacity='0';c.style.transform='translateY(10px)';setTimeout(()=>{if(cat!=='all'&&c.dataset.cat!==cat)c.style.display='none';},280);}
+    });
+  });
+});
+
+// ── BREVO SUBSCRIBE ──
+const BREVO_API_KEY = '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';
+
+async function subscribeEmail(email, btn, originalText) {
+  if (!email || !email.includes('@')) {
+    btn.textContent = '✗ Email tidak valid';
+    btn.style.background = '#ef4444';
+    setTimeout(() => { btn.textContent = originalText; btn.style.background = ''; }, 2000);
+    return;
+  }
+  btn.textContent = 'Loading...';
+  btn.disabled = true;
+  try {
+    const res = await fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': BREVO_API_KEY
+      },
+      body: JSON.stringify({
+        email: email,
+        listIds: [2],
+        updateEnabled: true
+      })
+    });
+    if (res.ok || res.status === 204) {
+      btn.textContent = '✓ Berhasil!';
+      btn.style.background = '#22c55e';
+      btn.closest('.hero-form, .soon-notify').querySelector('input').value = '';
+    } else if (res.status === 400) {
+      // contact might already exist, treat as success
+      btn.textContent = '✓ Sudah terdaftar!';
+      btn.style.background = '#22c55e';
+    } else {
+      throw new Error('API error');
+    }
+  } catch (e) {
+    btn.textContent = '✗ Coba lagi';
+    btn.style.background = '#ef4444';
+  } finally {
+    btn.disabled = false;
+    setTimeout(() => { btn.textContent = originalText; btn.style.background = ''; }, 3000);
+  }
+}
+
+document.getElementById('hero-btn').addEventListener('click', () => {
+  const email = document.getElementById('hero-email').value.trim();
+  if (!email) { document.getElementById('hero-email').focus(); return; }
+  subscribeEmail(email, document.getElementById('hero-btn'), 'Daftar Gratis');
+});
+
+document.getElementById('soon-btn').addEventListener('click', () => {
+  const email = document.getElementById('soon-email').value.trim();
+  if (!email) { document.getElementById('soon-email').focus(); return; }
+  subscribeEmail(email, document.getElementById('soon-btn'), 'Notify Me');
+});
+</script>
+</body>
+</html>
