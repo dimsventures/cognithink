@@ -367,7 +367,7 @@ footer{background:var(--dark);padding:50px 40px;border-top:1px solid rgba(255,25
   </div>
 </section>
 
-<!-- ARTIKEL TERBARU (bukan duplikat resources) -->
+<!-- ARTIKEL TERBARU — auto-rendered dari artikel/data.js -->
 <section class="artikel-section" id="artikel-terbaru">
   <div class="container">
     <div class="artikel-section-header reveal">
@@ -377,53 +377,9 @@ footer{background:var(--dark);padding:50px 40px;border-top:1px solid rgba(255,25
       </div>
       <a href="artikel/" class="see-all">Lihat Semua Artikel &rarr;</a>
     </div>
-
-    <div class="artikel-latest reveal">
-      <!-- FEATURED: artikel terbaru -->
-      <a class="artikel-featured" href="artikel/likuiditas-risk-asset.html">
-        <div class="feat-num">01</div>
-        <span class="feat-badge">Market Intelligence &bull; 12 mnt baca</span>
-        <div class="feat-title">LIKUIDITAS &<br>RISK ASSET</div>
-        <div class="feat-desc">Dari mana uang yang menggerakkan market berasal — dan apa yang elite tahu tapi ritel tidak boleh tahu.</div>
-        <div class="feat-meta">Mei 2026 &nbsp;&bull;&nbsp; CogniThink &nbsp;&bull;&nbsp; Baca Sekarang &rarr;</div>
-      </a>
-
-      <!-- 2 artikel lain -->
-      <div class="artikel-side">
-        <a class="artikel-card-sm" href="artikel/7-kesalahan-mental-gen-z.html">
-          <span class="sm-badge">Psikologi Investasi</span>
-          <div class="sm-title">7 KESALAHAN MENTAL GEN Z</div>
-          <div class="sm-desc">Bias kognitif yang diam-diam nguras portfolio lu tanpa lo sadarin.</div>
-          <div class="sm-meta"><span>8 mnt baca</span><span class="sm-arrow">&rarr;</span></div>
-        </a>
-        <a class="artikel-card-sm" href="artikel/panduan-analisis-market-10-menit.html">
-          <span class="sm-badge">Market Intelligence</span>
-          <div class="sm-title">PANDUAN ANALISIS MARKET 10 MENIT</div>
-          <div class="sm-desc">Framework baca kondisi pasar tiap pagi — tanpa duduk 2 jam di depan chart.</div>
-          <div class="sm-meta"><span>6 mnt baca</span><span class="sm-arrow">&rarr;</span></div>
-        </a>
-      </div>
-
-      <!-- 2 artikel lain kolom 3 -->
-      <div class="artikel-side">
-        <a class="artikel-card-sm" href="artikel/tes-profil-psikologi-investor.html">
-          <span class="sm-badge">Psikologi Investasi</span>
-          <div class="sm-title">TES PROFIL PSIKOLOGI INVESTOR</div>
-          <div class="sm-desc">Panic seller, FOMO buyer, atau overthinking holder? Tau dulu, baru bergerak.</div>
-          <div class="sm-meta"><span>5 mnt baca</span><span class="sm-arrow">&rarr;</span></div>
-        </a>
-        <a class="artikel-card-sm" href="artikel/ai-tools-analisis-market.html">
-          <span class="sm-badge">AI & Teknologi</span>
-          <div class="sm-title">AI TOOLS BUAT ANALISIS MARKET</div>
-          <div class="sm-desc">Tools AI yang beneran berguna buat trader — bukan yang cuma viral doang.</div>
-          <div class="sm-meta"><span>7 mnt baca</span><span class="sm-arrow">&rarr;</span></div>
-        </a>
-      </div>
-    </div>
-
-    <!-- CTA ke artikel page -->
-    <div style="text-align:center;" class="reveal">
-      <a href="artikel/" style="display:inline-block;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;padding:14px 32px;border:1px solid rgba(255,255,255,0.1);transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(220,30,30,0.5)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.4)'">Lihat Semua Artikel &rarr;</a>
+    <div class="artikel-latest reveal" id="home-artikel-latest"></div>
+    <div style="text-align:center;margin-top:32px;" class="reveal">
+      <a href="artikel/" id="home-see-all-btn" style="display:inline-block;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;padding:14px 32px;border:1px solid rgba(255,255,255,0.1);transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(220,30,30,0.5)';this.style.color='#DC1E1E'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.4)'">Lihat Semua Artikel &rarr;</a>
     </div>
   </div>
 </section>
@@ -651,6 +607,54 @@ async function subscribeEmail(email,btn,originalText){
 }
 document.getElementById('hero-btn').addEventListener('click',()=>{const email=document.getElementById('hero-email').value.trim();if(!email){document.getElementById('hero-email').focus();return;}subscribeEmail(email,document.getElementById('hero-btn'),'Daftar Gratis');});
 document.getElementById('soon-btn').addEventListener('click',()=>{const email=document.getElementById('soon-email').value.trim();if(!email){document.getElementById('soon-email').focus();return;}subscribeEmail(email,document.getElementById('soon-btn'),'Notify Me');});
+</script>
+
+<!-- ARTIKEL TERBARU — dynamic dari artikel/data.js -->
+<script src="artikel/data.js"></script>
+<script>
+(function(){
+  const wrap = document.getElementById('home-artikel-latest');
+  if (!wrap || typeof ARTIKEL_DATA === 'undefined') return;
+  const data = ARTIKEL_DATA;
+
+  function stars(n){
+    let s='';
+    for(let i=1;i<=5;i++) s+=`<span style="color:${i<=n?'#DC1E1E':'rgba(255,255,255,0.1)'}">&#9733;</span>`;
+    return s;
+  }
+
+  // Featured = index 0 (paling atas di data.js = paling baru)
+  const f = data[0];
+  const featHTML = `
+  <a class="artikel-featured" href="artikel/${f.file}">
+    <div class="feat-num">01</div>
+    <span class="feat-badge">${f.badge} &bull; ${f.read}</span>
+    <div class="feat-title">${f.title.toUpperCase()}</div>
+    <div style="display:flex;gap:3px;margin-bottom:10px;font-size:13px;">${stars(f.urgensi)}</div>
+    <div class="feat-desc">${f.desc}</div>
+    <div class="feat-meta">${f.date} &nbsp;&bull;&nbsp; CogniThink &nbsp;&bull;&nbsp; Baca Sekarang &rarr;</div>
+  </a>`;
+
+  function smCard(a){
+    return `<a class="artikel-card-sm" href="artikel/${a.file}">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span class="sm-badge">${a.badge}</span>
+        <span style="font-size:11px;">${stars(a.urgensi)}</span>
+      </div>
+      <div class="sm-title">${a.title.toUpperCase()}</div>
+      <div class="sm-desc">${a.desc}</div>
+      <div class="sm-meta"><span>${a.read}</span><span class="sm-arrow">&rarr;</span></div>
+    </a>`;
+  }
+
+  const side1 = data.slice(1,3).map(smCard).join('');
+  const side2 = data.slice(3,5).map(smCard).join('');
+  wrap.innerHTML = featHTML + `<div class="artikel-side">${side1}</div>` + `<div class="artikel-side">${side2}</div>`;
+
+  // Update CTA count
+  const btn = document.getElementById('home-see-all-btn');
+  if(btn) btn.textContent = `Lihat Semua ${data.length} Artikel \u2192`;
+})();
 </script>
 </body>
 </html>
