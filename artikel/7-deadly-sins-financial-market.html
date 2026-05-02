@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7 Deadly Sins of the Financial Market — CogniThink</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#DC1E1E;--orange:#FF4800;--black:#0A0A0A;--dark:#1A1A1A;--white:#FFFFFF;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow Condensed',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.5;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--red);}
+
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(220,30,30,0.15);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;text-decoration:none;color:#fff;}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:30px;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.6);text-decoration:none;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--red);}
+.nav-cta{background:var(--red);color:#fff;border:none;padding:10px 22px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none;}
+.nav-cta:hover{background:var(--orange);}
+
+#neural-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.15;}
+
+/* PROGRESS BAR */
+#read-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--red),var(--orange));z-index:200;width:0%;transition:width 0.1s linear;}
+
+/* HEADER */
+.artikel-header{padding:130px 40px 60px;position:relative;z-index:1;max-width:800px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,0.06);}
+.breadcrumb{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:24px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.breadcrumb a{color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.3s;}
+.breadcrumb a:hover{color:var(--red);}
+.breadcrumb span{color:rgba(255,255,255,0.15);}
+.artikel-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border:1px solid rgba(220,30,30,0.4);color:var(--red);margin-bottom:20px;}
+.artikel-title{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:0.95;margin-bottom:20px;letter-spacing:1px;}
+.artikel-title span{color:var(--red);}
+.artikel-tagline{font-size:18px;color:rgba(255,255,255,0.4);font-style:italic;margin-bottom:28px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:1px;border-left:3px solid rgba(220,30,30,0.4);padding-left:16px;line-height:1.6;}
+.artikel-meta{display:flex;gap:24px;align-items:center;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);text-transform:uppercase;flex-wrap:wrap;}
+.meta-dot{color:rgba(220,30,30,0.5);}
+
+/* BODY */
+.artikel-body{max-width:800px;margin:0 auto;padding:60px 40px 80px;position:relative;z-index:1;}
+.artikel-body p{font-size:18px;color:rgba(255,255,255,0.75);line-height:1.75;margin-bottom:24px;font-weight:400;}
+.artikel-body h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:rgba(255,255,255,0.9);margin:32px 0 12px;letter-spacing:1px;text-transform:uppercase;}
+.artikel-body ul{list-style:none;margin-bottom:24px;}
+.artikel-body ul li{padding:8px 0 8px 24px;position:relative;font-size:17px;color:rgba(255,255,255,0.7);line-height:1.65;}
+.artikel-body ul li::before{content:'→';position:absolute;left:0;color:var(--red);}
+.artikel-body strong{color:var(--white);font-weight:700;}
+.artikel-body em{color:rgba(255,255,255,0.5);font-style:italic;}
+.divider{border:none;border-top:1px solid rgba(255,255,255,0.06);margin:56px 0;}
+
+/* SIN CARD */
+.sin-card{margin:48px 0;position:relative;}
+.sin-header{display:flex;align-items:flex-start;gap:24px;margin-bottom:0;}
+.sin-number{font-family:'Bebas Neue',sans-serif;font-size:100px;line-height:1;color:rgba(220,30,30,0.1);flex-shrink:0;width:80px;text-align:center;transition:color 0.3s;}
+.sin-card:hover .sin-number{color:rgba(220,30,30,0.2);}
+.sin-header-content{flex:1;padding-top:8px;}
+.sin-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+.sin-title{font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;margin-bottom:6px;letter-spacing:1px;}
+.sin-subtitle{font-size:16px;color:rgba(255,255,255,0.4);font-style:italic;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;}
+.sin-body{margin-top:28px;padding-left:0;border-left:none;}
+.sin-body p{font-size:17px;color:rgba(255,255,255,0.72);line-height:1.75;margin-bottom:20px;}
+
+/* ANALOGI BOX */
+.analogi-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-left:3px solid rgba(220,30,30,0.5);padding:22px 26px;margin:24px 0;position:relative;}
+.analogi-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:10px;}
+.analogi-box p{font-size:16px;color:rgba(255,255,255,0.6);line-height:1.7;margin:0;font-style:italic;}
+
+/* CASE STUDY BOX */
+.case-box{background:linear-gradient(135deg,rgba(220,30,30,0.07),rgba(255,72,0,0.03));border:1px solid rgba(220,30,30,0.2);padding:28px 32px;margin:24px 0;position:relative;overflow:hidden;}
+.case-box::after{content:'CASE';position:absolute;right:16px;top:12px;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:4px;color:rgba(220,30,30,0.2);}
+.case-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.case-label::before{content:'';display:inline-block;width:16px;height:1px;background:var(--red);}
+.case-box p{font-size:16px;color:rgba(255,255,255,0.65);line-height:1.75;margin:0;}
+.case-box strong{color:rgba(255,120,80,0.95);}
+
+/* SIN SEPARATOR */
+.sin-sep{display:flex;align-items:center;gap:16px;margin:56px 0;}
+.sin-sep-line{flex:1;height:1px;background:rgba(255,255,255,0.05);}
+.sin-sep-icon{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:4px;color:rgba(220,30,30,0.3);text-transform:uppercase;white-space:nowrap;}
+
+/* SINS TRACKER (sticky sidebar feel via progress dots) */
+.sins-nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:10px;}
+.sin-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(220,30,30,0.2);cursor:pointer;transition:all 0.3s;position:relative;}
+.sin-dot.active{background:var(--red);border-color:var(--red);transform:scale(1.4);}
+.sin-dot:hover{background:rgba(220,30,30,0.5);}
+.sin-dot-label{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);white-space:nowrap;opacity:0;transition:opacity 0.2s;pointer-events:none;background:rgba(10,10,10,0.9);padding:3px 8px;}
+.sin-dot:hover .sin-dot-label{opacity:1;}
+
+/* CALLOUT */
+.callout{background:rgba(220,30,30,0.06);border:1px solid rgba(220,30,30,0.2);border-left:3px solid var(--red);padding:24px 28px;margin:32px 0;}
+.callout p{margin:0;font-size:17px;}
+.callout-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+
+/* CLOSING */
+.closing-box{background:var(--dark);border:1px solid rgba(255,255,255,0.08);padding:48px;margin:64px 0;text-align:center;position:relative;overflow:hidden;}
+.closing-box::before{content:'VII';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;font-size:200px;color:rgba(220,30,30,0.04);pointer-events:none;line-height:1;}
+.closing-box h2{font-family:'Bebas Neue',sans-serif;font-size:40px;margin-bottom:16px;position:relative;z-index:1;}
+.closing-box h2 span{color:var(--red);}
+.closing-box p{font-size:17px;color:rgba(255,255,255,0.55);line-height:1.8;max-width:520px;margin:0 auto;position:relative;z-index:1;}
+
+/* CTA SUBSCRIBE */
+.cta-subscribe{background:linear-gradient(135deg,rgba(220,30,30,0.12),rgba(255,72,0,0.06));border:1px solid rgba(220,30,30,0.25);padding:40px;margin:60px 0;text-align:center;}
+.cta-subscribe h3{font-family:'Bebas Neue',sans-serif;font-size:36px;margin-bottom:10px;}
+.cta-subscribe p{font-size:15px;color:rgba(255,255,255,0.5);margin-bottom:24px;}
+.cta-form{display:flex;gap:10px;max-width:420px;margin:0 auto;}
+.cta-form input{flex:1;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:16px;outline:none;transition:border-color 0.3s;}
+.cta-form input:focus{border-color:var(--red);}
+.cta-form input::placeholder{color:rgba(255,255,255,0.3);}
+.btn-primary{background:var(--red);color:#fff;border:none;padding:12px 24px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;white-space:nowrap;}
+.btn-primary:hover{background:var(--orange);}
+
+/* NAV ARTIKEL */
+.artikel-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 40px 60px;max-width:800px;margin:0 auto;position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.06);}
+.nav-back{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.3s;}
+.nav-back:hover{color:var(--red);}
+
+footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relative;z-index:1;}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;}
+.footer-logo span{color:var(--red);}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.3s;text-transform:uppercase;}
+.footer-links a:hover{color:var(--red);}
+.footer-copy{max-width:1200px;margin:20px auto 0;font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:1px;}
+
+@media(max-width:900px){
+  .sins-nav{display:none;}
+  .sin-number{font-size:64px;width:52px;}
+  .sin-title{font-size:32px;}
+}
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links{display:none;}
+  .artikel-header,.artikel-body,.artikel-nav{padding-left:20px;padding-right:20px;}
+  .artikel-title{font-size:52px;}
+  .sin-header{flex-direction:column;gap:8px;}
+  .sin-number{font-size:52px;width:auto;}
+  .cta-form{flex-direction:column;}
+  .footer-inner{flex-direction:column;gap:16px;text-align:center;}
+  .closing-box{padding:32px 24px;}
+}
+</style>
+</head>
+<body>
+
+<div id="read-progress"></div>
+<canvas id="neural-canvas"></canvas>
+
+<!-- SINS NAV DOTS -->
+<div class="sins-nav" id="sins-nav">
+  <div class="sin-dot active" data-target="sin-1"><span class="sin-dot-label">Greed</span></div>
+  <div class="sin-dot" data-target="sin-2"><span class="sin-dot-label">Sloth</span></div>
+  <div class="sin-dot" data-target="sin-3"><span class="sin-dot-label">Wrath</span></div>
+  <div class="sin-dot" data-target="sin-4"><span class="sin-dot-label">Envy</span></div>
+  <div class="sin-dot" data-target="sin-5"><span class="sin-dot-label">Pride</span></div>
+  <div class="sin-dot" data-target="sin-6"><span class="sin-dot-label">Lust</span></div>
+  <div class="sin-dot" data-target="sin-7"><span class="sin-dot-label">Gluttony</span></div>
+</div>
+
+<nav>
+  <a href="../" class="nav-logo">COGNI<span>THINK</span></a>
+  <div class="nav-links">
+    <a href="../#pillars">Topik</a>
+    <a href="./">Artikel</a>
+    <a href="../#resources">Resources</a>
+    <a href="../#community">Community</a>
+  </div>
+  <a href="../#hero-email" class="nav-cta">Join Gratis</a>
+</nav>
+
+<div class="artikel-header">
+  <div class="breadcrumb">
+    <a href="../">Home</a>
+    <span>/</span>
+    <a href="./">Artikel</a>
+    <span>/</span>
+    Psikologi Investasi
+  </div>
+  <span class="artikel-badge">Psikologi Investasi</span>
+  <h1 class="artikel-title">7 DEADLY<br>SINS OF THE<br><span>FINANCIAL MARKET</span></h1>
+  <p class="artikel-tagline">Bukan market yang bunuh portfolio lu — tapi satu dari tujuh dosa ini.</p>
+  <div class="artikel-meta">
+    <span>&#128197; Mei 2026</span>
+    <span class="meta-dot">●</span>
+    <span>&#9201; 15 menit baca</span>
+    <span class="meta-dot">●</span>
+    <span>&#9997; CogniThink</span>
+  </div>
+</div>
+
+<div class="artikel-body">
+
+  <p>Di gereja, tujuh dosa mematikan adalah musuh jiwa. Di pasar finansial, mereka adalah musuh portfolio lu. Dan bedanya? Di market, dosa-dosa ini gak terasa seperti dosa — mereka terasa seperti <strong>keyakinan, kecerdasan, dan insting yang tajam.</strong></p>
+
+  <p>Itulah yang membuatnya mematikan.</p>
+
+  <div class="callout">
+    <div class="callout-label">&#9888; Disclaimer</div>
+    <p>Artikel ini bersifat edukatif, bukan saran finansial. Semua investasi mengandung risiko. Pahami dulu, baru bergerak.</p>
+  </div>
+
+  <!-- ══════════════════════════════════ SIN 1 ══════════════════════════════════ -->
+  <div class="sin-card" id="sin-1">
+    <div class="sin-header">
+      <div class="sin-number">I</div>
+      <div class="sin-header-content">
+        <div class="sin-label">Sin 01 of 07</div>
+        <div class="sin-title">GREED</div>
+        <div class="sin-subtitle">"Satu lagi, satu lagi... lalu semua lenyap"</div>
+      </div>
+    </div>
+    <div class="sin-body">
+      <p>Greed membuat investor menolak take profit karena selalu merasa <strong>"masih bisa naik lagi."</strong> Ini bukan ambisi — ini ilusi kontrol terhadap sesuatu yang inherently unpredictable. Greed juga yang mendorong overleveraging, masuk posisi terlalu besar, dan akhirnya satu reversal bisa wipe out semua yang sudah dibangun.</p>
+      <p>Yang paling berbahaya: greed tidak terasa seperti keserakahan. Terasa seperti optimisme. Seperti kepercayaan diri. Seperti lu lebih pintar dari yang lain.</p>
+
+      <div class="analogi-box">
+        <div class="analogi-label">&#127918; Analogi</div>
+        <p>Lo lagi main jenga. Menara sudah tinggi, sudah goyang. Semua orang di meja mulai gelisah. Tapi lu masih narik satu balok lagi — karena lu yakin lu lebih pintar dari fisika. Sampai menaranya rubuh.</p>
+      </div>
+
+      <div class="case-box">
+        <div class="case-label">Case Study — Nick Leeson & Barings Bank</div>
+        <p>Nick Leeson, trader Barings Bank, memulai dengan profit kecil yang konsisten. Tapi greed mendorongnya terus menambah posisi, menyembunyikan kerugian, dan berjudi lebih besar untuk "balik modal." Hasil akhirnya: rugi <strong>£827 juta</strong> — dan Barings Bank, institusi keuangan berumur 233 tahun, bangkrut. Satu orang. Satu dosa.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sin-sep"><div class="sin-sep-line"></div><div class="sin-sep-icon">&#9670; CogniThink &#9670;</div><div class="sin-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ SIN 2 ══════════════════════════════════ -->
+  <div class="sin-card" id="sin-2">
+    <div class="sin-header">
+      <div class="sin-number">II</div>
+      <div class="sin-header-content">
+        <div class="sin-label">Sin 02 of 07</div>
+        <div class="sin-title">SLOTH</div>
+        <div class="sin-subtitle">"Gua percaya aja sama orang ini, dia kayaknya ngerti"</div>
+      </div>
+    </div>
+    <div class="sin-body">
+      <p>Sloth di market bukan soal malas kerja — tapi <strong>malas berpikir sendiri.</strong> Investor yang sloth mendelegasikan semua keputusan ke influencer, tips grup WA, atau "kata orang." Mereka tidak mau riset karena capek, tidak mau baca karena panjang.</p>
+      <p>Hasilnya? Mereka jadi <strong>exit liquidity</strong> orang lain yang sudah duluan riset. Yang rekomendasi sudah profit dan exit — sisanya tinggal mereka yang nyangkut.</p>
+
+      <div class="analogi-box">
+        <div class="analogi-label">&#127918; Analogi</div>
+        <p>Lu nyetir di jalan yang tidak lu kenal, tapi matiin GPS dan minta arahan dari orang di pinggir jalan. Orang itu mungkin jujur — atau mungkin lu diarahkan ke jalan buntu supaya ban lu bisa dicuri.</p>
+      </div>
+
+      <div class="case-box">
+        <div class="case-label">Case Study — Saham Gorengan di BEI</div>
+        <p>Berulang kali terjadi di Bursa Efek Indonesia: saham dengan fundamental lemah tiba-tiba ramai direkomendasikan di grup Telegram dan WA. Retail beli berbondong-bondong tanpa cek fundamentals, tanpa tahu siapa yang rekomendasi. Yang rekomendasi sudah exit duluan. Yang beli belakangan <strong>nyangkut berbulan-bulan</strong> di harga puncak — korban langsung dari sloth mereka sendiri.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sin-sep"><div class="sin-sep-line"></div><div class="sin-sep-icon">&#9670; CogniThink &#9670;</div><div class="sin-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ SIN 3 ══════════════════════════════════ -->
+  <div class="sin-card" id="sin-3">
+    <div class="sin-header">
+      <div class="sin-number">III</div>
+      <div class="sin-header-content">
+        <div class="sin-label">Sin 03 of 07</div>
+        <div class="sin-title">WRATH</div>
+        <div class="sin-subtitle">"Market salah. Gua yang benar. Gua buktiin."</div>
+      </div>
+    </div>
+    <div class="sin-body">
+      <p>Wrath muncul setelah loss. Investor marah ke market, ke broker, ke "manipulator" — dan dalam kemarahan itu, mereka <strong>revenge trade.</strong> Masuk posisi besar untuk "balik modal sekarang juga." Emosi mengambil alih logika. Hasilnya hampir selalu sama: loss kedua lebih besar dari yang pertama.</p>
+      <p>Market tidak mengenal emosi lu. Market tidak peduli lu marah. Market hanya bergerak sesuai arus likuiditas — dan trader yang marah adalah arus paling mudah untuk dieksploitasi.</p>
+
+      <div class="analogi-box">
+        <div class="analogi-label">&#127918; Analogi</div>
+        <p>Lu kalah mabar. Bukannya istirahat, lu langsung queue lagi dalam kondisi tilt. Semua keputusan jadi reaktif, bukan strategis. Dan lu tahu persis gimana hasilnya — LP turun lebih dalam dari sebelumnya.</p>
+      </div>
+
+      <div class="case-box">
+        <div class="case-label">Case Study — Jesse Livermore</div>
+        <p>Jesse Livermore adalah salah satu trader paling legendaris dalam sejarah Wall Street — pria yang berhasil short market crash 1929 dan meraup <strong>$100 juta</strong> dalam satu hari. Tapi pola yang sama berulang: setiap kali dia mengalami loss besar, wrath mendorongnya revenge trade. Berkali-kali bangkrut, berkali-kali comeback — sampai siklus itu tidak bisa diputus lagi. Bukan karena dia tidak pintar. Tapi karena wrath selalu lebih cepat dari akal sehatnya.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sin-sep"><div class="sin-sep-line"></div><div class="sin-sep-icon">&#9670; CogniThink &#9670;</div><div class="sin-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ SIN 4 ══════════════════════════════════ -->
+  <div class="sin-card" id="sin-4">
+    <div class="sin-header">
+      <div class="sin-number">IV</div>
+      <div class="sin-header-content">
+        <div class="sin-label">Sin 04 of 07</div>
+        <div class="sin-title">ENVY</div>
+        <div class="sin-subtitle">"Dia cuan dari itu — gua juga harus masuk sekarang"</div>
+      </div>
+    </div>
+    <div class="sin-body">
+      <p>Envy adalah FOMO dalam bentuk paling murninya. Lu tidak beli aset karena lu percaya pada fundamentalnya — <strong>lu beli karena orang lain sudah cuan dan lu tidak mau ketinggalan.</strong> Ini yang mendorong orang masuk di top, beli di euphoria, dan menjadi bag holder ketika smart money sudah lama exit.</p>
+      <p>Envy juga merusak discipline. Ketika portofolio teman lu naik 40% sedangkan punya lu flat, tiba-tiba strategi sabar yang sudah lu bangun terasa salah — padahal mungkin lu yang benar dan dia yang sedang di zona bahaya.</p>
+
+      <div class="analogi-box">
+        <div class="analogi-label">&#127918; Analogi</div>
+        <p>Lu lagi diet ketat. Teman lu makan pizza dan keliatan bahagia. Lu ikut makan — bukan karena lapar, tapi karena tidak mau ngerasa "kurang." Lu tahu akibatnya besok pagi, tapi envy lebih keras dari logika.</p>
+      </div>
+
+      <div class="case-box">
+        <div class="case-label">Case Study — Dot-Com Bubble 1999–2000</div>
+        <p>Semua orang melihat tetangga, teman, dan keluarga kaya dari saham tech. Orang yang tidak mengerti teknologi sama sekali ikut beli karena envy — karena tidak mau jadi satu-satunya yang tidak ikut boom. Ketika bubble pecah, <strong>NASDAQ turun 78%</strong>. Yang paling banyak rugi adalah late entrants yang masuk bukan karena conviction, tapi karena envy terhadap profit orang lain.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sin-sep"><div class="sin-sep-line"></div><div class="sin-sep-icon">&#9670; CogniThink &#9670;</div><div class="sin-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ SIN 5 ══════════════════════════════════ -->
+  <div class="sin-card" id="sin-5">
+    <div class="sin-header">
+      <div class="sin-number">V</div>
+      <div class="sin-header-content">
+        <div class="sin-label">Sin 05 of 07</div>
+        <div class="sin-title">PRIDE</div>
+        <div class="sin-subtitle">"Gua udah cuan 3x berturut-turut. Gua paham market ini."</div>
+      </div>
+    </div>
+    <div class="sin-body">
+      <p>Pride adalah overconfidence yang sudah tervalidasi oleh keberuntungan. Setelah beberapa kali profit, investor mulai percaya bahwa mereka punya edge khusus. <strong>Risk management dilonggarkan. Posisi dinaikkan. Stop loss dihilangkan.</strong> Sampai satu trade menghapus semua yang sudah dikumpulkan — dan pride tidak bisa menerima itu, jadi dia hold sampai lebih parah lagi.</p>
+      <p>Pasar bull membuat semua orang terlihat jenius. Bedakan antara luck dan skill — itu susah, tapi itu yang paling penting.</p>
+
+      <div class="analogi-box">
+        <div class="analogi-label">&#127918; Analogi</div>
+        <p>Lu baru menang 3 ronde poker berturut-turut. Lu mulai yakin lu bisa baca semua orang di meja. Lu all-in di ronde keempat. Kartu lu bagus — tapi tidak cukup bagus. Dan karena pride, lu call semua raise sampai chip lu habis.</p>
+      </div>
+
+      <div class="case-box">
+        <div class="case-label">Case Study — Long-Term Capital Management (LTCM)</div>
+        <p>LTCM diisi oleh dua <strong>pemenang Nobel Prize</strong> dalam ekonomi, mantan pejabat Fed, dan trader terbaik Wall Street. Model matematis mereka dianggap sempurna. Tapi pride atas kecerdasan kolektif mereka membuat mereka overleveraged secara masif. Tahun 1998, mereka kehilangan <strong>$4.6 miliar dalam beberapa minggu</strong> dan hampir memicu collapse sistem keuangan global. Paling jenius di ruangan — tapi pride membuat mereka blind.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sin-sep"><div class="sin-sep-line"></div><div class="sin-sep-icon">&#9670; CogniThink &#9670;</div><div class="sin-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ SIN 6 ══════════════════════════════════ -->
+  <div class="sin-card" id="sin-6">
+    <div class="sin-header">
+      <div class="sin-number">VI</div>
+      <div class="sin-header-content">
+        <div class="sin-label">Sin 06 of 07</div>
+        <div class="sin-title">LUST</div>
+        <div class="sin-subtitle">"Gua mau cuan 10x bulan ini. Apapun caranya."</div>
+      </div>
+    </div>
+    <div class="sin-body">
+      <p>Lust di market adalah obsesi terhadap return cepat dan ekstrem. Ini yang mendorong orang ke skema Ponzi, leverage maksimal, trading opsi tanpa mengerti Greeks, dan "investasi" ke project crypto tanpa whitepaper yang jelas. <strong>Bukan karena mereka bodoh — tapi karena lust untuk quick rich mengalahkan semua due diligence.</strong></p>
+      <p>Lust juga merusak proses. Orang yang terinfeksi lust tidak bisa duduk tenang dengan return 15% per tahun yang konsisten — mereka butuh 10x atau tidak sama sekali. Dan "tidak sama sekali" sering kali yang mereka dapatkan.</p>
+
+      <div class="analogi-box">
+        <div class="analogi-label">&#127918; Analogi</div>
+        <p>Lu lapar dan ada dua pilihan: masak sendiri yang butuh 30 menit, atau makan di warung yang tidak ada reviewnya sama sekali tapi kelihatan cepat dan murah. Lust untuk kenyang sekarang membuat lu pilih yang kedua — dan lu mual tiga hari setelahnya.</p>
+      </div>
+
+      <div class="case-box">
+        <div class="case-label">Case Study — Binomo & Robot Trading Ilegal di Indonesia</div>
+        <p>Ribuan orang Indonesia kehilangan uang dalam kasus Binomo dan berbagai skema robot trading ilegal dengan janji profit <strong>10–30% per bulan</strong>. Bukan karena mereka tidak tahu risikonya. Tapi karena lust untuk fast money lebih kuat dari common sense. Total kerugian diperkirakan mencapai <strong>triliunan rupiah</strong> — dan korbannya bukan hanya orang awam, tapi juga orang dengan pendidikan tinggi yang seharusnya tahu lebih baik.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sin-sep"><div class="sin-sep-line"></div><div class="sin-sep-icon">&#9670; CogniThink &#9670;</div><div class="sin-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ SIN 7 ══════════════════════════════════ -->
+  <div class="sin-card" id="sin-7">
+    <div class="sin-header">
+      <div class="sin-number">VII</div>
+      <div class="sin-header-content">
+        <div class="sin-label">Sin 07 of 07</div>
+        <div class="sin-title">GLUTTONY</div>
+        <div class="sin-subtitle">"Portofolio gua? 100% crypto. All in satu aset."</div>
+      </div>
+    </div>
+    <div class="sin-body">
+      <p>Gluttony bukan soal rakus profit — tapi <strong>rakus eksposur.</strong> Ini investor yang menaruh semua telur dalam satu keranjang karena "yakin banget" sama satu aset atau satu sektor. Diversifikasi dianggap lemah. Concentration dianggap conviction. Sampai satu event — regulasi, hack, fraud — dan semuanya lenyap sekaligus.</p>
+      <p>Ada perbedaan tipis antara concentration yang terkalkulasi dan gluttony yang buta. Yang pertama punya exit plan. Yang kedua tidak — karena mereka terlalu penuh untuk bisa bergerak.</p>
+
+      <div class="analogi-box">
+        <div class="analogi-label">&#127918; Analogi</div>
+        <p>Lu di buffet all-you-can-eat dalam kondisi kelaparan. Bukannya ambil sedikit dari banyak pilihan, lu penuhi piring dengan satu jenis makanan. Perut lu penuh satu rasa — dan kalau makanan itu ternyata tidak cocok, semuanya keluar sekaligus.</p>
+      </div>
+
+      <div class="case-box">
+        <div class="case-label">Case Study — FTX Collapse 2022</div>
+        <p>Banyak investor — bahkan institusi besar — menaruh sebagian besar aset mereka di FTX atau dalam bentuk token FTT. Ketika FTX collapse dalam waktu <strong>72 jam</strong> pada November 2022, semua lenyap tanpa bisa diselamatkan. Yang diversified ke cold wallet dan exchange lain selamat. Yang gluttony terhadap satu platform — tidak. Kerugian total diperkirakan lebih dari <strong>$8 miliar</strong> milik pengguna.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CLOSING -->
+  <div class="closing-box">
+    <h2>TUJUH DOSA.<br>SATU <span>KESIMPULAN.</span></h2>
+    <p>Tujuh dosa ini bukan tentang IQ. Bukan tentang pengalaman. Mereka menyerang semua orang — dari pemula sampai veteran dengan track record puluhan tahun. Satu-satunya pertahanan: kenali mereka sebelum mereka kenali lu.</p>
+  </div>
+
+  <div class="cta-subscribe">
+    <h3>ARTIKEL SELANJUTNYA — GRATIS</h3>
+    <p>Daftar dan dapatkan notifikasi tiap ada artikel baru. No spam.</p>
+    <div class="cta-form">
+      <input type="email" id="art-email" placeholder="email lu...">
+      <button class="btn-primary" id="art-btn">Subscribe</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="artikel-nav">
+  <a href="./" class="nav-back">&larr; Semua Artikel</a>
+  <a href="likuiditas-risk-asset.html" class="nav-back">Likuiditas & Risk Asset &rarr;</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">COGNI<span>THINK</span></div>
+    <div class="footer-links">
+      <a href="https://instagram.com/cognithink_" target="_blank">Instagram</a>
+      <a href="./">Artikel</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 CogniThink. All rights reserved.</div>
+</footer>
+
+<script>
+// NEURAL BG
+const bgC=document.getElementById('neural-canvas');
+const bgX=bgC.getContext('2d');
+let W,H,bgNodes=[];
+function resize(){W=bgC.width=window.innerWidth;H=bgC.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+class BgNode{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.4;this.vy=(Math.random()-.5)*.4;this.r=Math.random()*2+1;}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();}draw(){bgX.beginPath();bgX.arc(this.x,this.y,this.r,0,Math.PI*2);bgX.fillStyle=`rgba(220,30,30,${.3+Math.random()*.2})`;bgX.fill();}}
+for(let i=0;i<40;i++)bgNodes.push(new BgNode());
+function bgLoop(){bgX.clearRect(0,0,W,H);for(let i=0;i<bgNodes.length;i++){for(let j=i+1;j<bgNodes.length;j++){const dx=bgNodes[i].x-bgNodes[j].x,dy=bgNodes[i].y-bgNodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<150){bgX.beginPath();bgX.moveTo(bgNodes[i].x,bgNodes[i].y);bgX.lineTo(bgNodes[j].x,bgNodes[j].y);bgX.strokeStyle=`rgba(220,30,30,${(1-d/150)*.15})`;bgX.lineWidth=.5;bgX.stroke();}}}bgNodes.forEach(n=>{n.update();n.draw();});requestAnimationFrame(bgLoop);}
+bgLoop();
+
+// READ PROGRESS
+const prog=document.getElementById('read-progress');
+window.addEventListener('scroll',()=>{
+  const st=window.scrollY;
+  const dh=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(st/dh*100)+'%';
+});
+
+// SINS NAV DOTS
+const sinIds=['sin-1','sin-2','sin-3','sin-4','sin-5','sin-6','sin-7'];
+const dots=document.querySelectorAll('.sin-dot');
+dots.forEach(dot=>{
+  dot.addEventListener('click',()=>{
+    const target=document.getElementById(dot.dataset.target);
+    if(target)target.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+});
+const sinObserver=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx=sinIds.indexOf(e.target.id);
+      dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
+    }
+  });
+},{threshold:0.4});
+sinIds.forEach(id=>{const el=document.getElementById(id);if(el)sinObserver.observe(el);});
+
+// SUBSCRIBE
+const BREVO_FORM_URL='https://0207a6f4.sibforms.com/serve/MUIFAJ0YHaYLdZ0FZuxCbKeUgh9zIpyBHfazqkC7hsdKFIq4CUr8S2xuCOInR52TUVtJY7S67YMjOqufa0G_chPGn4_xlgXFNJ-TcoF54RI1BljPe2-35QBHtf_iYnr6YgutY0Xoyp-Za-CH_GrckeJcpCl12WgOC4UABSrUFV4hqFNVHWJUVG1WINHKth7jAYxA0VazGh9H3kENEw==';
+async function subscribe(email,btn,orig){
+  if(!email||!email.includes('@')){btn.textContent='✗ Email invalid';btn.style.background='#ef4444';setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2000);return;}
+  btn.textContent='...';btn.disabled=true;
+  try{const fd=new FormData();fd.append('EMAIL',email);fd.append('email_address_check','');fd.append('locale','id');await fetch(BREVO_FORM_URL,{method:'POST',body:fd,mode:'no-cors'});btn.textContent='✓ Done!';btn.style.background='#22c55e';document.getElementById('art-email').value='';}
+  catch{btn.textContent='✗ Coba lagi';btn.style.background='#ef4444';}
+  finally{btn.disabled=false;setTimeout(()=>{btn.textContent=orig;btn.style.background='';},3000);}
+}
+document.getElementById('art-btn').addEventListener('click',()=>{subscribe(document.getElementById('art-email').value.trim(),document.getElementById('art-btn'),'Subscribe');});
+</script>
+</body>
+</html>
