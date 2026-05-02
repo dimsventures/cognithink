@@ -283,14 +283,14 @@ function bgLoop(){bgX.clearRect(0,0,W,H);for(let i=0;i<bgNodes.length;i++){for(l
 bgLoop();
 
 // Brevo Subscribe
-const BREVO_KEY='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';
+const BREVO_KEY='https://0207a6f4.sibforms.com/serve/MUIFAJ0YHaYLdZ0FZuxCbKeUgh9zIpyBHfazqkC7hsdKFIq4CUr8S2xuCOInR52TUVtJY7S67YMjOqufa0G_chPGn4_xlgXFNJ-TcoF54RI1BljPe2-35QBHtf_iYnr6YgutY0Xoyp-Za-CH_GrckeJcpCl12WgOC4UABSrUFV4hqFNVHWJUVG1WINHKth7jAYxA0VazGh9H3kENEw==';
 async function subscribe(email,btn,orig){
   if(!email||!email.includes('@')){btn.textContent='✗ Email invalid';btn.style.background='#ef4444';setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2000);return;}
   btn.textContent='...';btn.disabled=true;
   try{
-    const r=await fetch('https://api.brevo.com/v3/contacts',{method:'POST',headers:{'Content-Type':'application/json','api-key':BREVO_KEY},body:JSON.stringify({email,listIds:[2],updateEnabled:true})});
-    if(r.ok||r.status===204||r.status===400){btn.textContent='✓ Done!';btn.style.background='#22c55e';document.getElementById('art-email').value='';}
-    else throw new Error();
+    const fd=new FormData();fd.append('EMAIL',email);fd.append('email_address_check','');fd.append('locale','id');
+    await fetch(BREVO_KEY,{method:'POST',body:fd,mode:'no-cors'});
+    btn.textContent='✓ Done!';btn.style.background='#22c55e';document.getElementById('art-email').value='';
   }catch{btn.textContent='✗ Coba lagi';btn.style.background='#ef4444';}
   finally{btn.disabled=false;setTimeout(()=>{btn.textContent=orig;btn.style.background='';},3000);}
 }
