@@ -106,31 +106,61 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relativ
 
 <div class="artikel-grid" id="artikel-grid">
 
-  <div class="artikel-grid" id="artikel-grid"></div>
+  <a class="artikel-card" href="7-kesalahan-mental-gen-z.html" data-cat="psychology">
+    <span class="card-icon">📉</span>
+    <span class="card-badge">Psikologi Investasi</span>
+    <div class="card-title">7 Kesalahan Mental Gen Z dalam Berinvestasi</div>
+    <div class="card-desc">Bias kognitif yang diam-diam nguras portfolio lu — tanpa lo sadarin.</div>
+    <div class="card-meta">
+      <span class="card-read">8 menit baca</span>
+      <span class="card-arrow">→</span>
+    </div>
+  </a>
 
-<script src="../articles.js"></script>
-<script>
-  const catMap = {
-    'Psikologi Investasi': 'psychology',
-    'Market Intelligence': 'market',
-    'AI & Teknologi': 'ai'
-  };
+  <a class="artikel-card" href="likuiditas-risk-asset.html" data-cat="market">
+    <span class="card-icon">💧</span>
+    <span class="card-badge">Market Intelligence</span>
+    <div class="card-title">Likuiditas & Risk Asset</div>
+    <div class="card-desc">Dari mana uang yang menggerakkan market berasal — dan apa yang elite tahu tapi ritel tidak boleh tahu.</div>
+    <div class="card-meta">
+      <span class="card-read">12 menit baca</span>
+      <span class="card-arrow">→</span>
+    </div>
+  </a>
 
-  articles.forEach(a => {
-    document.getElementById('artikel-grid').innerHTML += `
-      <a class="artikel-card" href="${a.slug}" data-cat="${catMap[a.category]}">
-        <span class="card-icon">${a.emoji}</span>
-        <span class="card-badge">${a.category}</span>
-        <div class="card-title">${a.title}</div>
-        <div class="card-desc">${a.desc}</div>
-        <div class="card-meta">
-          <span class="card-read">${a.read}</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-    `;
-  });
-</script>
+  <a class="artikel-card" href="panduan-analisis-market-10-menit.html" data-cat="market">
+    <span class="card-icon">📊</span>
+    <span class="card-badge">Market Intelligence</span>
+    <div class="card-title">Panduan Analisis Market 10 Menit</div>
+    <div class="card-desc">Framework baca kondisi pasar tiap pagi — tanpa harus duduk 2 jam di depan chart.</div>
+    <div class="card-meta">
+      <span class="card-read">6 menit baca</span>
+      <span class="card-arrow">→</span>
+    </div>
+  </a>
+
+  <a class="artikel-card" href="tes-profil-psikologi-investor.html" data-cat="psychology">
+    <span class="card-icon">🔍</span>
+    <span class="card-badge">Psikologi Investasi</span>
+    <div class="card-title">Tes Profil Psikologi Investor</div>
+    <div class="card-desc">Tipe lo: panic seller, FOMO buyer, atau overthinking holder? Tau dulu, baru bergerak.</div>
+    <div class="card-meta">
+      <span class="card-read">5 menit baca</span>
+      <span class="card-arrow">→</span>
+    </div>
+  </a>
+
+  <a class="artikel-card" href="ai-tools-analisis-market.html" data-cat="ai">
+    <span class="card-icon">🤖</span>
+    <span class="card-badge">AI & Teknologi</span>
+    <div class="card-title">AI Tools buat Analisis Market</div>
+    <div class="card-desc">Tools AI yang beneran berguna buat trader dan investor pemula — bukan yang cuma viral doang.</div>
+    <div class="card-meta">
+      <span class="card-read">7 menit baca</span>
+      <span class="card-arrow">→</span>
+    </div>
+  </a>
+
   <a class="artikel-card" href="blueprint-investasi-pertama.html" data-cat="market">
     <span class="card-icon">💸</span>
     <span class="card-badge">Market Intelligence</span>
