@@ -329,31 +329,50 @@ footer{background:var(--dark);padding:50px 40px;border-top:1px solid rgba(255,25
       <div class="tab" data-cat="ai">AI</div>
       <div class="tab" data-cat="psychology">Psikologi</div>
     </div>
-    <div class="resources-grid reveal" id="articles-container"></div>
-
-<script src="articles.js"></script>
-<script>
-  const container = document.getElementById('articles-container');
-  const catMap = {
-    'Psikologi Investasi': 'psychology',
-    'Market Intelligence': 'market',
-    'AI & Teknologi': 'ai'
-  };
-
-  articles.slice(0, 6).forEach(a => {
-    container.innerHTML += `
-      <div class="res-card" data-cat="${catMap[a.category]}">
-        <span class="res-badge">${a.category}</span>
-        <span class="res-icon">${a.emoji}</span>
-        <div class="res-title">${a.title}</div>
-        <div class="res-desc">${a.desc}</div>
-        <a href="artikel/${a.slug}" style="text-decoration:none">
-          <button class="btn-outline">Baca Artikel</button>
-        </a>
+    <div class="resources-grid reveal">
+      <div class="res-card" data-cat="psychology">
+        <span class="res-badge">Psikologi Investasi</span>
+        <span class="res-icon">📉</span>
+        <div class="res-title">7 Kesalahan Mental Gen Z dalam Berinvestasi</div>
+        <div class="res-desc">Bias kognitif yang diam-diam nguras portfolio lu — tanpa lo sadarin.</div>
+        <a href="artikel/7-kesalahan-mental-gen-z.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
       </div>
-    `;
-  });
-</script>
+      <div class="res-card" data-cat="market">
+        <span class="res-badge">Market Intelligence</span>
+        <span class="res-icon">📊</span>
+        <div class="res-title">Panduan Analisis Market 10 Menit</div>
+        <div class="res-desc">Framework baca kondisi pasar tiap pagi — tanpa harus duduk 2 jam di depan chart.</div>
+        <a href="artikel/panduan-analisis-market-10-menit.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
+      </div>
+      <div class="res-card" data-cat="psychology">
+        <span class="res-badge">Psikologi Investasi</span>
+        <span class="res-icon">🔍</span>
+        <div class="res-title">Tes Profil Psikologi Investor</div>
+        <div class="res-desc">Tipe lo: panic seller, FOMO buyer, atau overthinking holder? Tau dulu, baru bergerak.</div>
+        <a href="artikel/tes-profil-psikologi-investor.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
+      </div>
+      <div class="res-card" data-cat="ai">
+        <span class="res-badge">AI & Teknologi</span>
+        <span class="res-icon">🤖</span>
+        <div class="res-title">AI Tools buat Analisis Market</div>
+        <div class="res-desc">Tools AI yang beneran berguna buat trader dan investor pemula — bukan yang cuma viral doang.</div>
+        <a href="artikel/ai-tools-analisis-market.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
+      </div>
+      <div class="res-card" data-cat="market">
+        <span class="res-badge">Market Intelligence</span>
+        <span class="res-icon">💸</span>
+        <div class="res-title">Blueprint Investasi Pertama</div>
+        <div class="res-desc">Dari nol sampai posisi pertama — langkah konkret tanpa harus punya modal gede dulu.</div>
+        <a href="artikel/blueprint-investasi-pertama.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
+      </div>
+      <div class="res-card" data-cat="ai">
+        <span class="res-badge">AI & Teknologi</span>
+        <span class="res-icon">⚡</span>
+        <div class="res-title">Cara Kerja AI: Explained Simply</div>
+        <div class="res-desc">Gimana LLM, trading bot, dan AI analyst beneran bekerja — tanpa jargon teknikal yang nyiksa.</div>
+        <a href="artikel/cara-kerja-ai-explained-simply.html" style="text-decoration:none"><button class="btn-outline">Baca Artikel</button></a>
+      </div>
+    </div>
   </div>
 </section>
 
