@@ -31,28 +31,55 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:18px 40px;display
 .page-title span{color:var(--red);}
 .page-sub{color:rgba(255,255,255,0.5);font-size:16px;max-width:500px;margin:0 auto;}
 
-.filter-bar{display:flex;gap:12px;justify-content:center;padding:40px 40px 0;position:relative;z-index:1;flex-wrap:wrap;}
+/* FILTER + SORT */
+.controls{display:flex;gap:12px;justify-content:center;align-items:center;padding:40px 40px 0;position:relative;z-index:1;flex-wrap:wrap;}
 .filter-btn{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:8px 20px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.3s;}
 .filter-btn:hover,.filter-btn.active{border-color:var(--red);color:var(--red);background:rgba(220,30,30,0.06);}
+.controls-sep{width:1px;height:24px;background:rgba(255,255,255,0.08);}
+.sort-btn{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:rgba(255,255,255,0.3);cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:6px;}
+.sort-btn:hover,.sort-btn.active{border-color:rgba(220,30,30,0.4);color:rgba(220,30,30,0.7);}
+.sort-icon{font-size:10px;}
 
-.artikel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);max-width:1200px;margin:40px auto 80px;padding:0 40px;position:relative;z-index:1;}
-.artikel-grid{background:transparent;gap:24px;}
+/* GRID */
+.artikel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:40px auto 80px;padding:0 40px;position:relative;z-index:1;}
 
-.artikel-card{background:var(--dark);padding:32px;border:1px solid rgba(255,255,255,0.06);position:relative;overflow:hidden;transition:all 0.3s;text-decoration:none;color:inherit;display:block;}
+.artikel-card{background:var(--dark);padding:32px;border:1px solid rgba(255,255,255,0.06);position:relative;overflow:hidden;transition:all 0.3s;text-decoration:none;color:inherit;display:flex;flex-direction:column;}
 .artikel-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--red);transition:height 0.4s;}
 .artikel-card:hover{border-color:rgba(220,30,30,0.3);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.4);}
 .artikel-card:hover::before{height:100%;}
 
-.card-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(220,30,30,0.4);color:var(--red);margin-bottom:16px;}
-.card-icon{font-size:32px;margin-bottom:12px;display:block;}
-.card-title{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1.1;margin-bottom:12px;letter-spacing:0.5px;}
-.card-desc{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:20px;}
-.card-meta{display:flex;align-items:center;justify-content:space-between;}
-.card-read{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.3);}
-.card-arrow{color:var(--red);font-size:18px;transition:transform 0.3s;}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;}
+.card-icon{font-size:28px;line-height:1;}
+
+/* URGENSI STARS */
+.urgensi{display:flex;gap:3px;align-items:center;}
+.star{font-size:11px;line-height:1;color:rgba(255,255,255,0.1);}
+.star.lit{color:var(--red);}
+.urgensi-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+.urgensi-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);}
+
+/* URGENSI LEVEL COLOR */
+.card-urgensi-1 .star.lit{color:rgba(255,255,255,0.3);}
+.card-urgensi-2 .star.lit{color:rgba(100,180,255,0.7);}
+.card-urgensi-3 .star.lit{color:rgba(255,180,0,0.8);}
+.card-urgensi-4 .star.lit{color:var(--orange);}
+.card-urgensi-5 .star.lit{color:var(--red);}
+
+.card-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(220,30,30,0.4);color:var(--red);margin-bottom:12px;}
+.card-title{font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1.1;margin-bottom:10px;letter-spacing:0.5px;flex:1;}
+.card-desc{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:20px;}
+.card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.card-read{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.25);}
+.card-arrow{color:var(--red);font-size:16px;transition:transform 0.3s;}
 .artikel-card:hover .card-arrow{transform:translateX(4px);}
 
-.empty-state{text-align:center;padding:80px 40px;position:relative;z-index:1;color:rgba(255,255,255,0.3);}
+/* URGENSI TOOLTIP */
+.artikel-card .urgensi-wrap{position:relative;}
+.urgensi-tooltip{position:absolute;top:calc(100% + 6px);right:0;background:rgba(10,10,10,0.95);border:1px solid rgba(220,30,30,0.3);padding:6px 10px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,0.7);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.2s;z-index:10;}
+.urgensi-wrap:hover .urgensi-tooltip{opacity:1;}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:80px 40px;position:relative;z-index:1;color:rgba(255,255,255,0.3);grid-column:1/-1;}
 .empty-state p{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:2px;}
 
 footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relative;z-index:1;}
@@ -70,7 +97,7 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relativ
   .page-header{padding:100px 20px 40px;}
   .page-title{font-size:48px;}
   .artikel-grid{grid-template-columns:1fr;padding:0 20px;}
-  .filter-bar{padding:30px 20px 0;}
+  .controls{padding:30px 20px 0;}
   .footer-inner{flex-direction:column;gap:20px;text-align:center;}
   .footer-links{flex-wrap:wrap;justify-content:center;}
 }
@@ -97,104 +124,17 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relativ
   <p class="page-sub">Gratis. No fluff. Langsung ke inti — karena waktu lu lebih berharga dari filler.</p>
 </div>
 
-<div class="filter-bar">
+<div class="controls">
   <button class="filter-btn active" data-cat="all">Semua</button>
   <button class="filter-btn" data-cat="market">Market</button>
   <button class="filter-btn" data-cat="ai">AI</button>
   <button class="filter-btn" data-cat="psychology">Psikologi</button>
+  <div class="controls-sep"></div>
+  <button class="sort-btn active" data-sort="newest"><span class="sort-icon">&#8595;</span> Terbaru</button>
+  <button class="sort-btn" data-sort="urgensi"><span class="sort-icon">&#9733;</span> Urgensi</button>
 </div>
 
-<div class="artikel-grid" id="artikel-grid">
-
-  <a class="artikel-card" href="7-kesalahan-mental-gen-z.html" data-cat="psychology">
-    <span class="card-icon">📉</span>
-    <span class="card-badge">Psikologi Investasi</span>
-    <div class="card-title">7 Kesalahan Mental Gen Z dalam Berinvestasi</div>
-    <div class="card-desc">Bias kognitif yang diam-diam nguras portfolio lu — tanpa lo sadarin.</div>
-    <div class="card-meta">
-      <span class="card-read">8 menit baca</span>
-      <span class="card-arrow">→</span>
-    </div>
-  </a>
-
-  <a class="artikel-card" href="likuiditas-risk-asset.html" data-cat="market">
-    <span class="card-icon">💧</span>
-    <span class="card-badge">Market Intelligence</span>
-    <div class="card-title">Likuiditas & Risk Asset</div>
-    <div class="card-desc">Dari mana uang yang menggerakkan market berasal — dan apa yang elite tahu tapi ritel tidak boleh tahu.</div>
-    <div class="card-meta">
-      <span class="card-read">12 menit baca</span>
-      <span class="card-arrow">→</span>
-    </div>
-  </a>
-
-  <a class="artikel-card" href="panduan-analisis-market-10-menit.html" data-cat="market">
-    <span class="card-icon">📊</span>
-    <span class="card-badge">Market Intelligence</span>
-    <div class="card-title">Panduan Analisis Market 10 Menit</div>
-    <div class="card-desc">Framework baca kondisi pasar tiap pagi — tanpa harus duduk 2 jam di depan chart.</div>
-    <div class="card-meta">
-      <span class="card-read">6 menit baca</span>
-      <span class="card-arrow">→</span>
-    </div>
-  </a>
-
-  <a class="artikel-card" href="tes-profil-psikologi-investor.html" data-cat="psychology">
-    <span class="card-icon">🔍</span>
-    <span class="card-badge">Psikologi Investasi</span>
-    <div class="card-title">Tes Profil Psikologi Investor</div>
-    <div class="card-desc">Tipe lo: panic seller, FOMO buyer, atau overthinking holder? Tau dulu, baru bergerak.</div>
-    <div class="card-meta">
-      <span class="card-read">5 menit baca</span>
-      <span class="card-arrow">→</span>
-    </div>
-  </a>
-
-  <a class="artikel-card" href="ai-tools-analisis-market.html" data-cat="ai">
-    <span class="card-icon">🤖</span>
-    <span class="card-badge">AI & Teknologi</span>
-    <div class="card-title">AI Tools buat Analisis Market</div>
-    <div class="card-desc">Tools AI yang beneran berguna buat trader dan investor pemula — bukan yang cuma viral doang.</div>
-    <div class="card-meta">
-      <span class="card-read">7 menit baca</span>
-      <span class="card-arrow">→</span>
-    </div>
-  </a>
-
-  <a class="artikel-card" href="blueprint-investasi-pertama.html" data-cat="market">
-    <span class="card-icon">💸</span>
-    <span class="card-badge">Market Intelligence</span>
-    <div class="card-title">Blueprint Investasi Pertama</div>
-    <div class="card-desc">Dari nol sampai posisi pertama — langkah konkret tanpa harus punya modal gede dulu.</div>
-    <div class="card-meta">
-      <span class="card-read">10 menit baca</span>
-      <span class="card-arrow">→</span>
-    </div>
-  </a>
-
-  <a class="artikel-card" href="cara-kerja-ai-explained-simply.html" data-cat="ai">
-    <span class="card-icon">⚡</span>
-    <span class="card-badge">AI & Teknologi</span>
-    <div class="card-title">Cara Kerja AI: Explained Simply</div>
-    <div class="card-desc">Gimana LLM, trading bot, dan AI analyst beneran bekerja — tanpa jargon teknikal yang nyiksa.</div>
-    <div class="card-meta">
-      <span class="card-read">9 menit baca</span>
-      <span class="card-arrow">→</span>
-    </div>
-  </a>
-
-  <a class="artikel-card" href="7-deadly-sins-financial-market.html" data-cat="psychology">
-    <span class="card-icon">&#9760;</span>
-    <span class="card-badge">Psikologi Investasi</span>
-    <div class="card-title">7 Deadly Sins of the Financial Market</div>
-    <div class="card-desc">Bukan market yang bunuh portfolio lu — tapi satu dari tujuh dosa ini.</div>
-    <div class="card-meta">
-      <span class="card-read">15 menit baca</span>
-      <span class="card-arrow">→</span>
-    </div>
-  </a>
-
-</div>
+<div class="artikel-grid" id="artikel-grid"></div>
 
 <footer>
   <div class="footer-inner">
@@ -207,6 +147,7 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relativ
   <div class="footer-copy">© 2026 CogniThink. All rights reserved.</div>
 </footer>
 
+<script src="data.js"></script>
 <script>
 // Neural BG
 const bgC=document.getElementById('neural-canvas');
@@ -219,18 +160,87 @@ for(let i=0;i<40;i++)bgNodes.push(new BgNode());
 function bgLoop(){bgX.clearRect(0,0,W,H);for(let i=0;i<bgNodes.length;i++){for(let j=i+1;j<bgNodes.length;j++){const dx=bgNodes[i].x-bgNodes[j].x,dy=bgNodes[i].y-bgNodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<150){bgX.beginPath();bgX.moveTo(bgNodes[i].x,bgNodes[i].y);bgX.lineTo(bgNodes[j].x,bgNodes[j].y);bgX.strokeStyle=`rgba(220,30,30,${(1-d/150)*.15})`;bgX.lineWidth=.5;bgX.stroke();}}}bgNodes.forEach(n=>{n.update();n.draw();});requestAnimationFrame(bgLoop);}
 bgLoop();
 
-// Filter
-document.querySelectorAll('.filter-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+// Urgensi labels
+const URGENSI_LABEL = {
+  1: 'Santai — background reading',
+  2: 'Useful — worth knowing',
+  3: 'Penting — baca minggu ini',
+  4: 'Kritikal — baca sekarang',
+  5: 'MUST READ'
+};
+
+// Build stars HTML
+function buildStars(n) {
+  let s = '';
+  for (let i = 1; i <= 5; i++) s += `<span class="star${i<=n?' lit':''}">&#9733;</span>`;
+  return s;
+}
+
+// Render card
+function renderCard(a) {
+  return `
+  <a class="artikel-card card-urgensi-${a.urgensi}" href="${a.file}" data-cat="${a.cat}">
+    <div class="card-top">
+      <span class="card-icon">${a.icon}</span>
+      <div class="urgensi-wrap">
+        <span class="urgensi-label">Urgensi</span>
+        <div class="urgensi">${buildStars(a.urgensi)}</div>
+        <div class="urgensi-tooltip">${URGENSI_LABEL[a.urgensi]}</div>
+      </div>
+    </div>
+    <span class="card-badge">${a.badge}</span>
+    <div class="card-title">${a.title}</div>
+    <div class="card-desc">${a.desc}</div>
+    <div class="card-meta">
+      <span class="card-read">${a.read}</span>
+      <span class="card-arrow">&#8594;</span>
+    </div>
+  </a>`;
+}
+
+// State
+let currentCat = 'all';
+let currentSort = 'newest';
+
+function renderGrid() {
+  const grid = document.getElementById('artikel-grid');
+  let data = [...ARTIKEL_DATA];
+
+  // Filter
+  if (currentCat !== 'all') data = data.filter(a => a.cat === currentCat);
+
+  // Sort
+  if (currentSort === 'urgensi') data.sort((a, b) => b.urgensi - a.urgensi);
+  // 'newest' = default order in data.js (index 0 = newest)
+
+  if (data.length === 0) {
+    grid.innerHTML = '<div class="empty-state"><p>Belum ada artikel di kategori ini.</p></div>';
+    return;
+  }
+  grid.innerHTML = data.map(renderCard).join('');
+}
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const cat=btn.dataset.cat;
-    document.querySelectorAll('.artikel-card').forEach(card=>{
-      if(cat==='all'||card.dataset.cat===cat){card.style.display='block';}
-      else{card.style.display='none';}
-    });
+    currentCat = btn.dataset.cat;
+    renderGrid();
   });
 });
+
+// Sort buttons
+document.querySelectorAll('.sort-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentSort = btn.dataset.sort;
+    renderGrid();
+  });
+});
+
+renderGrid();
 </script>
 </body>
 </html>
