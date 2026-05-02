@@ -673,8 +673,8 @@ tabs.forEach(t=>{
   });
 });
 
-// ── BREVO SUBSCRIBE ──
-const BREVO_API_KEY = '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';
+// ── BREVO SUBSCRIBE via sibforms ──
+const BREVO_FORM_URL = 'https://0207a6f4.sibforms.com/serve/MUIFAJ0YHaYLdZ0FZuxCbKeUgh9zIpyBHfazqkC7hsdKFIq4CUr8S2xuCOInR52TUVtJY7S67YMjOqufa0G_chPGn4_xlgXFNJ-TcoF54RI1BljPe2-35QBHtf_iYnr6YgutY0Xoyp-Za-CH_GrckeJcpCl12WgOC4UABSrUFV4hqFNVHWJUVG1WINHKth7jAYxA0VazGh9H3kENEw==';
 
 async function subscribeEmail(email, btn, originalText) {
   if (!email || !email.includes('@')) {
@@ -686,29 +686,19 @@ async function subscribeEmail(email, btn, originalText) {
   btn.textContent = 'Loading...';
   btn.disabled = true;
   try {
-    const res = await fetch('https://api.brevo.com/v3/contacts', {
+    const formData = new FormData();
+    formData.append('EMAIL', email);
+    formData.append('email_address_check', '');
+    formData.append('locale', 'id');
+    const res = await fetch(BREVO_FORM_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'api-key': BREVO_API_KEY
-      },
-      body: JSON.stringify({
-        email: email,
-        listIds: [2],
-        updateEnabled: true
-      })
+      body: formData,
+      mode: 'no-cors'
     });
-    if (res.ok || res.status === 204) {
-      btn.textContent = '✓ Berhasil!';
-      btn.style.background = '#22c55e';
-      btn.closest('.hero-form, .soon-notify').querySelector('input').value = '';
-    } else if (res.status === 400) {
-      // contact might already exist, treat as success
-      btn.textContent = '✓ Sudah terdaftar!';
-      btn.style.background = '#22c55e';
-    } else {
-      throw new Error('API error');
-    }
+    // no-cors always succeeds silently — treat as success
+    btn.textContent = '✓ Berhasil!';
+    btn.style.background = '#22c55e';
+    btn.closest('.hero-form, .soon-notify').querySelector('input').value = '';
   } catch (e) {
     btn.textContent = '✗ Coba lagi';
     btn.style.background = '#ef4444';
