@@ -15,11 +15,11 @@
 const ARTIKEL_DATA = [
   {
     id: "siapa-yang-cuan-dari-ai-boom ?",
-    file: "siapa-yang-cuan-dari-ai-boom?.html",
+    file: "siapa-yang-cuan-dari-ai-boom.html",
     badge: "AI & Teknologi",
     cat: "ai",
     icon: "&#128176;",
-    title: "Siapa yang Beneran Cuan dari AI Boom",
+    title: "Siapa yang Beneran Cuan dari AI Boom ?",
     desc: "Bukan yang paling jago pakai ChatGPT. Ini peta layer AI economy — dan lo ada di mana sekarang.",
     read: "11 menit baca",
     date: "3 Mei 2026",
