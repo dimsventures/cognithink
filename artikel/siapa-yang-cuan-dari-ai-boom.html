@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siapa yang Beneran Cuan dari AI Boom — CogniThink</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#DC1E1E;--orange:#FF4800;--black:#0A0A0A;--dark:#1A1A1A;--white:#FFFFFF;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow Condensed',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.5;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--red);}
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(220,30,30,0.15);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;cursor:pointer;text-decoration:none;color:#fff;}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:30px;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.6);text-decoration:none;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--red);}
+.nav-cta{background:var(--red);color:#fff;border:none;padding:10px 22px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none;}
+.nav-cta:hover{background:var(--orange);}
+#neural-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.15;}
+.artikel-header{padding:130px 40px 60px;position:relative;z-index:1;max-width:800px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,0.06);}
+.breadcrumb{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:24px;display:flex;gap:8px;align-items:center;}
+.breadcrumb a{color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.3s;}
+.breadcrumb a:hover{color:var(--red);}
+.breadcrumb span{color:rgba(255,255,255,0.15);}
+.artikel-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border:1px solid rgba(220,30,30,0.4);color:var(--red);margin-bottom:20px;}
+.artikel-title{font-family:'Bebas Neue',sans-serif;font-size:64px;line-height:1;margin-bottom:20px;letter-spacing:1px;}
+.artikel-title span{color:var(--red);}
+.artikel-meta{display:flex;gap:24px;align-items:center;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);text-transform:uppercase;}
+.meta-dot{color:rgba(220,30,30,0.5);}
+.artikel-body{max-width:800px;margin:0 auto;padding:60px 40px 80px;position:relative;z-index:1;}
+.artikel-body p{font-size:18px;color:rgba(255,255,255,0.75);line-height:1.75;margin-bottom:24px;font-weight:400;}
+.artikel-body h2{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--white);letter-spacing:1px;margin:48px 0 16px;padding-left:16px;border-left:3px solid var(--red);}
+.artikel-body h3{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:rgba(255,255,255,0.9);margin:32px 0 12px;letter-spacing:1px;text-transform:uppercase;}
+.artikel-body ul{list-style:none;margin-bottom:24px;}
+.artikel-body ul li{padding:8px 0 8px 24px;position:relative;font-size:17px;color:rgba(255,255,255,0.7);line-height:1.65;}
+.artikel-body ul li::before{content:'→';position:absolute;left:0;color:var(--red);}
+.artikel-body ol{margin-bottom:24px;padding-left:0;counter-reset:item;}
+.artikel-body ol li{display:block;padding:10px 0 10px 40px;position:relative;font-size:17px;color:rgba(255,255,255,0.7);line-height:1.65;}
+.artikel-body ol li::before{content:counter(item,decimal-leading-zero);counter-increment:item;position:absolute;left:0;top:10px;font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--red);line-height:1;}
+.artikel-body strong{color:var(--white);font-weight:700;}
+.artikel-body em{color:rgba(255,255,255,0.55);font-style:normal;font-family:'Space Mono',monospace;font-size:0.85em;}
+.callout{background:rgba(220,30,30,0.06);border:1px solid rgba(220,30,30,0.2);border-left:3px solid var(--red);padding:24px 28px;margin:32px 0;}
+.callout p{margin:0;font-size:17px;}
+.callout-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.takeaway{background:var(--dark);border:1px solid rgba(255,255,255,0.08);padding:32px;margin:48px 0;}
+.takeaway-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:16px;}
+.takeaway h3{font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:12px;}
+.takeaway p{font-size:16px;color:rgba(255,255,255,0.6);margin:0;}
+.divider{border:none;border-top:1px solid rgba(255,255,255,0.06);margin:40px 0;}
+
+/* Layer pyramid */
+.layer-stack{margin:32px 0;display:flex;flex-direction:column;gap:4px;}
+.layer{padding:20px 28px;position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.layer-1{background:rgba(220,30,30,0.18);border-left:4px solid var(--red);}
+.layer-2{background:rgba(220,30,30,0.10);border-left:4px solid rgba(220,30,30,0.6);margin:0 16px;}
+.layer-3{background:rgba(220,30,30,0.05);border-left:4px solid rgba(220,30,30,0.3);margin:0 32px;}
+.layer-4{background:rgba(255,255,255,0.02);border-left:4px solid rgba(255,255,255,0.1);margin:0 48px;}
+.layer-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;}
+.layer-desc{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.5;text-align:right;max-width:300px;}
+.layer-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;background:rgba(220,30,30,0.2);color:var(--red);white-space:nowrap;}
+
+/* Reality check box */
+.reality-box{background:linear-gradient(135deg,rgba(220,30,30,0.1),rgba(255,72,0,0.05));border:1px solid rgba(220,30,30,0.3);padding:40px;margin:48px 0;position:relative;overflow:hidden;}
+.reality-box::after{content:'FACT';position:absolute;top:20px;right:20px;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:4px;color:rgba(220,30,30,0.2);}
+.reality-box h3{font-family:'Bebas Neue',sans-serif;font-size:32px;margin-bottom:16px;color:var(--red);}
+.reality-box p{font-size:17px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:16px;}
+.reality-box p:last-child{margin:0;}
+
+.cta-subscribe{background:linear-gradient(135deg,rgba(220,30,30,0.12),rgba(255,72,0,0.06));border:1px solid rgba(220,30,30,0.25);padding:40px;margin:60px 0;text-align:center;}
+.cta-subscribe h3{font-family:'Bebas Neue',sans-serif;font-size:36px;margin-bottom:10px;}
+.cta-subscribe p{font-size:15px;color:rgba(255,255,255,0.5);margin-bottom:24px;}
+.cta-form{display:flex;gap:10px;max-width:420px;margin:0 auto;}
+.cta-form input{flex:1;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:16px;outline:none;transition:border-color 0.3s;}
+.cta-form input:focus{border-color:var(--red);}
+.cta-form input::placeholder{color:rgba(255,255,255,0.3);}
+.btn-primary{background:var(--red);color:#fff;border:none;padding:12px 24px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;white-space:nowrap;}
+.btn-primary:hover{background:var(--orange);}
+.artikel-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 40px 60px;max-width:800px;margin:0 auto;position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.06);}
+.nav-back{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.3s;}
+.nav-back:hover{color:var(--red);}
+footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relative;z-index:1;}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;}
+.footer-logo span{color:var(--red);}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.3s;text-transform:uppercase;}
+.footer-links a:hover{color:var(--red);}
+.footer-copy{max-width:1200px;margin:20px auto 0;font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:1px;}
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links{display:none;}
+  .artikel-header,.artikel-body,.artikel-nav{padding-left:20px;padding-right:20px;}
+  .artikel-title{font-size:44px;}
+  .artikel-body h2{font-size:28px;}
+  .cta-form{flex-direction:column;}
+  .footer-inner{flex-direction:column;gap:16px;text-align:center;}
+  .layer-desc{display:none;}
+  .layer-2{margin:0 8px;}
+  .layer-3{margin:0 16px;}
+  .layer-4{margin:0 24px;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="neural-canvas"></canvas>
+
+<nav>
+  <a href="../" class="nav-logo">COGNI<span>THINK</span></a>
+  <div class="nav-links">
+    <a href="../#pillars">Topik</a>
+    <a href="./">Artikel</a>
+    <a href="../#resources">Resources</a>
+    <a href="../#community">Community</a>
+  </div>
+  <a href="../#hero-email" class="nav-cta">Join Gratis</a>
+</nav>
+
+<div class="artikel-header">
+  <div class="breadcrumb">
+    <a href="../">Home</a>
+    <span>/</span>
+    <a href="./">Artikel</a>
+    <span>/</span>
+    AI & Teknologi
+  </div>
+  <span class="artikel-badge">AI & Teknologi</span>
+  <h1 class="artikel-title">SIAPA YANG BENERAN<br><span>CUAN</span> DARI AI BOOM</h1>
+  <div class="artikel-meta">
+    <span>📅 Mei 2026</span>
+    <span class="meta-dot">●</span>
+    <span>⏱ 11 menit baca</span>
+    <span class="meta-dot">●</span>
+    <span>✍ CogniThink</span>
+  </div>
+</div>
+
+<div class="artikel-body">
+
+  <p>Semua orang ngomongin AI. Semua orang "pakai AI". Tapi kalau lo tanya siapa yang <strong>beneran kaya</strong> dari gelombang ini — jawabannya bukan yang lo kira.</p>
+
+  <p>Bukan si influencer yang review tools tiap minggu. Bukan mahasiswa yang bangga bisa bikin presentasi pakai ChatGPT 10x lebih cepat. Dan hampir pasti bukan majority dari orang-orang yang baca artikel ini sekarang — termasuk gua, kalau gua gak sadar lebih awal.</p>
+
+  <p>Ini bukan artikel motivasi. Ini peta. Dan peta ini bakal tunjukin lo ada di mana sekarang — mau lo suka atau enggak.</p>
+
+  <div class="callout">
+    <div class="callout-label">⚠ Disclaimer</div>
+    <p>Artikel ini bersifat edukatif dan analitis. Bukan saran finansial atau investasi. Semua angka yang disebut adalah ilustrasi untuk konteks, bukan rekomendasi.</p>
+  </div>
+
+  <h2>RECAP: AI BOOM 2023–2026, SIAPA YANG JALAN DULUAN?</h2>
+
+  <p>November 2022, ChatGPT dirilis. 100 juta user dalam 2 bulan — rekor tercepat sepanjang sejarah produk konsumer. Semua orang excited. Tapi di balik excitement itu, ada yang diam-diam sudah bergerak jauh lebih cepat.</p>
+
+  <p><strong>Yang bergerak duluan bukan user-nya — tapi investor infrastrukturnya.</strong></p>
+
+  <p>Microsoft sudah invest $1 miliar ke OpenAI sejak 2019. Saat ChatGPT meledak di 2022, mereka tambah lagi $10 miliar. Nvidia — yang chipnya dipakai untuk training semua model AI besar — sahamnya naik dari sekitar $140 di awal 2023 ke hampir $900 di pertengahan 2024. Hampir 6x dalam 18 bulan.</p>
+
+  <p>Mereka yang cuan bukan yang paling jago pakai AI. Mereka yang cuan adalah yang <strong>posisinya di layer paling dalam dari ekosistem ini</strong> — jauh sebelum hype mencapai permukaan.</p>
+
+  <div class="takeaway">
+    <div class="takeaway-label">💡 Key Insight</div>
+    <h3>Hype selalu datang terlambat. Uang sudah bergerak jauh sebelum timeline lo ramai.</h3>
+    <p>Saat semua orang baru sadar ada gelombang, smart money sudah di pantai yang berbeda.</p>
+  </div>
+
+  <h2>4 LAYER AI ECONOMY: LO ADA DI MANA?</h2>
+
+  <p>Ekosistem AI bukan satu lapisan datar. Ada hierarki yang jelas — dan posisi lo di hierarki itu menentukan seberapa besar lo ikut menikmati pertumbuhannya.</p>
+
+  <div class="layer-stack">
+    <div class="layer layer-1">
+      <div>
+        <div class="layer-tag">Layer 01 — Paling Cuan</div>
+        <div class="layer-title">Infrastruktur & Chip</div>
+      </div>
+      <div class="layer-desc">Nvidia, AMD, TSMC. Yang bikin "tanah" tempat AI berdiri. Setiap model dilatih, mereka dibayar.</div>
+    </div>
+    <div class="layer layer-2">
+      <div>
+        <div class="layer-tag">Layer 02</div>
+        <div class="layer-title">Model & Platform</div>
+      </div>
+      <div class="layer-desc">OpenAI, Anthropic, Google DeepMind, Meta AI. Mereka jual akses ke intelligence — subscription, API, enterprise deal.</div>
+    </div>
+    <div class="layer layer-3">
+      <div>
+        <div class="layer-tag">Layer 03</div>
+        <div class="layer-title">Builder & Aplikasi</div>
+      </div>
+      <div class="layer-desc">Startup dan developer yang bangun di atas model tersebut. Bisa cuan, tapi bergantung pada layer di atasnya.</div>
+    </div>
+    <div class="layer layer-4">
+      <div>
+        <div class="layer-tag">Layer 04 — Mayoritas</div>
+        <div class="layer-title">End User / Konsumen</div>
+      </div>
+      <div class="layer-desc">Yang bayar subscription, beli course AI, pakai tools gratis. Produktif — tapi bukan yang capture value terbesarnya.</div>
+    </div>
+  </div>
+
+  <p>Jujurnya? <strong>Mayoritas orang Indonesia sekarang ada di Layer 4.</strong> Pakai Canva AI, pakai ChatGPT, pakai Midjourney. Semua itu bagus — tapi lo adalah revenue buat orang lain, bukan sebaliknya.</p>
+
+  <div class="callout">
+    <div class="callout-label">📌 Pahit tapi perlu didengar</div>
+    <p>Setiap bulan lo bayar subscription Canva Pro, ChatGPT Plus, atau tools AI lain — lo secara langsung membiayai valuasi perusahaan yang sahamnya dipegang orang lain. Lo adalah growth metric mereka.</p>
+  </div>
+
+  <h2>KENAPA "JAGO PAKAI AI" BUKAN MOAT LO</h2>
+
+  <p>Ada satu ilusi yang tersebar luas di komunitas produktivitas dan freelance Indonesia: <em>"kalau gua jago pakai AI, gua bakal ahead of the curve."</em></p>
+
+  <p>Faktanya? <strong>Skill pakai AI itu komoditas yang makin murah tiap bulan.</strong></p>
+
+  <p>2023: orang bayar mahal untuk jasa "AI prompt writer". 2024: fitur itu built-in di semua tools. 2025: AI sudah bisa prompt dirinya sendiri. 2026: lo compete dengan automation yang harganya mendekati nol.</p>
+
+  <p>Ini bukan berarti lo harus gak pakai AI. Tapi jangan keliru posisi: <strong>efficiency bukan leverage finansial</strong>. Lo kerja lebih cepat, tapi lo masih di layer yang sama. Harga jual lo masih ditentukan oleh supply-demand pasar tenaga kerja — bukan oleh lo yang control leverage-nya.</p>
+
+  <div class="takeaway">
+    <div class="takeaway-label">💡 Takeaway</div>
+    <h3>Jago pakai AI bikin lo lebih produktif. Tapi productive worker dan wealth builder itu dua permainan berbeda.</h3>
+    <p>Yang satu jual waktu lebih efisien. Yang lain bangun aset yang bekerja tanpa waktu lo.</p>
+  </div>
+
+  <hr class="divider">
+
+  <h2>LALU SIAPA YANG BENERAN CUAN?</h2>
+
+  <p>Mari kita konkret. Di gelombang AI 2023–2026 ini, ada beberapa profil yang posisinya struktural lebih menguntungkan:</p>
+
+  <h3>1. Investor Ekosistem AI (Bukan Saham Biasa)</h3>
+  <p>Yang beli Nvidia di 2022, yang masuk ETF tech dengan exposure AI, yang invest di infrastruktur cloud (AWS, Azure, GCP) lewat saham induknya. Mereka tidak harus paham cara kerja transformer architecture — mereka cukup paham siklus adopsi teknologi.</p>
+
+  <h3>2. Builder yang Solve Real Problem</h3>
+  <p>Bukan yang bikin "ChatGPT wrapper" generik. Tapi yang bangun solusi vertikal spesifik — AI untuk klinik gigi, AI untuk manajemen gudang UMKM, AI untuk deteksi fraud fintech lokal. Mereka pakai layer 2 sebagai bahan baku, lalu jual ke market yang belum tersentuh.</p>
+
+  <h3>3. Yang Punya Distribution, Bukan Cuma Skill</h3>
+  <p>Kreator dengan audience besar yang monetize lewat AI-powered product. Konsultan yang pakai AI untuk deliver output 10x lebih cepat tapi charge harga yang sama. Mereka tidak jual "jasa AI" — mereka jual hasil. AI hanya alat di balik layar.</p>
+
+  <h3>4. Yang Jual Ke AI Companies, Bukan Beli Dari Mereka</h3>
+  <p>Data labeler, domain expert yang jadi kontributor training data, spesialis evaluasi model. Ironis — tapi di masa transisi ini, manusia yang "ngajarin" AI masih dibayar cukup baik.</p>
+
+  <div class="reality-box">
+    <h3>REALITA YANG PERLU LO TERIMA</h3>
+    <p>AI boom ini adalah redistribusi wealth yang paling masif sejak internet. Dan seperti semua redistribusi besar, mayoritas tidak sadar sedang terjadi sampai sudah selesai.</p>
+    <p>Orang yang dapet paling banyak adalah yang <strong>posisinya di supply side</strong> — yang bikin, yang jual, yang invest di infrastruktur. Bukan yang konsumsi produknya.</p>
+    <p>Yang paling pahit? Makin lo "produktif" pakai AI tanpa strategi monetisasi, makin lo bantu justify layoff di perusahaan tempat lo kerja — karena lo sendiri yang buktiin satu orang bisa handle pekerjaan tiga orang.</p>
+    <p><strong>Pertanyaan yang perlu lo jawab sekarang:</strong> lo sedang membangun posisi di layer mana — dan apakah layer itu akan lebih bernilai atau lebih terancam 3 tahun lagi?</p>
+  </div>
+
+  <h2>APA YANG MASIH BISA DILAKUKAN DI 2026?</h2>
+
+  <p>Kabar baiknya: gelombang ini belum selesai. Adopsi AI di Indonesia masih di fase awal — artinya masih ada gap yang bisa diisi. Tapi window-nya menyempit tiap bulan.</p>
+
+  <ol>
+    <li><strong>Pindah dari konsumen ke builder</strong> — tidak harus coding dari nol. No-code tools sudah cukup powerful untuk bangun solusi vertikal sederhana yang punya market nyata.</li>
+    <li><strong>Invest di ekosistem, bukan hanya pakai toolsnya</strong> — pelajari cara exposure ke AI economy lewat instrumen yang accessible: ETF tech global, saham-saham dengan AI revenue exposure yang signifikan.</li>
+    <li><strong>Monetize output, bukan process</strong> — kalau lo kreator atau konsultan, pakai AI di balik layar. Jangan jual "jasa pakai AI" — jual hasil yang lebih baik dengan margin yang lebih tinggi.</li>
+    <li><strong>Kuasai domain spesifik, bukan AI generik</strong> — AI yang paling valuable adalah yang punya konteks domain dalam: hukum, medis, agrikultur, manufaktur lokal. Domain expertise + AI = kombinasi yang belum banyak orang punya.</li>
+  </ol>
+
+  <div class="takeaway">
+    <div class="takeaway-label">💡 Kesimpulan</div>
+    <h3>Lo mau jadi infrastruktur AI, atau terus jadi konsumen infrastruktur AI?</h3>
+    <p>Dua-duanya pilihan — tapi cuma satu yang bikin lo capture value dari gelombang ini. Sadar posisi lo sekarang adalah langkah pertama yang paling penting.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="cta-subscribe">
+    <h3>ARTIKEL SELANJUTNYA — GRATIS</h3>
+    <p>Daftar dan dapatkan notifikasi tiap ada artikel baru. No spam.</p>
+    <div class="cta-form">
+      <input type="email" id="art-email" placeholder="email lu...">
+      <button class="btn-primary" id="art-btn">Subscribe</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="artikel-nav">
+  <a href="./" class="nav-back">← Semua Artikel</a>
+  <a href="likuiditas-risk-asset.html" class="nav-back">Artikel Lainnya →</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">COGNI<span>THINK</span></div>
+    <div class="footer-links">
+      <a href="https://instagram.com/cognithink_" target="_blank">Instagram</a>
+      <a href="./">Artikel</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 CogniThink. All rights reserved.</div>
+</footer>
+
+<script>
+const bgC=document.getElementById('neural-canvas');
+const bgX=bgC.getContext('2d');
+let W,H,bgNodes=[];
+function resize(){W=bgC.width=window.innerWidth;H=bgC.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+class BgNode{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.4;this.vy=(Math.random()-.5)*.4;this.r=Math.random()*2+1;}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();}draw(){bgX.beginPath();bgX.arc(this.x,this.y,this.r,0,Math.PI*2);bgX.fillStyle=`rgba(220,30,30,${.3+Math.random()*.2})`;bgX.fill();}}
+for(let i=0;i<40;i++)bgNodes.push(new BgNode());
+function bgLoop(){bgX.clearRect(0,0,W,H);for(let i=0;i<bgNodes.length;i++){for(let j=i+1;j<bgNodes.length;j++){const dx=bgNodes[i].x-bgNodes[j].x,dy=bgNodes[i].y-bgNodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<150){bgX.beginPath();bgX.moveTo(bgNodes[i].x,bgNodes[i].y);bgX.lineTo(bgNodes[j].x,bgNodes[j].y);bgX.strokeStyle=`rgba(220,30,30,${(1-d/150)*.15})`;bgX.lineWidth=.5;bgX.stroke();}}}bgNodes.forEach(n=>{n.update();n.draw();});requestAnimationFrame(bgLoop);}
+bgLoop();
+
+const BREVO_FORM_URL='https://0207a6f4.sibforms.com/serve/MUIFAJ0YHaYLdZ0FZuxCbKeUgh9zIpyBHfazqkC7hsdKFIq4CUr8S2xuCOInR52TUVtJY7S67YMjOqufa0G_chPGn4_xlgXFNJ-TcoF54RI1BljPe2-35QBHtf_iYnr6YgutY0Xoyp-Za-CH_GrckeJcpCl12WgOC4UABSrUFV4hqFNVHWJUVG1WINHKth7jAYxA0VazGh9H3kENEw==';
+async function subscribe(email,btn,orig){
+  if(!email||!email.includes('@')){btn.textContent='✗ Email invalid';btn.style.background='#ef4444';setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2000);return;}
+  btn.textContent='...';btn.disabled=true;
+  try{const fd=new FormData();fd.append('EMAIL',email);fd.append('email_address_check','');fd.append('locale','id');await fetch(BREVO_FORM_URL,{method:'POST',body:fd,mode:'no-cors'});btn.textContent='✓ Done!';btn.style.background='#22c55e';document.getElementById('art-email').value='';}
+  catch{btn.textContent='✗ Coba lagi';btn.style.background='#ef4444';}
+  finally{btn.disabled=false;setTimeout(()=>{btn.textContent=orig;btn.style.background='';},3000);}
+}
+document.getElementById('art-btn').addEventListener('click',()=>{subscribe(document.getElementById('art-email').value.trim(),document.getElementById('art-btn'),'Subscribe');});
+</script>
+</body>
+</html>
