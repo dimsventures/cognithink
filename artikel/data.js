@@ -23,7 +23,7 @@ const ARTIKEL_DATA = [
     title: "7 Deadly Sins of the Financial Market",
     desc: "Bukan market yang bunuh portfolio lu — tapi satu dari tujuh dosa ini.",
     read: "15 menit baca",
-    date: "Mei 2026",
+    date: "2 Mei 2026",
     urgensi: 4,
   },
 
@@ -36,7 +36,7 @@ const ARTIKEL_DATA = [
     title: "Likuiditas & Risk Asset",
     desc: "Dari mana uang yang menggerakkan market berasal — dan apa yang elite tahu tapi ritel tidak boleh tahu.",
     read: "12 menit baca",
-    date: "Mei 2026",
+    date: "1 Mei 2026",
     urgensi: 5,
   },
 
@@ -49,7 +49,7 @@ const ARTIKEL_DATA = [
     title: "7 Kesalahan Mental Gen Z dalam Berinvestasi",
     desc: "Bias kognitif yang diam-diam nguras portfolio lu — tanpa lo sadarin.",
     read: "8 menit baca",
-    date: "Mei 2026",
+    date: "2 Mei 2026",
     urgensi: 4,
   },
 
@@ -75,7 +75,7 @@ const ARTIKEL_DATA = [
     title: "Tes Profil Psikologi Investor",
     desc: "Tipe lo: panic seller, FOMO buyer, atau overthinking holder? Tau dulu, baru bergerak.",
     read: "5 menit baca",
-    date: "Mei 2026",
+    date: "3 Mei 2026",
     urgensi: 3,
   },
 
@@ -106,15 +106,15 @@ const ARTIKEL_DATA = [
   },
 
   {
-    id: "cara-kerja-ai-explained-simply",
-    file: "cara-kerja-ai-explained-simply.html",
+    id: "cara-kerja-language-model",
+    file: "cara-kerja-language-model.html",
     badge: "AI & Teknologi",
     cat: "ai",
     icon: "&#9889;",
-    title: "Cara Kerja AI: Explained Simply",
-    desc: "Gimana LLM, trading bot, dan AI analyst beneran bekerja — tanpa jargon teknikal yang nyiksa.",
+    title: "Cara Kerja Language Model",
+    desc: "Token prediksi, prompt sebagai konteks, dan kenapa output buruk bukan salah AI-nya.",
     read: "9 menit baca",
-    date: "Mei 2026",
+    date: "3 Mei 2026",
     urgensi: 2,
   },
 
