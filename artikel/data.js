@@ -14,7 +14,7 @@
 
 const ARTIKEL_DATA = [
   {
-    id: "siapa-yang-cuan-dari-ai-boom",
+    id: "siapa-yang-cuan-dari-ai-boom ?",
     file: "siapa-yang-cuan-dari-ai-boom.html",
     badge: "AI & Teknologi",
     cat: "ai",
