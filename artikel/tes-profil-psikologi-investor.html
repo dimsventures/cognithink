@@ -3,24 +3,663 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coming Soon — CogniThink</title>
+<title>Tes Profil Psikologi Investor — CogniThink</title>
+<meta name="description" content="Tipe lo: panic seller, FOMO buyer, atau overthinking holder? Tes psikologi investor berbasis behavioral — tidak bisa dibohongi.">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--red:#DC1E1E;--orange:#FF4800;--black:#0A0A0A;--white:#FFFFFF;}
+:root{--red:#DC1E1E;--orange:#FF4800;--black:#0A0A0A;--dark:#1A1A1A;--white:#FFFFFF;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Barlow Condensed',sans-serif;background:var(--black);color:var(--white);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;}
-.label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:16px;}
-h1{font-family:'Bebas Neue',sans-serif;font-size:64px;line-height:1;margin-bottom:20px;}
-h1 span{color:var(--red);}
-p{font-size:16px;color:rgba(255,255,255,0.45);margin-bottom:32px;}
-a{display:inline-block;background:var(--red);color:#fff;padding:12px 28px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;}
-a:hover{background:var(--orange);}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--red);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(220,30,30,0.15);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;cursor:pointer;text-decoration:none;color:#fff;}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:30px;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.6);text-decoration:none;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--red);}
+.nav-cta{background:var(--red);color:#fff;border:none;padding:10px 22px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none;}
+.nav-cta:hover{background:var(--orange);}
+
+/* CANVAS BG */
+#neural-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.12;}
+
+/* HEADER */
+.page-header{padding:130px 40px 60px;position:relative;z-index:1;max-width:800px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,0.06);}
+.breadcrumb{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:24px;display:flex;gap:8px;align-items:center;}
+.breadcrumb a{color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.3s;}
+.breadcrumb a:hover{color:var(--red);}
+.breadcrumb span{color:rgba(255,255,255,0.15);}
+.page-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border:1px solid rgba(220,30,30,0.4);color:var(--red);margin-bottom:20px;}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:64px;line-height:1;margin-bottom:16px;letter-spacing:1px;}
+.page-title span{color:var(--red);}
+.page-desc{font-size:16px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:24px;max-width:580px;}
+.page-meta{display:flex;gap:24px;align-items:center;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);text-transform:uppercase;}
+.meta-dot{color:rgba(220,30,30,0.5);}
+
+/* MAIN QUIZ WRAPPER */
+.quiz-main{max-width:800px;margin:0 auto;padding:60px 40px 80px;position:relative;z-index:1;}
+
+/* PHASE INDICATOR */
+.phase-indicator{display:flex;align-items:center;gap:12px;margin-bottom:40px;}
+.phase-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);transition:all 0.4s;}
+.phase-dot.active{background:var(--red);box-shadow:0 0 8px rgba(220,30,30,0.5);}
+.phase-dot.done{background:rgba(220,30,30,0.4);}
+.phase-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;}
+
+/* PROGRESS */
+.progress-wrap{margin-bottom:32px;}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.progress-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;}
+.progress-count{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);}
+.progress-bg{height:2px;background:rgba(255,255,255,0.08);border-radius:2px;}
+.progress-fill{height:2px;background:var(--red);border-radius:2px;transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
+
+/* QUESTION */
+.question-wrap{opacity:0;transform:translateY(16px);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);}
+.question-wrap.visible{opacity:1;transform:translateY(0);}
+.question-context{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:2px solid rgba(220,30,30,0.4);padding:16px 20px;margin-bottom:20px;font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;font-family:'Space Mono',monospace;}
+.question-context-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(220,30,30,0.6);margin-bottom:8px;}
+.question-text{font-family:'Inter',sans-serif;font-size:22px;font-weight:500;color:rgba(255,255,255,0.92);line-height:1.5;margin-bottom:28px;}
+
+/* OPTIONS */
+.options-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:36px;}
+.option-btn{padding:18px 24px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.65);font-family:'Inter',sans-serif;font-size:15px;font-weight:400;line-height:1.6;text-align:left;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
+.option-btn::before{content:'';position:absolute;left:0;top:0;width:0;height:100%;background:rgba(220,30,30,0.06);transition:width 0.3s;}
+.option-btn:hover{border-color:rgba(220,30,30,0.3);color:rgba(255,255,255,0.85);}
+.option-btn:hover::before{width:100%;}
+.option-btn.selected{border-color:var(--red);color:#fff;background:rgba(220,30,30,0.08);}
+.option-btn.selected::after{content:'✓';position:absolute;right:20px;top:50%;transform:translateY(-50%);color:var(--red);font-size:14px;font-weight:600;}
+
+/* NAV BUTTONS */
+.nav-btns{display:flex;justify-content:space-between;align-items:center;}
+.btn-back{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);background:none;border:none;cursor:pointer;padding:12px 0;transition:color 0.3s;}
+.btn-back:hover{color:rgba(255,255,255,0.6);}
+.btn-back:disabled{opacity:0.2;cursor:default;}
+.btn-next{background:var(--red);color:#fff;border:none;padding:14px 32px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.btn-next:hover:not(:disabled){background:var(--orange);transform:translateY(-1px);}
+.btn-next:disabled{opacity:0.25;cursor:default;transform:none;}
+
+/* ===== RESULT SCREEN ===== */
+.result-screen{display:none;animation:fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+.result-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
+.result-title{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:0.95;margin-bottom:8px;letter-spacing:1px;}
+.result-subtitle{font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(255,255,255,0.3);margin-bottom:32px;letter-spacing:1px;}
+
+/* SCORE METER */
+.score-meter{margin:32px 0;}
+.score-meter-labels{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:10px;}
+.score-meter-track{height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;}
+.score-meter-fill{height:4px;border-radius:2px;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);}
+.score-meter-marker{position:relative;margin-top:8px;}
+.score-meter-dot{width:10px;height:10px;border-radius:50%;border:2px solid;position:absolute;top:-11px;transform:translateX(-50%);transition:left 1.2s cubic-bezier(0.4,0,0.2,1);}
+
+/* TRAIT CARDS */
+.trait-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:32px 0;}
+.trait-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:20px;}
+.trait-card-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px;}
+.trait-card-val{font-family:'Inter',sans-serif;font-size:15px;font-weight:500;color:rgba(255,255,255,0.88);}
+
+/* RESULT DESCRIPTION */
+.result-desc-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-left:3px solid var(--red);padding:28px 32px;margin:24px 0;}
+.result-desc-box p{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:16px;}
+.result-desc-box p:last-child{margin:0;}
+
+/* WARNING */
+.result-warning{background:rgba(220,30,30,0.06);border:1px solid rgba(220,30,30,0.2);padding:20px 24px;margin:24px 0;}
+.result-warning-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.result-warning p{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.7;margin:0;}
+
+/* NEXT TEST CTA */
+.next-test-box{background:var(--dark);border:1px solid rgba(255,255,255,0.08);padding:32px;margin:40px 0;position:relative;overflow:hidden;}
+.next-test-box::before{content:'LANJUT';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:80px;color:rgba(220,30,30,0.05);letter-spacing:4px;pointer-events:none;}
+.next-test-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
+.next-test-title{font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:8px;}
+.next-test-desc{font-size:14px;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:20px;}
+.btn-next-test{display:inline-block;background:var(--red);color:#fff;border:none;padding:14px 32px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none;}
+.btn-next-test:hover{background:var(--orange);}
+
+/* SUBSCRIBE CTA */
+.cta-subscribe{background:rgba(220,30,30,0.06);border:1px solid rgba(220,30,30,0.2);padding:40px;margin:40px 0;text-align:center;}
+.cta-subscribe h3{font-family:'Bebas Neue',sans-serif;font-size:32px;margin-bottom:8px;}
+.cta-subscribe p{font-size:14px;color:rgba(255,255,255,0.45);margin-bottom:24px;}
+.cta-form{display:flex;gap:10px;max-width:400px;margin:0 auto;}
+.cta-form input{flex:1;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:#fff;font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border-color 0.3s;}
+.cta-form input:focus{border-color:var(--red);}
+.cta-form input::placeholder{color:rgba(255,255,255,0.25);}
+.btn-sub{background:var(--red);color:#fff;border:none;padding:12px 24px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;text-transform:uppercase;cursor:pointer;transition:all 0.3s;white-space:nowrap;}
+.btn-sub:hover{background:var(--orange);}
+
+/* RETRY */
+.btn-retry{display:block;margin:0 auto 0;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);background:none;border:none;cursor:pointer;padding:12px;transition:color 0.3s;text-align:center;}
+.btn-retry:hover{color:rgba(255,255,255,0.5);}
+
+/* ARTIKEL NAV */
+.artikel-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 40px 60px;max-width:800px;margin:0 auto;position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.06);}
+.nav-back-link{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.3s;}
+.nav-back-link:hover{color:var(--red);}
+
+/* FOOTER */
+footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relative;z-index:1;}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;}
+.footer-logo span{color:var(--red);}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.3s;text-transform:uppercase;}
+.footer-links a:hover{color:var(--red);}
+.footer-copy{max-width:1200px;margin:20px auto 0;font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:1px;}
+
+/* ANIMATIONS */
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.pulse{animation:pulse 2s ease-in-out infinite;}
+
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links{display:none;}
+  .page-header,.quiz-main{padding-left:20px;padding-right:20px;}
+  .page-title{font-size:44px;}
+  .result-title{font-size:52px;}
+  .trait-grid{grid-template-columns:1fr;}
+  .cta-form{flex-direction:column;}
+  .footer-inner{flex-direction:column;gap:16px;text-align:center;}
+  .artikel-nav{padding:30px 20px 40px;}
+}
 </style>
 </head>
 <body>
-<div class="label">🚧 Segera Hadir</div>
-<h1>ARTIKEL INI<br><span>COMING SOON</span></h1>
-<p>Lagi dalam penulisan. Subscribe biar dapat notif saat artikel ini live.</p>
-<a href="../">← Kembali ke Semua Artikel</a>
+
+<canvas id="neural-canvas"></canvas>
+
+<nav>
+  <a href="../" class="nav-logo">COGNI<span>THINK</span></a>
+  <div class="nav-links">
+    <a href="../#pillars">Topik</a>
+    <a href="./">Artikel</a>
+    <a href="../#resources">Resources</a>
+    <a href="../#community">Community</a>
+  </div>
+  <a href="../#hero-email" class="nav-cta">Join Gratis</a>
+</nav>
+
+<div class="page-header">
+  <div class="breadcrumb">
+    <a href="../">Home</a>
+    <span>/</span>
+    <a href="./">Artikel</a>
+    <span>/</span>
+    Psikologi Investasi
+  </div>
+  <span class="page-badge">Psikologi Investasi</span>
+  <h1 class="page-title">TES PROFIL<br><span>PSIKOLOGI INVESTOR</span></h1>
+  <p class="page-desc">Dirancang agar lo tidak bisa bohong ke diri sendiri. Pertanyaan berbasis skenario behavioral — bukan self-report. Hasilnya akan lebih jujur dari yang lo kira.</p>
+  <div class="page-meta">
+    <span>📅 Mei 2026</span>
+    <span class="meta-dot">●</span>
+    <span>⏱ 5–8 menit</span>
+    <span class="meta-dot">●</span>
+    <span>9 pertanyaan</span>
+  </div>
+</div>
+
+<div class="quiz-main">
+
+  <!-- PHASE INDICATOR -->
+  <div class="phase-indicator" id="phase-indicator">
+    <div class="phase-dot active" id="pdot-1"></div>
+    <div class="phase-dot" id="pdot-2"></div>
+    <span class="phase-label" id="phase-label">Tes 1 dari 2</span>
+  </div>
+
+  <!-- QUIZ SECTION -->
+  <div id="quiz-section">
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span class="progress-label" id="q-label">Pertanyaan</span>
+        <span class="progress-count" id="q-count">1/9</span>
+      </div>
+      <div class="progress-bg"><div class="progress-fill" id="prog-fill" style="width:11%"></div></div>
+    </div>
+
+    <div class="question-wrap" id="q-wrap">
+      <div class="question-context" id="q-ctx" style="display:none">
+        <div class="question-context-label">Konteks</div>
+        <div id="q-ctx-text"></div>
+      </div>
+      <div class="question-text" id="q-text"></div>
+      <div class="options-grid" id="opts"></div>
+      <div class="nav-btns">
+        <button class="btn-back" id="btn-back" disabled>← Kembali</button>
+        <button class="btn-next" id="btn-next" disabled>Lanjut →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SECTION -->
+  <div class="result-screen" id="result-section">
+    <div class="result-eyebrow" id="res-eyebrow"></div>
+    <div class="result-title" id="res-title"></div>
+    <div class="result-subtitle" id="res-subtitle"></div>
+
+    <div class="score-meter">
+      <div class="score-meter-labels">
+        <span id="meter-left"></span>
+        <span id="meter-right"></span>
+      </div>
+      <div class="score-meter-track">
+        <div class="score-meter-fill" id="meter-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="trait-grid" id="trait-grid"></div>
+
+    <div class="result-warning" id="res-warning" style="display:none">
+      <div class="result-warning-label">⚠ Perhatian</div>
+      <p id="res-warning-text"></p>
+    </div>
+
+    <div class="result-desc-box" id="res-desc-box"></div>
+
+    <div class="next-test-box" id="next-test-box" style="display:none">
+      <div class="next-test-label" id="nt-label"></div>
+      <div class="next-test-title" id="nt-title"></div>
+      <div class="next-test-desc" id="nt-desc"></div>
+      <button class="btn-next-test" id="btn-nt">Mulai Tes Lanjutan →</button>
+    </div>
+
+    <div class="cta-subscribe">
+      <h3>DAPAT ARTIKEL LANJUTAN — GRATIS</h3>
+      <p>Subscribe dan dapatkan notifikasi tiap konten baru. No spam.</p>
+      <div class="cta-form">
+        <input type="email" id="sub-email" placeholder="email lu...">
+        <button class="btn-sub" id="sub-btn">Subscribe</button>
+      </div>
+    </div>
+
+    <button class="btn-retry" id="btn-retry">↺ Ulangi dari awal</button>
+  </div>
+
+</div>
+
+<div class="artikel-nav">
+  <a href="./" class="nav-back-link">← Semua Artikel</a>
+  <a href="likuiditas-risk-asset.html" class="nav-back-link">Artikel Lainnya →</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">COGNI<span>THINK</span></div>
+    <div class="footer-links">
+      <a href="https://instagram.com/cognithink_" target="_blank">Instagram</a>
+      <a href="./">Artikel</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 CogniThink. All rights reserved.</div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════ */
+const TES1 = {
+  total: 9,
+  questions: [
+    {
+      q:"Teman lo baru aja cerita rugi Rp 8 juta dari saham dalam sebulan. Reaksi pertama lo?",
+      ctx:null,
+      opts:[
+        {text:"Kasihan. Gua semakin yakin investasi itu berbahaya.",score:1},
+        {text:"Nanya: strategi dia salah di mana, biar gua gak ngulang.",score:2},
+        {text:"Langsung nanya saham apa yang dia beli — mungkin masih ada peluang.",score:3}
+      ]
+    },
+    {
+      q:"Lo lagi di supermarket, ada diskon 50% untuk barang yang lo gak butuhkan. Lo biasanya...",
+      ctx:null,
+      opts:[
+        {text:"Lewat aja. Hemat uang itu prioritas, bukan diskon.",score:1},
+        {text:"Beli kalau emang berguna suatu saat nanti.",score:2},
+        {text:"Beli. Siapa tau bisa dijual lagi atau dipakai nanti.",score:3}
+      ]
+    },
+    {
+      q:"Lo baru invest Rp 5 juta. Seminggu kemudian turun jadi Rp 3,5 juta. Lo...",
+      ctx:"Lo sudah riset perusahaan ini sebelumnya. Fundamental masih solid. Penurunan ini terjadi karena koreksi market secara keseluruhan — bukan karena ada masalah spesifik di perusahaannya.",
+      opts:[
+        {text:"Tetap jual. Gua gak nyaman lihat angka merah, mau cari yang lebih aman.",score:1},
+        {text:"Tahan dulu. Kalau fundamental masih oke, gua tunggu recovery.",score:2},
+        {text:"Tambah posisi. Harga diskon di aset yang fundamentalnya bagus itu kesempatan.",score:3}
+      ]
+    },
+    {
+      q:"Pilih salah satu skenario liburan yang paling mencerminkan lo:",
+      ctx:null,
+      opts:[
+        {text:"Hotel bintang 3 yang sudah terbukti bagus, destinasi yang sudah lo riset jauh-jauh hari.",score:1},
+        {text:"Destinasi baru tapi sudah ada rekomendasi dari teman yang dipercaya.",score:2},
+        {text:"Beli tiket dulu, urusan lain belakangan — yang penting experience-nya.",score:3}
+      ]
+    },
+    {
+      q:"Lo nemu aset yang naik 200% dalam 3 bulan. Teman lo sudah masuk dari bawah. Lo...",
+      ctx:null,
+      opts:[
+        {text:"Skip. Udah kemahalan, gua gak mau FOMO.",score:1},
+        {text:"Research dulu seminggu, baru putuskan masuk atau tidak.",score:2},
+        {text:"Masuk sebagian dulu. Takut ketinggalan kalau nunggu terlalu lama.",score:3}
+      ]
+    },
+    {
+      q:"Lo punya Rp 10 juta menganggur. Deadline pakai uang itu 2 tahun lagi. Lo taruh di mana?",
+      ctx:null,
+      opts:[
+        {text:"Deposito atau obligasi pemerintah. Aman dan pasti.",score:1},
+        {text:"Campuran: sebagian reksa dana, sebagian deposito.",score:2},
+        {text:"Masuk semua ke saham atau crypto. 2 tahun cukup untuk recover kalau turun.",score:3}
+      ]
+    },
+    {
+      q:"Lo ketinggalan momen — aset yang lo amati 3 bulan langsung naik 80% tanpa lo. Perasaan lo?",
+      ctx:null,
+      opts:[
+        {text:"Lega. Artinya lo masih punya uang, bukan rugi.",score:1},
+        {text:"Sedikit menyesal, tapi lo evaluasi kenapa lo gak masuk waktu itu.",score:2},
+        {text:"Nyesek banget. Lo langsung cari peluang berikutnya biar gak ketinggalan lagi.",score:3}
+      ]
+    },
+    {
+      q:"Atasan lo minta lo presentasi mendadak 1 jam lagi tanpa persiapan. Lo biasanya...",
+      ctx:null,
+      opts:[
+        {text:"Panik dan minta ditunda — lo gak bisa perform tanpa persiapan.",score:1},
+        {text:"Deg-degan tapi tetap jalan dengan materi seadanya.",score:2},
+        {text:"Enjoy. Justru gua lebih bagus kalau spontan.",score:3}
+      ]
+    },
+    {
+      q:"Lo diberi pilihan: dapat Rp 5 juta pasti sekarang, atau ikut undian dengan peluang 60% dapat Rp 10 juta. Lo pilih...",
+      ctx:null,
+      opts:[
+        {text:"Ambil Rp 5 juta sekarang. Pasti lebih tenang.",score:1},
+        {text:"Tergantung kondisi keuangan lo saat itu.",score:2},
+        {text:"Ikut undian. Secara probabilitas itu keputusan yang lebih rasional.",score:3}
+      ]
+    }
+  ],
+  results:{
+    conservative:{
+      eyebrow:"HASIL TES 1 — PROFIL INVESTOR",
+      title:"KONSERVATIF",
+      subtitle:"Safety first.",
+      meterLeft:"Konservatif",meterRight:"Agresif",
+      meterColor:"#378ADD",meterPct:12,
+      warning:null,
+      desc:"<p>Lo sangat prioritaskan keamanan dan kepastian — bahkan kalau itu berarti return yang lebih kecil. Di balik itu, lo sebenarnya bukan takut investasi, tapi takut kehilangan kontrol.</p><p>Kecenderungan lo untuk hindari kerugian lebih kuat dari keinginan lo untuk dapat untung. Ini bukan kelemahan — tapi kalau dibiarkan, lo bisa terlalu pasif dan kalah dari inflasi jangka panjang.</p>",
+      traits:[
+        {label:"Toleransi risiko",val:"Rendah"},
+        {label:"Kekuatan utama",val:"Disiplin & sabar"},
+        {label:"Blind spot",val:"Terlalu takut opportunity"},
+        {label:"Cocok untuk",val:"Obligasi, deposito, reksa dana pasar uang"}
+      ],
+      nextTest:{
+        label:"Tes Lanjutan — 2A",
+        title:"OPPORTUNITY COST AWARENESS",
+        desc:"Hasil lo menunjukkan blind spot yang perlu diperiksa lebih dalam. Tes berikutnya akan mengukur seberapa sadar lo bahwa diam juga ada harganya.",
+        target:"tes-opportunity-cost.html"
+      }
+    },
+    moderate:{
+      eyebrow:"HASIL TES 1 — PROFIL INVESTOR",
+      title:"MODERAT",
+      subtitle:"Analitis, tapi kadang paralysis.",
+      meterLeft:"Konservatif",meterRight:"Agresif",
+      meterColor:"#1D9E75",meterPct:50,
+      warning:null,
+      desc:"<p>Lo balance antara logika dan emosi — tapi hati-hati, karena moderate sering jadi tempat persembunyian orang yang sebenarnya belum punya conviction kuat.</p><p>Lo riset sebelum bergerak, tapi kadang terlalu lama di mode 'tunggu dan lihat' sampai momentumnya lewat. Kekuatan lo ada di konsistensi — kalau lo bisa kombinasikan dengan keberanian bertindak di momen yang tepat, lo bisa jadi investor yang solid.</p>",
+      traits:[
+        {label:"Toleransi risiko",val:"Sedang"},
+        {label:"Kekuatan utama",val:"Analitis & terukur"},
+        {label:"Blind spot",val:"Analysis paralysis"},
+        {label:"Cocok untuk",val:"Reksa dana campuran, saham blue chip, ETF"}
+      ],
+      nextTest:{
+        label:"Tes Lanjutan — 2B",
+        title:"CONVICTION & DECISION SPEED",
+        desc:"Hasil lo menunjukkan pola yang perlu diperiksa lebih dalam. Tes berikutnya akan mengukur apakah lo bisa eksekusi dengan informasi yang tidak sempurna.",
+        target:"tes-conviction-decision.html"
+      }
+    },
+    aggressive:{
+      eyebrow:"HASIL TES 1 — PROFIL INVESTOR",
+      title:"AGRESIF",
+      subtitle:"Berani — tapi hati-hati.",
+      meterLeft:"Konservatif",meterRight:"Agresif",
+      meterColor:"#E24B4A",meterPct:85,
+      warning:"Lo nyaman dengan risiko — tapi kenyamanan itu bisa jadi sumber masalah terbesar lo. Overconfidence membunuh lebih banyak investor agresif daripada market itu sendiri.",
+      desc:"<p>Lo nyaman dengan ketidakpastian dan bergerak cepat di bawah tekanan. Tapi ada yang perlu lo waspadai: kenyamanan lo dengan risiko bisa datang dari overconfidence, bukan dari pemahaman yang dalam.</p><p>Lo cenderung action-oriented sampai kadang skip research yang krusial. Kekuatan lo ada di mental tahan banting — tapi tanpa risk management yang ketat, lo hanya selangkah dari keputusan yang wipe out semua gain lo.</p>",
+      traits:[
+        {label:"Toleransi risiko",val:"Tinggi"},
+        {label:"Kekuatan utama",val:"Decisive & tahan volatilitas"},
+        {label:"Blind spot",val:"Overconfidence & FOMO"},
+        {label:"Cocok untuk",val:"Saham growth, crypto (alokasi terbatas)"}
+      ],
+      nextTest:{
+        label:"Tes Lanjutan — 2C",
+        title:"RISK MANAGEMENT PROFICIENCY",
+        desc:"Profil lo agresif — tapi seberapa solid risk management lo? Tes berikutnya akan mengungkap apakah lo trader yang berani atau yang berbahaya.",
+        target:"tes-risk-management.html"
+      }
+    }
+  }
+};
+
+/* ═══════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════ */
+let currentQ = 0;
+let answers = [];
+let activeData = TES1;
+let showingResult = false;
+
+/* ═══════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════ */
+function render(){
+  const q = activeData.questions[currentQ];
+  const total = activeData.total;
+
+  // Progress
+  document.getElementById('q-label').textContent = 'Pertanyaan';
+  document.getElementById('q-count').textContent = `${currentQ+1}/${total}`;
+  document.getElementById('prog-fill').style.width = `${((currentQ+1)/total)*100}%`;
+
+  // Animate question in
+  const wrap = document.getElementById('q-wrap');
+  wrap.classList.remove('visible');
+  setTimeout(()=>{
+    // Context
+    const ctxEl = document.getElementById('q-ctx');
+    const ctxText = document.getElementById('q-ctx-text');
+    if(q.ctx){ ctxEl.style.display='block'; ctxText.textContent=q.ctx; }
+    else ctxEl.style.display='none';
+
+    // Question text
+    document.getElementById('q-text').textContent = q.q;
+
+    // Options
+    const optsEl = document.getElementById('opts');
+    optsEl.innerHTML = '';
+    q.opts.forEach((o,i)=>{
+      const btn = document.createElement('button');
+      btn.className = 'option-btn' + (answers[currentQ]===i?' selected':'');
+      btn.textContent = o.text;
+      btn.onclick = ()=>selectOpt(i);
+      optsEl.appendChild(btn);
+    });
+
+    // Nav
+    document.getElementById('btn-back').disabled = currentQ===0;
+    document.getElementById('btn-next').disabled = answers[currentQ]===undefined||answers[currentQ]===null;
+    document.getElementById('btn-next').textContent = currentQ===total-1 ? 'Lihat Hasil →' : 'Lanjut →';
+
+    wrap.classList.add('visible');
+  }, 150);
+}
+
+function selectOpt(i){
+  answers[currentQ] = i;
+  document.querySelectorAll('.option-btn').forEach((b,idx)=>{
+    b.classList.toggle('selected', idx===i);
+  });
+  document.getElementById('btn-next').disabled = false;
+}
+
+document.getElementById('btn-next').onclick = ()=>{
+  if(answers[currentQ]===undefined||answers[currentQ]===null) return;
+  if(currentQ < activeData.total-1){
+    currentQ++;
+    render();
+  } else {
+    showResult();
+  }
+};
+
+document.getElementById('btn-back').onclick = ()=>{
+  if(currentQ>0){ currentQ--; render(); }
+};
+
+/* ═══════════════════════════════════════════
+   RESULT
+═══════════════════════════════════════════ */
+function showResult(){
+  const total = answers.reduce((s,a,i)=> s + activeData.questions[i].opts[a].score, 0);
+  const maxScore = activeData.total * 3;
+  const minScore = activeData.total * 1;
+
+  let key;
+  if(activeData === TES1){
+    key = total <= 13 ? 'conservative' : total <= 20 ? 'moderate' : 'aggressive';
+  }
+
+  const r = activeData.results[key];
+
+  // Hide quiz, show result
+  document.getElementById('quiz-section').style.display = 'none';
+  const rs = document.getElementById('result-section');
+  rs.style.display = 'block';
+
+  // Phase dots
+  document.getElementById('pdot-1').classList.remove('active');
+  document.getElementById('pdot-1').classList.add('done');
+  document.getElementById('pdot-2').classList.add('active');
+  document.getElementById('phase-label').textContent = 'Tes selesai — hasil lo';
+
+  // Fill result
+  document.getElementById('res-eyebrow').textContent = r.eyebrow;
+  document.getElementById('res-title').textContent = r.title;
+  document.getElementById('res-subtitle').textContent = r.subtitle;
+  document.getElementById('meter-left').textContent = r.meterLeft;
+  document.getElementById('meter-right').textContent = r.meterRight;
+
+  // Warning
+  const warnEl = document.getElementById('res-warning');
+  if(r.warning){
+    warnEl.style.display = 'block';
+    document.getElementById('res-warning-text').textContent = r.warning;
+  } else {
+    warnEl.style.display = 'none';
+  }
+
+  // Desc
+  document.getElementById('res-desc-box').innerHTML = r.desc;
+
+  // Traits
+  document.getElementById('trait-grid').innerHTML = r.traits.map(t=>`
+    <div class="trait-card">
+      <div class="trait-card-label">${t.label}</div>
+      <div class="trait-card-val">${t.val}</div>
+    </div>
+  `).join('');
+
+  // Next test
+  if(r.nextTest){
+    const ntBox = document.getElementById('next-test-box');
+    ntBox.style.display = 'block';
+    document.getElementById('nt-label').textContent = r.nextTest.label;
+    document.getElementById('nt-title').textContent = r.nextTest.title;
+    document.getElementById('nt-desc').textContent = r.nextTest.desc;
+    document.getElementById('btn-nt').onclick = ()=>{
+      window.location.href = r.nextTest.target;
+    };
+  }
+
+  // Animate meter after paint
+  setTimeout(()=>{
+    const fill = document.getElementById('meter-fill');
+    fill.style.background = r.meterColor;
+    fill.style.width = r.meterPct + '%';
+  }, 300);
+
+  // Scroll to top of result
+  window.scrollTo({top: document.getElementById('result-section').offsetTop - 120, behavior:'smooth'});
+}
+
+/* ═══════════════════════════════════════════
+   RETRY
+═══════════════════════════════════════════ */
+document.getElementById('btn-retry').onclick = ()=>{
+  currentQ = 0;
+  answers = [];
+  activeData = TES1;
+  document.getElementById('result-section').style.display = 'none';
+  document.getElementById('quiz-section').style.display = 'block';
+  document.getElementById('pdot-1').classList.remove('done');
+  document.getElementById('pdot-1').classList.add('active');
+  document.getElementById('pdot-2').classList.remove('active');
+  document.getElementById('phase-label').textContent = 'Tes 1 dari 2';
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+/* ═══════════════════════════════════════════
+   SUBSCRIBE
+═══════════════════════════════════════════ */
+const BREVO_URL='https://0207a6f4.sibforms.com/serve/MUIFAJ0YHaYLdZ0FZuxCbKeUgh9zIpyBHfazqkC7hsdKFIq4CUr8S2xuCOInR52TUVtJY7S67YMjOqufa0G_chPGn4_xlgXFNJ-TcoF54RI1BljPe2-35QBHtf_iYnr6YgutY0Xoyp-Za-CH_GrckeJcpCl12WgOC4UABSrUFV4hqFNVHWJUVG1WINHKth7jAYxA0VazGh9H3kENEw==';
+async function subscribe(email,btn,orig){
+  if(!email||!email.includes('@')){btn.textContent='✗ Email invalid';btn.style.background='#ef4444';setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2000);return;}
+  btn.textContent='...';btn.disabled=true;
+  try{
+    const fd=new FormData();fd.append('EMAIL',email);fd.append('email_address_check','');fd.append('locale','id');
+    await fetch(BREVO_URL,{method:'POST',body:fd,mode:'no-cors'});
+    btn.textContent='✓ Done!';btn.style.background='#22c55e';
+    document.getElementById('sub-email').value='';
+  }catch{btn.textContent='✗ Coba lagi';btn.style.background='#ef4444';}
+  finally{btn.disabled=false;setTimeout(()=>{btn.textContent=orig;btn.style.background='';},3000);}
+}
+document.getElementById('sub-btn').addEventListener('click',()=>{
+  subscribe(document.getElementById('sub-email').value.trim(),document.getElementById('sub-btn'),'Subscribe');
+});
+
+/* ═══════════════════════════════════════════
+   NEURAL BG
+═══════════════════════════════════════════ */
+const bgC=document.getElementById('neural-canvas');
+const bgX=bgC.getContext('2d');
+let W,H,bgNodes=[];
+function resize(){W=bgC.width=window.innerWidth;H=bgC.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+class BgNode{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*1.5+0.5;}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();}draw(){bgX.beginPath();bgX.arc(this.x,this.y,this.r,0,Math.PI*2);bgX.fillStyle=`rgba(220,30,30,${.2+Math.random()*.15})`;bgX.fill();}}
+for(let i=0;i<35;i++)bgNodes.push(new BgNode());
+function bgLoop(){bgX.clearRect(0,0,W,H);for(let i=0;i<bgNodes.length;i++){for(let j=i+1;j<bgNodes.length;j++){const dx=bgNodes[i].x-bgNodes[j].x,dy=bgNodes[i].y-bgNodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<130){bgX.beginPath();bgX.moveTo(bgNodes[i].x,bgNodes[i].y);bgX.lineTo(bgNodes[j].x,bgNodes[j].y);bgX.strokeStyle=`rgba(220,30,30,${(1-d/130)*.1})`;bgX.lineWidth=.5;bgX.stroke();}}}bgNodes.forEach(n=>{n.update();n.draw();});requestAnimationFrame(bgLoop);}
+bgLoop();
+
+/* INIT */
+render();
+</script>
 </body>
 </html>

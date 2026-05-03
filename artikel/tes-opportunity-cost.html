@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tes Opportunity Cost — CogniThink</title>
+<meta name="description" content="Lo konservatif — tapi apakah lo sadar bahwa diam juga ada harganya? Tes ini mengungkap seberapa mahal harga rasa aman lo.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#DC1E1E;--orange:#FF4800;--black:#0A0A0A;--dark:#1A1A1A;--white:#FFFFFF;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--red);}
+
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(220,30,30,0.15);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;cursor:pointer;text-decoration:none;color:#fff;}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:30px;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.6);text-decoration:none;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--red);}
+.nav-cta{background:var(--red);color:#fff;border:none;padding:10px 22px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none;}
+.nav-cta:hover{background:var(--orange);}
+
+#neural-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.12;}
+
+.page-header{padding:130px 40px 60px;position:relative;z-index:1;max-width:800px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,0.06);}
+.breadcrumb{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:24px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.breadcrumb a{color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.3s;}
+.breadcrumb a:hover{color:var(--red);}
+.breadcrumb span{color:rgba(255,255,255,0.15);}
+.page-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border:1px solid rgba(220,30,30,0.4);color:var(--red);margin-bottom:20px;}
+.prev-result{display:inline-flex;align-items:center;gap:10px;background:rgba(220,30,30,0.06);border:1px solid rgba(220,30,30,0.15);padding:10px 16px;margin-bottom:20px;}
+.prev-result-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);}
+.prev-result-val{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--red);letter-spacing:1px;}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:64px;line-height:1;margin-bottom:16px;letter-spacing:1px;}
+.page-title span{color:var(--red);}
+.page-desc{font-size:16px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:24px;max-width:580px;}
+.page-meta{display:flex;gap:24px;align-items:center;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);text-transform:uppercase;}
+.meta-dot{color:rgba(220,30,30,0.5);}
+
+.quiz-main{max-width:800px;margin:0 auto;padding:60px 40px 80px;position:relative;z-index:1;}
+
+.progress-wrap{margin-bottom:32px;}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.progress-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;}
+.progress-count{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);}
+.progress-bg{height:2px;background:rgba(255,255,255,0.08);border-radius:2px;}
+.progress-fill{height:2px;background:var(--red);border-radius:2px;transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
+
+.question-wrap{opacity:0;transform:translateY(16px);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);}
+.question-wrap.visible{opacity:1;transform:translateY(0);}
+.question-context{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:2px solid rgba(220,30,30,0.4);padding:16px 20px;margin-bottom:20px;font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;font-family:'Space Mono',monospace;}
+.question-context-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(220,30,30,0.6);margin-bottom:8px;}
+.question-text{font-family:'Inter',sans-serif;font-size:22px;font-weight:500;color:rgba(255,255,255,0.92);line-height:1.5;margin-bottom:28px;}
+
+.options-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:36px;}
+.option-btn{padding:18px 24px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.65);font-family:'Inter',sans-serif;font-size:15px;font-weight:400;line-height:1.6;text-align:left;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
+.option-btn::before{content:'';position:absolute;left:0;top:0;width:0;height:100%;background:rgba(220,30,30,0.06);transition:width 0.3s;}
+.option-btn:hover{border-color:rgba(220,30,30,0.3);color:rgba(255,255,255,0.85);}
+.option-btn:hover::before{width:100%;}
+.option-btn.selected{border-color:var(--red);color:#fff;background:rgba(220,30,30,0.08);}
+.option-btn.selected::after{content:'✓';position:absolute;right:20px;top:50%;transform:translateY(-50%);color:var(--red);font-size:14px;font-weight:600;}
+
+.nav-btns{display:flex;justify-content:space-between;align-items:center;}
+.btn-back{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);background:none;border:none;cursor:pointer;padding:12px 0;transition:color 0.3s;}
+.btn-back:hover{color:rgba(255,255,255,0.6);}
+.btn-back:disabled{opacity:0.2;cursor:default;}
+.btn-next{background:var(--red);color:#fff;border:none;padding:14px 32px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.btn-next:hover:not(:disabled){background:var(--orange);transform:translateY(-1px);}
+.btn-next:disabled{opacity:0.25;cursor:default;transform:none;}
+
+.result-screen{display:none;animation:fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+.result-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
+.result-title{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:0.95;margin-bottom:8px;letter-spacing:1px;}
+.result-subtitle{font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(255,255,255,0.3);margin-bottom:32px;letter-spacing:1px;}
+
+.score-meter{margin:32px 0;}
+.score-meter-labels{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:10px;}
+.score-meter-track{height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;}
+.score-meter-fill{height:4px;border-radius:2px;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);}
+
+/* INFLASI COUNTER — unik untuk tes ini */
+.inflasi-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);padding:28px 32px;margin:32px 0;text-align:center;}
+.inflasi-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px;}
+.inflasi-angka{font-family:'Bebas Neue',sans-serif;font-size:56px;color:var(--red);line-height:1;margin-bottom:8px;}
+.inflasi-desc{font-size:13px;color:rgba(255,255,255,0.35);line-height:1.6;}
+
+.trait-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:32px 0;}
+.trait-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:20px;}
+.trait-card-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px;}
+.trait-card-val{font-family:'Inter',sans-serif;font-size:15px;font-weight:500;color:rgba(255,255,255,0.88);}
+
+.insight-box{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:3px solid rgba(220,30,30,0.5);padding:20px 24px;margin:24px 0;}
+.insight-box-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:10px;}
+.insight-box p{font-size:15px;color:rgba(255,255,255,0.65);line-height:1.7;margin:0;font-style:italic;}
+
+.result-desc-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-left:3px solid var(--red);padding:28px 32px;margin:24px 0;}
+.result-desc-box p{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:16px;}
+.result-desc-box p:last-child{margin:0;}
+
+.artikel-cta{background:var(--dark);border:1px solid rgba(255,255,255,0.08);padding:32px;margin:40px 0;position:relative;overflow:hidden;}
+.artikel-cta::before{content:'BACA';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:80px;color:rgba(255,255,255,0.03);letter-spacing:4px;pointer-events:none;}
+.artikel-cta-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px;}
+.artikel-cta-title{font-family:'Bebas Neue',sans-serif;font-size:24px;margin-bottom:8px;}
+.artikel-cta-desc{font-size:14px;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:20px;}
+.btn-artikel{display:inline-block;background:transparent;color:var(--red);border:1px solid rgba(220,30,30,0.4);padding:12px 28px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none;letter-spacing:0.5px;}
+.btn-artikel:hover{background:var(--red);color:#fff;border-color:var(--red);}
+
+.cta-subscribe{background:rgba(220,30,30,0.06);border:1px solid rgba(220,30,30,0.2);padding:40px;margin:40px 0;text-align:center;}
+.cta-subscribe h3{font-family:'Bebas Neue',sans-serif;font-size:32px;margin-bottom:8px;}
+.cta-subscribe p{font-size:14px;color:rgba(255,255,255,0.45);margin-bottom:24px;}
+.cta-form{display:flex;gap:10px;max-width:400px;margin:0 auto;}
+.cta-form input{flex:1;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:#fff;font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border-color 0.3s;}
+.cta-form input:focus{border-color:var(--red);}
+.cta-form input::placeholder{color:rgba(255,255,255,0.25);}
+.btn-sub{background:var(--red);color:#fff;border:none;padding:12px 24px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;text-transform:uppercase;cursor:pointer;transition:all 0.3s;white-space:nowrap;}
+.btn-sub:hover{background:var(--orange);}
+
+.btn-retry{display:block;margin:0 auto;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);background:none;border:none;cursor:pointer;padding:12px;transition:color 0.3s;text-align:center;}
+.btn-retry:hover{color:rgba(255,255,255,0.5);}
+
+.artikel-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 40px 60px;max-width:800px;margin:0 auto;position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.06);}
+.nav-back-link{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.3s;}
+.nav-back-link:hover{color:var(--red);}
+
+footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relative;z-index:1;}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;}
+.footer-logo span{color:var(--red);}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.3s;text-transform:uppercase;}
+.footer-links a:hover{color:var(--red);}
+.footer-copy{max-width:1200px;margin:20px auto 0;font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:1px;}
+
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links{display:none;}
+  .page-header,.quiz-main{padding-left:20px;padding-right:20px;}
+  .page-title{font-size:44px;}
+  .result-title{font-size:52px;}
+  .trait-grid{grid-template-columns:1fr;}
+  .cta-form{flex-direction:column;}
+  .footer-inner{flex-direction:column;gap:16px;text-align:center;}
+  .artikel-nav{padding:30px 20px 40px;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="neural-canvas"></canvas>
+
+<nav>
+  <a href="../" class="nav-logo">COGNI<span>THINK</span></a>
+  <div class="nav-links">
+    <a href="../#pillars">Topik</a>
+    <a href="./">Artikel</a>
+    <a href="../#resources">Resources</a>
+    <a href="../#community">Community</a>
+  </div>
+  <a href="../#hero-email" class="nav-cta">Join Gratis</a>
+</nav>
+
+<div class="page-header">
+  <div class="breadcrumb">
+    <a href="../">Home</a>
+    <span>/</span>
+    <a href="./">Artikel</a>
+    <span>/</span>
+    <a href="tes-profil-psikologi-investor.html">Profil Investor</a>
+    <span>/</span>
+    Opportunity Cost
+  </div>
+  <div class="prev-result">
+    <span class="prev-result-label">Hasil Tes 1</span>
+    <span class="prev-result-val">KONSERVATIF →</span>
+  </div>
+  <span class="page-badge">Tes Lanjutan 2A — Psikologi Investasi</span>
+  <h1 class="page-title">TES<br><span>OPPORTUNITY COST</span></h1>
+  <p class="page-desc">Lo konservatif — artinya lo aman dari kerugian yang lo lihat. Tapi ada kerugian yang tidak lo lihat. Tes ini ngukur seberapa sadar lo terhadapnya.</p>
+  <div class="page-meta">
+    <span>⏱ 3–5 menit</span>
+    <span class="meta-dot">●</span>
+    <span>7 pertanyaan</span>
+    <span class="meta-dot">●</span>
+    <span>Lanjutan Tes 1</span>
+  </div>
+</div>
+
+<div class="quiz-main">
+  <div id="quiz-section">
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span class="progress-label">Pertanyaan</span>
+        <span class="progress-count" id="q-count">1/7</span>
+      </div>
+      <div class="progress-bg"><div class="progress-fill" id="prog-fill" style="width:14%"></div></div>
+    </div>
+
+    <div class="question-wrap" id="q-wrap">
+      <div class="question-context" id="q-ctx" style="display:none">
+        <div class="question-context-label">Konteks</div>
+        <div id="q-ctx-text"></div>
+      </div>
+      <div class="question-text" id="q-text"></div>
+      <div class="options-grid" id="opts"></div>
+      <div class="nav-btns">
+        <button class="btn-back" id="btn-back" disabled>← Kembali</button>
+        <button class="btn-next" id="btn-next" disabled>Lanjut →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-screen" id="result-section">
+    <div class="result-eyebrow" id="res-eyebrow"></div>
+    <div class="result-title" id="res-title"></div>
+    <div class="result-subtitle" id="res-subtitle"></div>
+
+    <div class="score-meter">
+      <div class="score-meter-labels">
+        <span>Sadar & terukur</span>
+        <span>Uang mati</span>
+      </div>
+      <div class="score-meter-track">
+        <div class="score-meter-fill" id="meter-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- INFLASI COUNTER — elemen unik tes ini -->
+    <div class="inflasi-box" id="inflasi-box">
+      <div class="inflasi-label">Estimasi daya beli yang hilang dalam 5 tahun</div>
+      <div class="inflasi-angka" id="inflasi-angka">—</div>
+      <div class="inflasi-desc" id="inflasi-desc"></div>
+    </div>
+
+    <div class="insight-box" id="res-insight" style="display:none">
+      <div class="insight-box-label">Insight</div>
+      <p id="res-insight-text"></p>
+    </div>
+
+    <div class="trait-grid" id="trait-grid"></div>
+    <div class="result-desc-box" id="res-desc-box"></div>
+
+    <div class="artikel-cta">
+      <div class="artikel-cta-label">Artikel Rekomendasi</div>
+      <div class="artikel-cta-title">LIKUIDITAS & RISK ASSET</div>
+      <div class="artikel-cta-desc">Pahami dari mana uang yang menggerakkan market berasal — dan kenapa diam bukan pilihan netral.</div>
+      <a href="likuiditas-risk-asset.html" class="btn-artikel">Baca Artikel →</a>
+    </div>
+
+    <div class="cta-subscribe">
+      <h3>DAPAT KONTEN LANJUTAN — GRATIS</h3>
+      <p>Subscribe dan dapatkan notifikasi tiap konten baru. No spam.</p>
+      <div class="cta-form">
+        <input type="email" id="sub-email" placeholder="email lu...">
+        <button class="btn-sub" id="sub-btn">Subscribe</button>
+      </div>
+    </div>
+
+    <button class="btn-retry" id="btn-retry">↺ Ulangi tes ini</button>
+  </div>
+</div>
+
+<div class="artikel-nav">
+  <a href="tes-profil-psikologi-investor.html" class="nav-back-link">← Kembali ke Tes 1</a>
+  <a href="./" class="nav-back-link">Semua Artikel →</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">COGNI<span>THINK</span></div>
+    <div class="footer-links">
+      <a href="https://instagram.com/cognithink_" target="_blank">Instagram</a>
+      <a href="./">Artikel</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 CogniThink. All rights reserved.</div>
+</footer>
+
+<script>
+const questions=[
+  {
+    q:"Lo punya Rp 50 juta di tabungan biasa sudah 2 tahun. Bunga tabungan lo 2% per tahun. Inflasi rata-rata 4% per tahun. Perasaan lo soal uang itu?",
+    ctx:null,
+    opts:[
+      {text:"Tenang. Yang penting uangnya aman dan tidak berkurang.",score:1},
+      {text:"Sedikit khawatir — tapi gua belum tau mau dipindah ke mana yang aman.",score:2},
+      {text:"Tidak nyaman. Gua sadar uang itu nilainya turun Rp 1 juta per tahun secara riil.",score:3}
+    ]
+  },
+  {
+    q:"Teman lo yang dulu sama-sama nabung Rp 30 juta, sekarang nilainya jadi Rp 52 juta setelah 4 tahun di reksa dana. Punya lo masih Rp 32 juta di deposito. Reaksi lo?",
+    ctx:null,
+    opts:[
+      {text:"Lega. Punya lo tidak pernah minus — itu yang terpenting.",score:1},
+      {text:"Mulai kepikiran untuk cari instrumen yang returnnya lebih tinggi dari deposito.",score:2},
+      {text:"Sadar bahwa selisih Rp 20 juta itu adalah harga dari rasa aman yang lo pilih.",score:3}
+    ]
+  },
+  {
+    q:"Lo ditawari reksa dana pasar uang — return 5.5% per tahun, dijamin OJK, risikonya sangat rendah. Tapi lo harus lock dana selama 1 tahun. Lo...",
+    ctx:"Dana ini adalah uang yang memang tidak akan lo pakai dalam 1 tahun ke depan.",
+    opts:[
+      {text:"Tidak mau. Gua tidak nyaman kalau uang lo tidak bisa diakses kapanpun.",score:1},
+      {text:"Pertimbangkan dulu — gua cek semua syarat dan kondisinya.",score:2},
+      {text:"Masuk. Return 5.5% dengan risiko rendah untuk dana yang memang tidak terpakai itu keputusan yang masuk akal.",score:3}
+    ]
+  },
+  {
+    q:"Lo baru dapat bonus Rp 15 juta. Semua kebutuhan lo sudah terpenuhi. Lo taruh di mana?",
+    ctx:null,
+    opts:[
+      {text:"Tabungan biasa. Yang penting aman dan bisa diambil kapanpun.",score:1},
+      {text:"Deposito. Lebih tinggi dari tabungan biasa, masih terjamin LPS.",score:2},
+      {text:"Sebagian deposito, sebagian reksa dana obligasi atau pasar uang — diversifikasi sederhana.",score:3}
+    ]
+  },
+  {
+    q:"Lo baca berita: inflasi tahun ini 5%, sementara bunga deposito lo 3.5%. Lo...",
+    ctx:null,
+    opts:[
+      {text:"Tidak terlalu dipusingkan. Uang lo tidak hilang, masih ada di rekening.",score:1},
+      {text:"Khawatir tapi tidak tau harus mulai dari mana.",score:2},
+      {text:"Mulai cari tahu instrumen apa yang bisa setidaknya mengimbangi inflasi.",score:3}
+    ]
+  },
+  {
+    q:"Teman lo bilang: 'Investasi itu gambling, mendingan simpan cash aja.' Lo...",
+    ctx:null,
+    opts:[
+      {text:"Setuju. Lo juga merasa lebih nyaman pegang cash daripada risiko kehilangan.",score:1},
+      {text:"Tidak sepenuhnya setuju — tapi lo juga tidak punya argumen yang kuat untuk counter.",score:2},
+      {text:"Tidak setuju. Simpan cash juga ada risikonya — nilai belinya turun setiap tahun karena inflasi.",score:3}
+    ]
+  },
+  {
+    q:"Lo punya Rp 20 juta 'dana darurat' yang sudah 3 tahun tidak pernah disentuh.",
+    ctx:"Dana darurat ideal lo sebenarnya cukup Rp 12 juta — 6 bulan pengeluaran. Sisanya Rp 8 juta menganggur di tabungan biasa.",
+    opts:[
+      {text:"Biarkan semua di tabungan. Lebih besar dana darurat lebih tenang.",score:1},
+      {text:"Kepikiran untuk memisahkan, tapi belum eksekusi karena takut salah pilih instrumen.",score:2},
+      {text:"Pisahkan Rp 8 juta ke instrumen yang lebih produktif tapi tetap likuid — seperti reksa dana pasar uang.",score:3}
+    ]
+  }
+];
+
+const results={
+  aware:{
+    eyebrow:"HASIL TES 2A — OPPORTUNITY COST",
+    title:"SADAR",
+    subtitle:"& Terukur.",
+    insight:"Lo paham sesuatu yang kebanyakan investor konservatif tidak pernah sadari: diam bukan pilihan netral.",
+    inflasiAngka:"~Rp 2–4 juta",
+    inflasiDesc:"Estimasi daya beli yang hilang per Rp 50 juta dalam 5 tahun di tabungan biasa (asumsi inflasi 4%, bunga 2%).",
+    desc:"<p>Setiap rupiah yang lo taruh di tempat yang returnnya di bawah inflasi, nilainya turun diam-diam setiap hari. Lo tidak perlu jadi agresif untuk melawan ini — lo hanya perlu cukup sadar untuk menaruh uang di tempat yang minimal mengimbangi inflasi.</p><p>Lo sudah di jalur itu. Fokus selanjutnya: pastikan seluruh dana lo — termasuk dana darurat yang kelebihan — bekerja seoptimal mungkin sesuai fungsinya.</p>",
+    traits:[
+      {label:"Inflasi awareness",val:"Tinggi"},
+      {label:"Opportunity cost",val:"Paham"},
+      {label:"Risk reframing",val:"Sudah terbentuk"},
+      {label:"Fokus selanjutnya",val:"Optimasi alokasi"}
+    ],
+    color:"#1D9E75",pct:12
+  },
+  cautious:{
+    eyebrow:"HASIL TES 2A — OPPORTUNITY COST",
+    title:"TERLALU",
+    subtitle:"Hati-hati.",
+    insight:"Lo sudah mulai sadar bahwa diam ada biayanya — tapi fear of loss masih lebih keras suaranya dari logika.",
+    inflasiAngka:"~Rp 5–8 juta",
+    inflasiDesc:"Estimasi daya beli yang hilang per Rp 50 juta dalam 5 tahun di deposito (asumsi inflasi 4.5%, deposito 3.5%).",
+    desc:"<p>Lo ada di titik yang menarik: literasi lo sudah cukup untuk tahu bahwa inflasi menggerus daya beli, tapi secara emosional lo belum bisa fully commit untuk bergerak.</p><p>Akibatnya lo stuck di tengah — tahu harus bergerak, tapi tidak bergerak. Ini lebih berbahaya dari yang lo kira, karena lo tidak mendapat ketenangan dari yang konservatif maupun return dari yang mulai berinvestasi.</p><p>Fix-nya sederhana: mulai dari instrumen yang paling tidak terasa seperti 'investasi' — reksa dana pasar uang. Return lebih tinggi dari deposito, risiko sangat rendah, bisa dicairkan kapanpun.</p>",
+    traits:[
+      {label:"Inflasi awareness",val:"Sedang"},
+      {label:"Opportunity cost",val:"Mulai sadar"},
+      {label:"Risk reframing",val:"Masih terbatas"},
+      {label:"Fokus selanjutnya",val:"Mulai dari yang aman"}
+    ],
+    color:"#BA7517",pct:52
+  },
+  dead:{
+    eyebrow:"HASIL TES 2A — OPPORTUNITY COST",
+    title:"UANG",
+    subtitle:"Mati.",
+    insight:"Uang lo aman di atas kertas. Tapi nilainya turun setiap hari — dan lo belum sepenuhnya sadar itu.",
+    inflasiAngka:"~Rp 9–12 juta",
+    inflasiDesc:"Estimasi daya beli yang hilang per Rp 50 juta dalam 5 tahun di tabungan biasa (asumsi inflasi 5%, bunga 1.5%).",
+    desc:"<p>Lo mengukur keamanan finansial dari satu dimensi saja: apakah angkanya berkurang? Padahal ada dimensi kedua yang sama pentingnya: apakah daya belinya berkurang?</p><p>Rp 50 juta hari ini tidak sama dengan Rp 50 juta 5 tahun lagi — bukan karena angkanya berubah, tapi karena harga semua yang bisa lo beli dengan uang itu naik.</p><p>Ini bukan argumen untuk jadi agresif. Ini argumen untuk minimal menaruh uang di tempat yang bisa mengimbangi inflasi. Deposito, reksa dana pasar uang, atau obligasi pemerintah — semua itu masih sangat aman, tapi uang lo tidak mati di sana.</p>",
+    traits:[
+      {label:"Inflasi awareness",val:"Rendah"},
+      {label:"Opportunity cost",val:"Belum terlihat"},
+      {label:"Risk reframing",val:"Belum terbentuk"},
+      {label:"Fokus selanjutnya",val:"Pahami inflasi dulu"}
+    ],
+    color:"#E24B4A",pct:85
+  }
+};
+
+let currentQ=0,answers=[];
+
+function render(){
+  const q=questions[currentQ];
+  document.getElementById('q-count').textContent=`${currentQ+1}/7`;
+  document.getElementById('prog-fill').style.width=`${((currentQ+1)/7)*100}%`;
+
+  const wrap=document.getElementById('q-wrap');
+  wrap.classList.remove('visible');
+  setTimeout(()=>{
+    const ctxEl=document.getElementById('q-ctx');
+    if(q.ctx){ctxEl.style.display='block';document.getElementById('q-ctx-text').textContent=q.ctx;}
+    else ctxEl.style.display='none';
+    document.getElementById('q-text').textContent=q.q;
+    const optsEl=document.getElementById('opts');
+    optsEl.innerHTML='';
+    q.opts.forEach((o,i)=>{
+      const btn=document.createElement('button');
+      btn.className='option-btn'+(answers[currentQ]===i?' selected':'');
+      btn.textContent=o.text;
+      btn.onclick=()=>selectOpt(i);
+      optsEl.appendChild(btn);
+    });
+    document.getElementById('btn-back').disabled=currentQ===0;
+    document.getElementById('btn-next').disabled=answers[currentQ]===undefined||answers[currentQ]===null;
+    document.getElementById('btn-next').textContent=currentQ===6?'Lihat Hasil →':'Lanjut →';
+    wrap.classList.add('visible');
+  },150);
+}
+
+function selectOpt(i){
+  answers[currentQ]=i;
+  document.querySelectorAll('.option-btn').forEach((b,idx)=>b.classList.toggle('selected',idx===i));
+  document.getElementById('btn-next').disabled=false;
+}
+
+document.getElementById('btn-next').onclick=()=>{
+  if(answers[currentQ]===undefined||answers[currentQ]===null)return;
+  if(currentQ<6){currentQ++;render();}else showResult();
+};
+document.getElementById('btn-back').onclick=()=>{if(currentQ>0){currentQ--;render();}};
+
+function showResult(){
+  const total=answers.reduce((s,a,i)=>s+questions[i].opts[a].score,0);
+  const key=total<=11?'dead':total<=16?'cautious':'aware';
+  const r=results[key];
+
+  document.getElementById('quiz-section').style.display='none';
+  document.getElementById('result-section').style.display='block';
+
+  document.getElementById('res-eyebrow').textContent=r.eyebrow;
+  document.getElementById('res-title').textContent=r.title;
+  document.getElementById('res-subtitle').textContent=r.subtitle;
+  document.getElementById('res-desc-box').innerHTML=r.desc;
+
+  // Inflasi counter — unik untuk tes ini
+  document.getElementById('inflasi-angka').textContent=r.inflasiAngka;
+  document.getElementById('inflasi-desc').textContent=r.inflasiDesc;
+
+  const insEl=document.getElementById('res-insight');
+  if(r.insight){insEl.style.display='block';document.getElementById('res-insight-text').textContent=r.insight;}
+  else insEl.style.display='none';
+
+  document.getElementById('trait-grid').innerHTML=r.traits.map(t=>`
+    <div class="trait-card">
+      <div class="trait-card-label">${t.label}</div>
+      <div class="trait-card-val">${t.val}</div>
+    </div>
+  `).join('');
+
+  setTimeout(()=>{
+    const fill=document.getElementById('meter-fill');
+    fill.style.background=r.color;
+    fill.style.width=r.pct+'%';
+  },300);
+
+  window.scrollTo({top:document.getElementById('result-section').offsetTop-120,behavior:'smooth'});
+}
+
+document.getElementById('btn-retry').onclick=()=>{
+  currentQ=0;answers=[];
+  document.getElementById('result-section').style.display='none';
+  document.getElementById('quiz-section').style.display='block';
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+const BREVO_URL='https://0207a6f4.sibforms.com/serve/MUIFAJ0YHaYLdZ0FZuxCbKeUgh9zIpyBHfazqkC7hsdKFIq4CUr8S2xuCOInR52TUVtJY7S67YMjOqufa0G_chPGn4_xlgXFNJ-TcoF54RI1BljPe2-35QBHtf_iYnr6YgutY0Xoyp-Za-CH_GrckeJcpCl12WgOC4UABSrUFV4hqFNVHWJUVG1WINHKth7jAYxA0VazGh9H3kENEw==';
+async function subscribe(email,btn,orig){
+  if(!email||!email.includes('@')){btn.textContent='✗ Email invalid';btn.style.background='#ef4444';setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2000);return;}
+  btn.textContent='...';btn.disabled=true;
+  try{
+    const fd=new FormData();fd.append('EMAIL',email);fd.append('email_address_check','');fd.append('locale','id');
+    await fetch(BREVO_URL,{method:'POST',body:fd,mode:'no-cors'});
+    btn.textContent='✓ Done!';btn.style.background='#22c55e';
+    document.getElementById('sub-email').value='';
+  }catch{btn.textContent='✗ Coba lagi';btn.style.background='#ef4444';}
+  finally{btn.disabled=false;setTimeout(()=>{btn.textContent=orig;btn.style.background='';},3000);}
+}
+document.getElementById('sub-btn').addEventListener('click',()=>{
+  subscribe(document.getElementById('sub-email').value.trim(),document.getElementById('sub-btn'),'Subscribe');
+});
+
+const bgC=document.getElementById('neural-canvas');
+const bgX=bgC.getContext('2d');
+let W,H,bgNodes=[];
+function resize(){W=bgC.width=window.innerWidth;H=bgC.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+class BgNode{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*1.5+0.5;}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();}draw(){bgX.beginPath();bgX.arc(this.x,this.y,this.r,0,Math.PI*2);bgX.fillStyle=`rgba(220,30,30,${.2+Math.random()*.15})`;bgX.fill();}}
+for(let i=0;i<35;i++)bgNodes.push(new BgNode());
+function bgLoop(){bgX.clearRect(0,0,W,H);for(let i=0;i<bgNodes.length;i++){for(let j=i+1;j<bgNodes.length;j++){const dx=bgNodes[i].x-bgNodes[j].x,dy=bgNodes[i].y-bgNodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<130){bgX.beginPath();bgX.moveTo(bgNodes[i].x,bgNodes[i].y);bgX.lineTo(bgNodes[j].x,bgNodes[j].y);bgX.strokeStyle=`rgba(220,30,30,${(1-d/130)*.1})`;bgX.lineWidth=.5;bgX.stroke();}}}bgNodes.forEach(n=>{n.update();n.draw();});requestAnimationFrame(bgLoop);}
+bgLoop();
+
+render();
+</script>
+</body>
+</html>
