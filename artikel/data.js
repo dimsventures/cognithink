@@ -14,6 +14,19 @@
 
 const ARTIKEL_DATA = [
   {
+    id: "ai-amplifier-bukan-creator",
+    file: "ai-amplifier-artikel.html",
+    badge: "AI & Teknologi",
+    cat: "ai",
+    icon: "&#128170;",
+    title: "AI Itu Amplifier, Bukan Creator",
+    desc: "AI cuma berguna kalau lu punya sesuatu yang layak di-amplify. Nol dikali berapa pun tetap nol.",
+    read: "8 menit baca",
+    date: "3 Mei 2026",
+    urgensi: 4,
+  },
+  
+  {
     id: "siapa-yang-cuan-dari-ai-boom ?",
     file: "siapa-yang-cuan-dari-ai-boom.html",
     badge: "AI & Teknologi",
