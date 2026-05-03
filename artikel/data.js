@@ -28,6 +28,19 @@ const ARTIKEL_DATA = [
   },
 
   {
+    id: "siapa-yang-cuan-dari-ai-boom",
+    file: "siapa-yang-cuan-dari-ai-boom.html",
+    badge: "AI & Teknologi",
+    cat: "ai",
+    icon: "&#128176;",
+    title: "Siapa yang Beneran Cuan dari AI Boom",
+    desc: "Bukan yang paling jago pakai ChatGPT. Ini peta layer AI economy — dan lo ada di mana sekarang.",
+    read: "11 menit baca",
+    date: "3 Mei 2026",
+    urgensi: 5,
+  },
+
+  {
     id: "likuiditas-risk-asset",
     file: "likuiditas-risk-asset.html",
     badge: "Market Intelligence",
@@ -54,19 +67,6 @@ const ARTIKEL_DATA = [
   },
 
   {
-    id: "panduan-analisis-market-10-menit",
-    file: "panduan-analisis-market-10-menit.html",
-    badge: "Market Intelligence",
-    cat: "market",
-    icon: "&#128200;",
-    title: "Panduan Analisis Market 10 Menit",
-    desc: "Framework baca kondisi pasar tiap pagi — tanpa harus duduk 2 jam di depan chart.",
-    read: "6 menit baca",
-    date: "Mei 2026",
-    urgensi: 3,
-  },
-
-  {
     id: "tes-profil-psikologi-investor",
     file: "tes-profil-psikologi-investor.html",
     badge: "Psikologi Investasi",
@@ -77,32 +77,6 @@ const ARTIKEL_DATA = [
     read: "5 menit baca",
     date: "3 Mei 2026",
     urgensi: 3,
-  },
-
-  {
-    id: "ai-tools-analisis-market",
-    file: "ai-tools-analisis-market.html",
-    badge: "AI & Teknologi",
-    cat: "ai",
-    icon: "&#129302;",
-    title: "AI Tools buat Analisis Market",
-    desc: "Tools AI yang beneran berguna buat trader dan investor pemula — bukan yang cuma viral doang.",
-    read: "7 menit baca",
-    date: "Mei 2026",
-    urgensi: 3,
-  },
-
-  {
-    id: "blueprint-investasi-pertama",
-    file: "blueprint-investasi-pertama.html",
-    badge: "Market Intelligence",
-    cat: "market",
-    icon: "&#128184;",
-    title: "Blueprint Investasi Pertama",
-    desc: "Dari nol sampai posisi pertama — langkah konkret tanpa harus punya modal gede dulu.",
-    read: "10 menit baca",
-    date: "Mei 2026",
-    urgensi: 4,
   },
 
   {
