@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 Template Prompt Paling Powerful di 2026 — CogniThink</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#DC1E1E;--orange:#FF4800;--black:#0A0A0A;--dark:#1A1A1A;--white:#FFFFFF;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow Condensed',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.5;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--red);}
+
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,10,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(220,30,30,0.15);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;text-decoration:none;color:#fff;}
+.nav-logo span{color:var(--red);}
+.nav-links{display:flex;gap:30px;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.6);text-decoration:none;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--red);}
+.nav-cta{background:var(--red);color:#fff;border:none;padding:10px 22px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none;}
+.nav-cta:hover{background:var(--orange);}
+
+#neural-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.15;}
+
+#read-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--red),var(--orange));z-index:200;width:0%;transition:width 0.1s linear;}
+
+.artikel-header{padding:130px 40px 60px;position:relative;z-index:1;max-width:800px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,0.06);}
+.breadcrumb{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:24px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.breadcrumb a{color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.3s;}
+.breadcrumb a:hover{color:var(--red);}
+.breadcrumb span{color:rgba(255,255,255,0.15);}
+.artikel-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border:1px solid rgba(220,30,30,0.4);color:var(--red);margin-bottom:20px;}
+.artikel-title{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:0.95;margin-bottom:20px;letter-spacing:1px;}
+.artikel-title span{color:var(--red);}
+.artikel-tagline{font-size:18px;color:rgba(255,255,255,0.4);font-style:italic;margin-bottom:28px;font-family:'Space Mono',monospace;font-size:13px;letter-spacing:1px;border-left:3px solid rgba(220,30,30,0.4);padding-left:16px;line-height:1.6;}
+.artikel-meta{display:flex;gap:24px;align-items:center;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);text-transform:uppercase;flex-wrap:wrap;}
+.meta-dot{color:rgba(220,30,30,0.5);}
+
+.artikel-body{max-width:800px;margin:0 auto;padding:60px 40px 80px;position:relative;z-index:1;}
+.artikel-body p{font-size:18px;color:rgba(255,255,255,0.75);line-height:1.75;margin-bottom:24px;font-weight:400;}
+.artikel-body h3{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:rgba(255,255,255,0.9);margin:32px 0 12px;letter-spacing:1px;text-transform:uppercase;}
+.artikel-body ul{list-style:none;margin-bottom:24px;}
+.artikel-body ul li{padding:8px 0 8px 24px;position:relative;font-size:17px;color:rgba(255,255,255,0.7);line-height:1.65;}
+.artikel-body ul li::before{content:'→';position:absolute;left:0;color:var(--red);}
+.artikel-body strong{color:var(--white);font-weight:700;}
+.artikel-body em{color:rgba(255,255,255,0.5);font-style:italic;}
+.divider{border:none;border-top:1px solid rgba(255,255,255,0.06);margin:56px 0;}
+
+/* PROMPT CARD */
+.prompt-card{margin:48px 0;position:relative;}
+.prompt-header{display:flex;align-items:flex-start;gap:24px;margin-bottom:0;}
+.prompt-number{font-family:'Bebas Neue',sans-serif;font-size:100px;line-height:1;color:rgba(220,30,30,0.1);flex-shrink:0;width:80px;text-align:center;transition:color 0.3s;}
+.prompt-card:hover .prompt-number{color:rgba(220,30,30,0.2);}
+.prompt-header-content{flex:1;padding-top:8px;}
+.prompt-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+.prompt-title{font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;margin-bottom:6px;letter-spacing:1px;}
+.prompt-subtitle{font-size:16px;color:rgba(255,255,255,0.4);font-style:italic;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;}
+.prompt-body{margin-top:28px;}
+.prompt-body p{font-size:17px;color:rgba(255,255,255,0.72);line-height:1.75;margin-bottom:20px;}
+
+/* TEMPLATE BOX — shows actual prompt */
+.template-box{background:rgba(10,10,10,0.8);border:1px solid rgba(220,30,30,0.3);border-left:3px solid var(--red);padding:24px 28px;margin:24px 0;position:relative;font-family:'Space Mono',monospace;}
+.template-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.template-label::before{content:'';display:inline-block;width:16px;height:1px;background:var(--red);}
+.template-box pre{font-family:'Space Mono',monospace;font-size:13px;color:rgba(255,255,255,0.75);line-height:1.8;white-space:pre-wrap;word-break:break-word;}
+.template-box pre .bracket{color:rgba(255,160,80,0.9);}
+.copy-btn{position:absolute;top:16px;right:16px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(220,30,30,0.3);background:transparent;color:rgba(220,30,30,0.6);cursor:pointer;transition:all 0.2s;}
+.copy-btn:hover{background:rgba(220,30,30,0.1);color:var(--red);border-color:var(--red);}
+.copy-btn.copied{color:#22c55e;border-color:#22c55e;}
+
+/* USE CASE BOX */
+.usecase-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-left:3px solid rgba(220,30,30,0.5);padding:22px 26px;margin:24px 0;position:relative;}
+.usecase-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:10px;}
+.usecase-box p{font-size:16px;color:rgba(255,255,255,0.6);line-height:1.7;margin:0;font-style:italic;}
+
+/* PRO TIP BOX */
+.tip-box{background:linear-gradient(135deg,rgba(220,30,30,0.07),rgba(255,72,0,0.03));border:1px solid rgba(220,30,30,0.2);padding:20px 24px;margin:24px 0;position:relative;overflow:hidden;}
+.tip-box::after{content:'PRO';position:absolute;right:16px;top:12px;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:4px;color:rgba(220,30,30,0.2);}
+.tip-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.tip-box p{font-size:15px;color:rgba(255,255,255,0.6);line-height:1.7;margin:0;}
+.tip-box strong{color:rgba(255,120,80,0.95);}
+
+/* PROMPT SEPARATOR */
+.prompt-sep{display:flex;align-items:center;gap:16px;margin:56px 0;}
+.prompt-sep-line{flex:1;height:1px;background:rgba(255,255,255,0.05);}
+.prompt-sep-icon{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:4px;color:rgba(220,30,30,0.3);text-transform:uppercase;white-space:nowrap;}
+
+/* SIDEBAR NAV DOTS */
+.prompts-nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:8px;}
+.prompt-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(220,30,30,0.2);cursor:pointer;transition:all 0.3s;position:relative;}
+.prompt-dot.active{background:var(--red);border-color:var(--red);transform:scale(1.4);}
+.prompt-dot:hover{background:rgba(220,30,30,0.5);}
+.prompt-dot-label{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);white-space:nowrap;opacity:0;transition:opacity 0.2s;pointer-events:none;background:rgba(10,10,10,0.9);padding:3px 8px;}
+.prompt-dot:hover .prompt-dot-label{opacity:1;}
+
+/* CALLOUT */
+.callout{background:rgba(220,30,30,0.06);border:1px solid rgba(220,30,30,0.2);border-left:3px solid var(--red);padding:24px 28px;margin:32px 0;}
+.callout p{margin:0;font-size:17px;}
+.callout-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+
+/* CLOSING */
+.closing-box{background:var(--dark);border:1px solid rgba(255,255,255,0.08);padding:48px;margin:64px 0;text-align:center;position:relative;overflow:hidden;}
+.closing-box::before{content:'PROMPT';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;font-size:120px;color:rgba(220,30,30,0.04);pointer-events:none;line-height:1;white-space:nowrap;}
+.closing-box h2{font-family:'Bebas Neue',sans-serif;font-size:40px;margin-bottom:16px;position:relative;z-index:1;}
+.closing-box h2 span{color:var(--red);}
+.closing-box p{font-size:17px;color:rgba(255,255,255,0.55);line-height:1.8;max-width:520px;margin:0 auto;position:relative;z-index:1;}
+
+/* CTA SUBSCRIBE */
+.cta-subscribe{background:linear-gradient(135deg,rgba(220,30,30,0.12),rgba(255,72,0,0.06));border:1px solid rgba(220,30,30,0.25);padding:40px;margin:60px 0;text-align:center;}
+.cta-subscribe h3{font-family:'Bebas Neue',sans-serif;font-size:36px;margin-bottom:10px;}
+.cta-subscribe p{font-size:15px;color:rgba(255,255,255,0.5);margin-bottom:24px;}
+.cta-form{display:flex;gap:10px;max-width:420px;margin:0 auto;}
+.cta-form input{flex:1;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:16px;outline:none;transition:border-color 0.3s;}
+.cta-form input:focus{border-color:var(--red);}
+.cta-form input::placeholder{color:rgba(255,255,255,0.3);}
+.btn-primary{background:var(--red);color:#fff;border:none;padding:12px 24px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;white-space:nowrap;}
+.btn-primary:hover{background:var(--orange);}
+
+.artikel-nav{display:flex;justify-content:space-between;align-items:center;padding:40px 40px 60px;max-width:800px;margin:0 auto;position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.06);}
+.nav-back{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.3s;}
+.nav-back:hover{color:var(--red);}
+
+footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relative;z-index:1;}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;}
+.footer-logo span{color:var(--red);}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.3s;text-transform:uppercase;}
+.footer-links a:hover{color:var(--red);}
+.footer-copy{max-width:1200px;margin:20px auto 0;font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:1px;}
+
+@media(max-width:900px){
+  .prompts-nav{display:none;}
+  .prompt-number{font-size:64px;width:52px;}
+  .prompt-title{font-size:32px;}
+}
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  .nav-links{display:none;}
+  .artikel-header,.artikel-body,.artikel-nav{padding-left:20px;padding-right:20px;}
+  .artikel-title{font-size:52px;}
+  .prompt-header{flex-direction:column;gap:8px;}
+  .prompt-number{font-size:52px;width:auto;}
+  .cta-form{flex-direction:column;}
+  .footer-inner{flex-direction:column;gap:16px;text-align:center;}
+  .closing-box{padding:32px 24px;}
+}
+</style>
+</head>
+<body>
+
+<div id="read-progress"></div>
+<canvas id="neural-canvas"></canvas>
+
+<!-- PROMPTS NAV DOTS -->
+<div class="prompts-nav" id="prompts-nav">
+  <div class="prompt-dot active" data-target="prompt-1"><span class="prompt-dot-label">Role Assignment</span></div>
+  <div class="prompt-dot" data-target="prompt-2"><span class="prompt-dot-label">Chain of Thought</span></div>
+  <div class="prompt-dot" data-target="prompt-3"><span class="prompt-dot-label">Output Format Lock</span></div>
+  <div class="prompt-dot" data-target="prompt-4"><span class="prompt-dot-label">Critique & Improve</span></div>
+  <div class="prompt-dot" data-target="prompt-5"><span class="prompt-dot-label">Few-Shot</span></div>
+  <div class="prompt-dot" data-target="prompt-6"><span class="prompt-dot-label">Devil's Advocate</span></div>
+  <div class="prompt-dot" data-target="prompt-7"><span class="prompt-dot-label">Constraint Stack</span></div>
+  <div class="prompt-dot" data-target="prompt-8"><span class="prompt-dot-label">Context Dump</span></div>
+  <div class="prompt-dot" data-target="prompt-9"><span class="prompt-dot-label">Iterative Refine</span></div>
+  <div class="prompt-dot" data-target="prompt-10"><span class="prompt-dot-label">Meta-Prompt</span></div>
+</div>
+
+<nav>
+  <a href="../" class="nav-logo">COGNI<span>THINK</span></a>
+  <div class="nav-links">
+    <a href="../#pillars">Topik</a>
+    <a href="./">Artikel</a>
+    <a href="../#resources">Resources</a>
+    <a href="../#community">Community</a>
+  </div>
+  <a href="../#hero-email" class="nav-cta">Join Gratis</a>
+</nav>
+
+<div class="artikel-header">
+  <div class="breadcrumb">
+    <a href="../">Home</a>
+    <span>/</span>
+    <a href="./">Artikel</a>
+    <span>/</span>
+    AI & Teknologi
+  </div>
+  <span class="artikel-badge">AI & Teknologi</span>
+  <h1 class="artikel-title">10 TEMPLATE<br>PROMPT PALING<br><span>POWERFUL 2026</span></h1>
+  <p class="artikel-tagline">Bukan soal seberapa pintar AI-nya — tapi seberapa bagus instruksi yang lu kasih.</p>
+  <div class="artikel-meta">
+    <span>&#128197; Mei 2026</span>
+    <span class="meta-dot">●</span>
+    <span>&#9201; 12 menit baca</span>
+    <span class="meta-dot">●</span>
+    <span>&#9997; CogniThink</span>
+  </div>
+</div>
+
+<div class="artikel-body">
+
+  <p>Di 2026, hampir semua orang sudah pakai AI. Tapi ada jurang besar antara yang <strong>sekadar pakai</strong> dan yang benar-benar <strong>mengekstrak nilai maksimal</strong> dari tiap sesi. Perbedaannya bukan di model mana yang mereka pakai. Perbedaannya ada di cara mereka menulis prompt.</p>
+
+  <p>Di bawah ini adalah 10 pola prompt yang paling sering dipakai power users — dari developer, marketer, researcher, sampai founder — setiap harinya. Copy, adaptasi, dan jadikan milik lu.</p>
+
+  <div class="callout">
+    <div class="callout-label">&#128161; Cara Pakai</div>
+    <p>Setiap template punya bagian <strong>[kurung kotak]</strong> yang perlu lu isi sesuai konteks. Bagian di luar kurung adalah struktur yang sudah terbukti — jangan diubah sembarangan.</p>
+  </div>
+
+  <!-- ══════════════════════════════════ PROMPT 1 ══════════════════════════════════ -->
+  <div class="prompt-card" id="prompt-1">
+    <div class="prompt-header">
+      <div class="prompt-number">I</div>
+      <div class="prompt-header-content">
+        <div class="prompt-label">Template 01 of 10</div>
+        <div class="prompt-title">ROLE ASSIGNMENT</div>
+        <div class="prompt-subtitle">"Jadikan AI sebagai expert yang lu butuhkan"</div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <p>Ini adalah template paling fundamental yang ada. AI merespons jauh lebih baik ketika diberi identitas yang spesifik. Bukan sekadar "kamu adalah dokter" — tapi detail tentang spesialisasi, pengalaman, dan cara berpikir yang lu harapkan.</p>
+      <p>Perbedaan antara "bantu saya" dan "kamu adalah [expert spesifik], bantu saya" bisa menghasilkan output yang berbeda kelas.</p>
+
+      <div class="template-box">
+        <div class="template-label">Template</div>
+        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+        <pre>Kamu adalah [jabatan/peran spesifik] dengan [X tahun] pengalaman di bidang [domain].
+Keahlian utamamu: [skill 1], [skill 2], [skill 3].
+Cara kamu berpikir: [pendekatan/framework yang kamu gunakan].
+
+Tugasmu sekarang: [tugas yang lu inginkan].</pre>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-label">&#128161; Contoh Nyata</div>
+        <p>"Kamu adalah senior product manager dengan 8 tahun pengalaman di SaaS B2B. Keahlian utamamu: user research, roadmap prioritization, dan stakeholder alignment. Cara kamu berpikir: selalu mulai dari pain point user, bukan fitur. Tugasmu: review PRD ini dan beri feedback kritis."</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">&#9889; Pro Tip</div>
+        <p>Tambahkan <strong>"Kalau kamu tidak yakin, katakan tidak tahu — jangan karang jawaban."</strong> Ini mengurangi halusinasi secara signifikan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-sep"><div class="prompt-sep-line"></div><div class="prompt-sep-icon">&#9670; CogniThink &#9670;</div><div class="prompt-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ PROMPT 2 ══════════════════════════════════ -->
+  <div class="prompt-card" id="prompt-2">
+    <div class="prompt-header">
+      <div class="prompt-number">II</div>
+      <div class="prompt-header-content">
+        <div class="prompt-label">Template 02 of 10</div>
+        <div class="prompt-title">CHAIN OF THOUGHT</div>
+        <div class="prompt-subtitle">"Paksa AI berpikir dulu, baru menjawab"</div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <p>AI yang langsung menjawab sering salah. AI yang diminta <strong>berpikir step-by-step sebelum menjawab</strong> menghasilkan output yang jauh lebih akurat — terutama untuk soal analisis, matematika, logic, atau keputusan kompleks.</p>
+      <p>Chain of Thought bukan gimmick — ini adalah cara kerja reasoning model yang optimal. Lu secara eksplisit mengaktifkan mode berpikir yang lebih dalam.</p>
+
+      <div class="template-box">
+        <div class="template-label">Template</div>
+        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+        <pre>Sebelum menjawab, pikirkan langkah demi langkah:
+1. Apa yang benar-benar ditanyakan di sini?
+2. Informasi apa yang relevan?
+3. Apa asumsi yang perlu diperiksa?
+4. Apa kemungkinan jawabannya, dan mana yang paling solid?
+
+Baru setelah itu, berikan jawaban finalmu.
+
+Pertanyaan: [pertanyaan atau masalah lu]</pre>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-label">&#128161; Kapan Dipakai</div>
+        <p>Analisis data yang ambigu, debugging logika bisnis, evaluasi keputusan strategis, soal matematika/statistik, atau setiap kali lu butuh jawaban yang bisa dipertanggungjawabkan alurnya.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">&#9889; Pro Tip</div>
+        <p>Tambahkan <strong>"Tunjukkan proses berpikirmu, bukan hanya kesimpulan."</strong> Ini membuat lu bisa men-debug di mana AI mulai salah arah.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-sep"><div class="prompt-sep-line"></div><div class="prompt-sep-icon">&#9670; CogniThink &#9670;</div><div class="prompt-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ PROMPT 3 ══════════════════════════════════ -->
+  <div class="prompt-card" id="prompt-3">
+    <div class="prompt-header">
+      <div class="prompt-number">III</div>
+      <div class="prompt-header-content">
+        <div class="prompt-label">Template 03 of 10</div>
+        <div class="prompt-title">OUTPUT FORMAT LOCK</div>
+        <div class="prompt-subtitle">"Definisikan bentuk output-nya, bukan hanya isinya"</div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <p>Kebanyakan orang hanya memberi tahu AI <em>apa</em> yang harus dilakukan — tapi lupa mendefinisikan <em>bagaimana</em> outputnya harus terlihat. Hasilnya: jawaban panjang yang harus lu potong-potong sendiri, atau format yang tidak cocok dengan kebutuhan lu.</p>
+      <p><strong>Format Lock memaksa AI untuk langsung menghasilkan output yang siap pakai</strong>, tanpa basa-basi dan tanpa reformatting dari sisi lu.</p>
+
+      <div class="template-box">
+        <div class="template-label">Template</div>
+        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+        <pre>Respond HANYA dalam format berikut. Tidak perlu pengantar, tidak perlu penutup, tidak perlu penjelasan.
+
+Format output:
+[deskripsikan format yang lu inginkan — JSON, tabel markdown, bullet list, numbered steps, dll]
+
+Contoh output yang diharapkan:
+[berikan 1 contoh konkret]
+
+Sekarang lakukan untuk:
+[input atau tugas lu]</pre>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-label">&#128161; Contoh Nyata</div>
+        <p>"Respond HANYA dalam format JSON array. Tidak perlu pengantar. Format: [{&quot;title&quot;: &quot;...&quot;, &quot;hook&quot;: &quot;...&quot;, &quot;cta&quot;: &quot;...&quot;}]. Sekarang buat 5 ide konten Instagram untuk brand skincare Gen Z."</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">&#9889; Pro Tip</div>
+        <p>Semakin spesifik format yang lu definisikan, semakin konsisten outputnya. <strong>Berikan contoh nyata</strong> selalu lebih efektif daripada deskripsi abstrak.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-sep"><div class="prompt-sep-line"></div><div class="prompt-sep-icon">&#9670; CogniThink &#9670;</div><div class="prompt-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ PROMPT 4 ══════════════════════════════════ -->
+  <div class="prompt-card" id="prompt-4">
+    <div class="prompt-header">
+      <div class="prompt-number">IV</div>
+      <div class="prompt-header-content">
+        <div class="prompt-label">Template 04 of 10</div>
+        <div class="prompt-title">CRITIQUE & IMPROVE</div>
+        <div class="prompt-subtitle">"Bukan minta dipuji — minta dihancurkan dulu"</div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <p>Ini salah satu template paling underrated. Alih-alih langsung minta AI membuat sesuatu dari nol, lu kasih draftmu dulu — lalu minta AI mengkritiknya secara keras sebelum memperbaikinya. Hasilnya jauh lebih tajam daripada iterasi biasa.</p>
+      <p>Kenapa? Karena <strong>kritik yang spesifik mengunci masalah yang harus diselesaikan</strong> — sehingga perbaikan yang dilakukan punya arah yang jelas, bukan asal "lebih baik".</p>
+
+      <div class="template-box">
+        <div class="template-label">Template</div>
+        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+        <pre>Ini adalah [draft/tulisan/rencana/kode] yang saya buat:
+
+---
+[paste draft lu di sini]
+---
+
+Langkah 1 — KRITIK: Identifikasi semua kelemahan. Jangan sopan. Apa yang lemah, ambigu, hilang, atau salah?
+
+Langkah 2 — PERBAIKI: Tulis ulang versi yang sudah memperbaiki semua isu tersebut.
+Pertahankan: [hal yang tidak boleh diubah]
+Fokus perbaikan pada: [area yang paling penting]</pre>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-label">&#128161; Kapan Dipakai</div>
+        <p>Email penting, copy iklan, pitch deck section, kode yang sudah jalan tapi mau dioptimasi, atau argumen yang akan lu presentasikan ke orang yang skeptis.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">&#9889; Pro Tip</div>
+        <p>Tambahkan <strong>"Kritik dari perspektif [orang yang paling skeptis terhadap ini]"</strong> untuk mendapat sudut pandang yang paling keras dan berguna.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-sep"><div class="prompt-sep-line"></div><div class="prompt-sep-icon">&#9670; CogniThink &#9670;</div><div class="prompt-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ PROMPT 5 ══════════════════════════════════ -->
+  <div class="prompt-card" id="prompt-5">
+    <div class="prompt-header">
+      <div class="prompt-number">V</div>
+      <div class="prompt-header-content">
+        <div class="prompt-label">Template 05 of 10</div>
+        <div class="prompt-title">FEW-SHOT EXAMPLES</div>
+        <div class="prompt-subtitle">"Tunjukkan, jangan hanya jelaskan"</div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <p>Daripada mendeskripsikan gaya, tone, atau format yang lu inginkan — <strong>tunjukkan contohnya langsung.</strong> AI adalah pattern matching machine yang sangat kuat. Dua atau tiga contoh konkret hampir selalu menghasilkan output yang lebih on-point dibanding paragraf deskripsi panjang.</p>
+      <p>Few-Shot adalah cara tercepat untuk "mengajari" AI voice brand, gaya penulisan spesifik, atau logika kategorisasi yang kompleks.</p>
+
+      <div class="template-box">
+        <div class="template-label">Template</div>
+        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+        <pre>Ini adalah contoh [output yang lu inginkan]:
+
+Contoh 1:
+Input: [contoh input 1]
+Output: [contoh output 1]
+
+Contoh 2:
+Input: [contoh input 2]
+Output: [contoh output 2]
+
+Contoh 3:
+Input: [contoh input 3]
+Output: [contoh output 3]
+
+Sekarang lakukan hal yang sama untuk:
+Input: [input baru lu]
+Output:</pre>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-label">&#128161; Kapan Dipakai</div>
+        <p>Menyamakan tone of voice brand, kategorisasi data, membuat variasi copy dengan gaya yang konsisten, atau generating content yang mengikuti pola spesifik yang sudah ada.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">&#9889; Pro Tip</div>
+        <p>Pilih contoh yang <strong>diverse tapi tetap on-brand</strong> — contoh yang terlalu mirip satu sama lain membuat AI tidak belajar banyak dari variasi yang ada.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-sep"><div class="prompt-sep-line"></div><div class="prompt-sep-icon">&#9670; CogniThink &#9670;</div><div class="prompt-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ PROMPT 6 ══════════════════════════════════ -->
+  <div class="prompt-card" id="prompt-6">
+    <div class="prompt-header">
+      <div class="prompt-number">VI</div>
+      <div class="prompt-header-content">
+        <div class="prompt-label">Template 06 of 10</div>
+        <div class="prompt-title">DEVIL'S ADVOCATE</div>
+        <div class="prompt-subtitle">"Minta AI untuk tidak setuju dengan lu"</div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <p>AI secara default cenderung agreeable — ia akan menemukan cara untuk mengiyakan apapun yang lu katakan. Ini berbahaya ketika lu butuh second opinion yang jujur. Template ini <strong>secara eksplisit meminta AI untuk mencari semua alasan kenapa lu salah</strong> — sebelum lu membawa ide itu ke dunia nyata.</p>
+      <p>Ini adalah stress-test ide yang paling murah dan paling cepat yang bisa lu dapatkan.</p>
+
+      <div class="template-box">
+        <div class="template-label">Template</div>
+        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+        <pre>Saya punya keyakinan/rencana/argumen berikut:
+
+"[tuliskan ide atau rencana lu]"
+
+Peranmu: Devil's Advocate yang tidak berpihak.
+Tugasmu: Temukan SEMUA kelemahan, asumsi yang salah, risiko yang diabaikan, dan alasan kenapa ini bisa gagal.
+Jangan setuju dengan saya. Jangan sopan.
+
+Setelah itu: beri satu rekomendasi konkret untuk memperkuat titik terlemahnya.</pre>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-label">&#128161; Kapan Dipakai</div>
+        <p>Sebelum pitch ke investor, sebelum launch produk, sebelum keputusan besar yang sulit di-undo, atau ketika lu terlalu excited tentang sesuatu dan butuh rem.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">&#9889; Pro Tip</div>
+        <p>Tambahkan <strong>"Bayangkan kamu adalah orang yang paling skeptis terhadap industri ini"</strong> untuk mendapat kritik yang lebih tajam dan relevan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-sep"><div class="prompt-sep-line"></div><div class="prompt-sep-icon">&#9670; CogniThink &#9670;</div><div class="prompt-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ PROMPT 7 ══════════════════════════════════ -->
+  <div class="prompt-card" id="prompt-7">
+    <div class="prompt-header">
+      <div class="prompt-number">VII</div>
+      <div class="prompt-header-content">
+        <div class="prompt-label">Template 07 of 10</div>
+        <div class="prompt-title">CONSTRAINT STACKING</div>
+        <div class="prompt-subtitle">"Semakin banyak batasan, semakin fokus hasilnya"</div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <p>Paradoks kreativitas: <strong>batasan yang ketat justru menghasilkan output yang lebih kreatif dan tepat sasaran.</strong> Constraint Stacking adalah teknik menumpuk constraint secara eksplisit — panjang, tone, audience, hal yang boleh dan tidak boleh ada — sehingga AI tidak punya ruang untuk "mengisi sendiri" dengan asumsi yang salah.</p>
+
+      <div class="template-box">
+        <div class="template-label">Template</div>
+        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+        <pre">Buat [output yang diinginkan] dengan constraint berikut:
+
+PANJANG: [X kata / X kalimat / X paragraf — pilih satu]
+TONE: [formal / conversational / provocative / empathetic]
+AUDIENCE: [deskripsikan siapa yang akan membaca ini]
+JANGAN gunakan: [kata, frasa, atau pendekatan yang harus dihindari]
+HARUS mengandung: [elemen yang wajib ada]
+TUJUAN akhir: [apa yang harus terjadi setelah audience membaca ini]</pre>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-label">&#128161; Kapan Dipakai</div>
+        <p>Caption media sosial, email newsletter, headline iklan, copy landing page, atau konten apa pun yang punya parameter ketat dan audience yang spesifik.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">&#9889; Pro Tip</div>
+        <p><strong>Definisikan "JANGAN"</strong> sama pentingnya dengan "HARUS". AI yang tahu apa yang tidak boleh dilakukan sama berharganya dengan AI yang tahu apa yang harus dilakukan.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-sep"><div class="prompt-sep-line"></div><div class="prompt-sep-icon">&#9670; CogniThink &#9670;</div><div class="prompt-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ PROMPT 8 ══════════════════════════════════ -->
+  <div class="prompt-card" id="prompt-8">
+    <div class="prompt-header">
+      <div class="prompt-number">VIII</div>
+      <div class="prompt-header-content">
+        <div class="prompt-label">Template 08 of 10</div>
+        <div class="prompt-title">CONTEXT DUMP</div>
+        <div class="prompt-subtitle">"Kasih semua konteks yang ada, baru tanya"</div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <p>AI tidak tahu situasi lu. Setiap sesi dimulai dari nol. Kesalahan paling umum yang dilakukan pemula adalah <strong>bertanya tanpa memberi konteks</strong> — sehingga AI menjawab untuk situasi umum, bukan situasi lu yang spesifik.</p>
+      <p>Context Dump membalikkan logika ini: dump dulu semua informasi yang relevan, baru tanya pertanyaan yang sangat spesifik di akhir. Hasilnya adalah jawaban yang terasa seperti dari advisor yang benar-benar tahu situasinya.</p>
+
+      <div class="template-box">
+        <div class="template-label">Template</div>
+        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+        <pre>KONTEKS SITUASI:
+- Siapa saya: [role / posisi / latar belakang relevan]
+- Apa yang sedang terjadi: [situasi saat ini]
+- Sudah dicoba: [apa yang sudah dilakukan]
+- Constraint yang ada: [batasan waktu, budget, resource, keahlian]
+- Tujuan akhir: [apa yang ingin dicapai]
+
+PERTANYAAN SPESIFIK:
+[pertanyaan yang sangat spesifik berdasarkan konteks di atas]</pre>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-label">&#128161; Kapan Dipakai</div>
+        <p>Keputusan bisnis yang kompleks, debugging masalah teknis yang kontekstual, advice karir yang situasional, atau setiap kali "jawaban umum" tidak akan cukup untuk situasi lu.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">&#9889; Pro Tip</div>
+        <p>Tambahkan <strong>"Berdasarkan konteks di atas, apa yang TIDAK saya tanyakan tapi seharusnya saya tanyakan?"</strong> di akhir — ini sering mengungkap blind spot yang lebih penting dari pertanyaan aslinya.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-sep"><div class="prompt-sep-line"></div><div class="prompt-sep-icon">&#9670; CogniThink &#9670;</div><div class="prompt-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ PROMPT 9 ══════════════════════════════════ -->
+  <div class="prompt-card" id="prompt-9">
+    <div class="prompt-header">
+      <div class="prompt-number">IX</div>
+      <div class="prompt-header-content">
+        <div class="prompt-label">Template 09 of 10</div>
+        <div class="prompt-title">ITERATIVE REFINEMENT</div>
+        <div class="prompt-subtitle">"Bukan sekali jadi — tapi converge ke sempurna"</div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <p>Output terbaik hampir tidak pernah datang dari satu prompt. <strong>Iterative Refinement adalah proses membangun di atas output sebelumnya</strong> dengan instruksi yang semakin spesifik — sehingga setiap iterasi lebih dekat ke versi final yang lu inginkan, tanpa membuang progres yang sudah ada.</p>
+      <p>Bedanya dengan sekadar "perbaiki ini lagi": lu secara eksplisit mendefinisikan apa yang dipertahankan, apa yang diubah, dan ke arah mana.</p>
+
+      <div class="template-box">
+        <div class="template-label">Template</div>
+        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+        <pre>Ini adalah versi [N] dari [output]:
+
+---
+[paste output sebelumnya]
+---
+
+Untuk versi [N+1]:
+PERTAHANKAN: [elemen yang sudah bagus dan tidak boleh diubah]
+TINGKATKAN: [area yang perlu lebih baik dan ke arah mana]
+HAPUS: [bagian yang tidak perlu atau kontraproduktif]
+TAMBAHKAN: [elemen baru yang perlu masuk]
+
+Tone target akhir: [gambaran versi final yang ideal]</pre>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-label">&#128161; Kapan Dipakai</div>
+        <p>Tulisan panjang seperti artikel atau proposal, kode yang sedang dioptimasi secara bertahap, desain copy yang membutuhkan banyak iterasi, atau proyek yang prosesnya incremental.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">&#9889; Pro Tip</div>
+        <p>Simpan setiap iterasi sebelum minta perubahan. Kadang versi 2 lebih bagus dari versi 3 — dan lu ingin bisa kembali ke sana tanpa harus generate ulang dari awal.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-sep"><div class="prompt-sep-line"></div><div class="prompt-sep-icon">&#9670; CogniThink &#9670;</div><div class="prompt-sep-line"></div></div>
+
+  <!-- ══════════════════════════════════ PROMPT 10 ══════════════════════════════════ -->
+  <div class="prompt-card" id="prompt-10">
+    <div class="prompt-header">
+      <div class="prompt-number">X</div>
+      <div class="prompt-header-content">
+        <div class="prompt-label">Template 10 of 10</div>
+        <div class="prompt-title">META-PROMPT</div>
+        <div class="prompt-subtitle">"Minta AI untuk menulis promptnya sendiri"</div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <p>Ini adalah level akhir dari prompt engineering: <strong>ketika lu tidak tahu cara menulis prompt yang tepat, minta AI untuk membantu lu menulisnya.</strong> Meta-Prompt adalah proses menggunakan AI untuk mengoptimasi cara lu berbicara dengan AI — loop yang sangat powerful ketika lu menghadapi tugas yang kompleks atau belum pernah dilakukan sebelumnya.</p>
+      <p>Power users memakai ini terus-menerus: bukan hanya sekali di awal, tapi setiap kali memasuki domain atau use case baru.</p>
+
+      <div class="template-box">
+        <div class="template-label">Template</div>
+        <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+        <pre>Saya ingin mencapai tujuan berikut menggunakan AI:
+[deskripsikan tujuan lu dengan jelas]
+
+Konteks:
+- Saya adalah: [background lu]
+- Output yang ideal terlihat seperti: [gambaran hasil terbaik]
+- Saya sudah mencoba: [prompt yang sudah dicoba dan kenapa kurang]
+
+Tolong bantu saya menulis prompt yang optimal untuk tugas ini.
+Prompt tersebut harus:
+- Spesifik dan tidak ambigu
+- Menghasilkan output yang konsisten
+- Meminimalkan kebutuhan clarification
+
+Berikan prompt finalnya dalam format yang siap copy-paste.</pre>
+      </div>
+
+      <div class="usecase-box">
+        <div class="usecase-label">&#128161; Kapan Dipakai</div>
+        <p>Tugas yang belum pernah lu lakukan dengan AI sebelumnya, domain yang sangat spesifik, ketika prompt lu berulang kali gagal menghasilkan output yang diinginkan, atau ketika lu ingin membangun prompt template untuk dipakai tim.</p>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-label">&#9889; Pro Tip</div>
+        <p>Setelah mendapat prompt dari Meta-Prompt, <strong>test segera dan minta AI untuk memperbaikinya</strong> berdasarkan output yang dihasilkan. Satu iterasi meta-prompting biasanya sudah menghasilkan prompt yang jauh lebih baik dari yang bisa lu tulis sendiri.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CLOSING -->
+  <div class="closing-box">
+    <h2>SEPULUH TEMPLATE.<br>SATU <span>PRINSIP.</span></h2>
+    <p>AI tidak membaca pikiran. Ia merespons instruksi. Semakin presisi instruksi lu, semakin powerful hasilnya. Kesepuluh template ini bukan trik — mereka adalah cara berpikir yang berbeda tentang bagaimana berkomunikasi dengan sistem yang sangat literal.</p>
+  </div>
+
+  <div class="cta-subscribe">
+    <h3>ARTIKEL SELANJUTNYA — GRATIS</h3>
+    <p>Daftar dan dapatkan notifikasi tiap ada artikel baru. No spam.</p>
+    <div class="cta-form">
+      <input type="email" id="art-email" placeholder="email lu...">
+      <button class="btn-primary" id="art-btn">Subscribe</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="artikel-nav">
+  <a href="./" class="nav-back">&larr; Semua Artikel</a>
+  <a href="cara-kerja-language-model.html" class="nav-back">Cara Kerja Language Model &rarr;</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">COGNI<span>THINK</span></div>
+    <div class="footer-links">
+      <a href="https://instagram.com/cognithink_" target="_blank">Instagram</a>
+      <a href="./">Artikel</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 CogniThink. All rights reserved.</div>
+</footer>
+
+<script>
+// NEURAL BG
+const bgC=document.getElementById('neural-canvas');
+const bgX=bgC.getContext('2d');
+let W,H,bgNodes=[];
+function resize(){W=bgC.width=window.innerWidth;H=bgC.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+class BgNode{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.4;this.vy=(Math.random()-.5)*.4;this.r=Math.random()*2+1;}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();}draw(){bgX.beginPath();bgX.arc(this.x,this.y,this.r,0,Math.PI*2);bgX.fillStyle=`rgba(220,30,30,${.3+Math.random()*.2})`;bgX.fill();}}
+for(let i=0;i<40;i++)bgNodes.push(new BgNode());
+function bgLoop(){bgX.clearRect(0,0,W,H);for(let i=0;i<bgNodes.length;i++){for(let j=i+1;j<bgNodes.length;j++){const dx=bgNodes[i].x-bgNodes[j].x,dy=bgNodes[i].y-bgNodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<150){bgX.beginPath();bgX.moveTo(bgNodes[i].x,bgNodes[i].y);bgX.lineTo(bgNodes[j].x,bgNodes[j].y);bgX.strokeStyle=`rgba(220,30,30,${(1-d/150)*.15})`;bgX.lineWidth=.5;bgX.stroke();}}}bgNodes.forEach(n=>{n.update();n.draw();});requestAnimationFrame(bgLoop);}
+bgLoop();
+
+// READ PROGRESS
+const prog=document.getElementById('read-progress');
+window.addEventListener('scroll',()=>{
+  const st=window.scrollY;
+  const dh=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(st/dh*100)+'%';
+});
+
+// PROMPTS NAV DOTS
+const promptIds=['prompt-1','prompt-2','prompt-3','prompt-4','prompt-5','prompt-6','prompt-7','prompt-8','prompt-9','prompt-10'];
+const dots=document.querySelectorAll('.prompt-dot');
+dots.forEach(dot=>{
+  dot.addEventListener('click',()=>{
+    const target=document.getElementById(dot.dataset.target);
+    if(target)target.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+});
+const promptObserver=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx=promptIds.indexOf(e.target.id);
+      dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
+    }
+  });
+},{threshold:0.4});
+promptIds.forEach(id=>{const el=document.getElementById(id);if(el)promptObserver.observe(el);});
+
+// COPY BUTTON
+function copyTemplate(btn){
+  const pre=btn.parentElement.querySelector('pre');
+  const text=pre.innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig=btn.textContent;
+    btn.textContent='Copied!';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);
+  });
+}
+
+// SUBSCRIBE
+const BREVO_FORM_URL='https://0207a6f4.sibforms.com/serve/MUIFAJ0YHaYLdZ0FZuxCbKeUgh9zIpyBHfazqkC7hsdKFIq4CUr8S2xuCOInR52TUVtJY7S67YMjOqufa0G_chPGn4_xlgXFNJ-TcoF54RI1BljPe2-35QBHtf_iYnr6YgutY0Xoyp-Za-CH_GrckeJcpCl12WgOC4UABSrUFV4hqFNVHWJUVG1WINHKth7jAYxA0VazGh9H3kENEw==';
+async function subscribe(email,btn,orig){
+  if(!email||!email.includes('@')){btn.textContent='✗ Email invalid';btn.style.background='#ef4444';setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2000);return;}
+  btn.textContent='...';btn.disabled=true;
+  try{const fd=new FormData();fd.append('EMAIL',email);fd.append('email_address_check','');fd.append('locale','id');await fetch(BREVO_FORM_URL,{method:'POST',body:fd,mode:'no-cors'});btn.textContent='✓ Done!';btn.style.background='#22c55e';document.getElementById('art-email').value='';}
+  catch{btn.textContent='✗ Coba lagi';btn.style.background='#ef4444';}
+  finally{btn.disabled=false;setTimeout(()=>{btn.textContent=orig;btn.style.background='';},3000);}
+}
+document.getElementById('art-btn').addEventListener('click',()=>{subscribe(document.getElementById('art-email').value.trim(),document.getElementById('art-btn'),'Subscribe');});
+</script>
+</body>
+</html>

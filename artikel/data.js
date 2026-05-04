@@ -14,6 +14,19 @@
 
 const ARTIKEL_DATA = [
   {
+    id: "10-template-prompt-2026",
+    file: "10-template-prompt-2026.html",
+    badge: "AI & Teknologi",
+    cat: "ai",
+    icon: "&#128172;",
+    title: "10 Template Prompt Paling Powerful di 2026",
+    desc: "Copy-paste prompt yang dipakai jutaan user setiap hari — dan kenapa mereka work.",
+    read: "12 menit baca",
+    date: "4 Mei 2026",
+    urgensi: 5,
+  },
+
+  {
     id: "ai-amplifier-bukan-creator",
     file: "ai-amplifier-artikel.html",
     badge: "AI & Teknologi",
