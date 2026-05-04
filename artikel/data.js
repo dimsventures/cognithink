@@ -14,6 +14,19 @@
 
 const ARTIKEL_DATA = [
   {
+    id: "ai-2022-vs-2026-shift",
+    file: "ai-2022-vs-2026-shift.html",
+    badge: "AI & Teknologi",
+    cat: "ai",
+    icon: "&#128260;",
+    title: "Lu Masih Pakai AI Kayak Orang 2022",
+    desc: "Dari sparring partner ke agentic system — kenapa cara lu pakai AI sekarang sudah empat tahun ketinggalan.",
+    read: "10 menit baca",
+    date: "4 Mei 2026",
+    urgensi: 5,
+  },
+
+  {
     id: "10-template-prompt-2026",
     file: "10-template-prompt-2026.html",
     badge: "AI & Teknologi",
