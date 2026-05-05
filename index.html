@@ -586,7 +586,7 @@ function animateBrain(){bx.clearRect(0,0,BW,BH);drawHead();drawNeuronOverlay();b
 animateBrain();
 
 // ── TYPED TEXT ──
-const phrases=['Membongkar ilusi Uang, AI, & Manusia.','Bukan pakar — cuma orang yang tau lebih dulu.','Berhenti miskin bukan soal kerja keras doang.','Otak yang paham market itu beda mainnya.'];
+const phrases=['Otak lu mahal. Jangan dipakai miskin.','Yang ngerti duluan, menang duluan.','AI udah jalan. Lu masih scroll.','Market gak kalahin lu. Bias lu yang kalahin.','Bukan soal pinter. Soal sadar duluan.','Gen Z gak butuh guru. Butuh peta.','AI, market, psikologi — semua ketemu di sini.','Tumbuh bareng — atau ketinggalan sendirian.'];
 let pIdx=0,cIdx=0,deleting=false,delay=100;
 const el=document.getElementById('typed-text');
 function type(){const cur=phrases[pIdx];if(!deleting){el.textContent=cur.substring(0,cIdx+1);cIdx++;if(cIdx===cur.length){deleting=true;delay=3000;}else delay=60;}else{el.textContent=cur.substring(0,cIdx-1);cIdx--;if(cIdx===0){deleting=false;pIdx=(pIdx+1)%phrases.length;delay=400;}else delay=30;}setTimeout(type,delay);}
