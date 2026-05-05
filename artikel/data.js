@@ -14,6 +14,19 @@
 
 const ARTIKEL_DATA = [
   {
+    id: "agi-wealth-transfer",
+    file: "agi-wealth-transfer.html",
+    badge: "Artificial Intelligence",
+    cat: "ai",
+    icon: "&#129302;",
+    title: "Wealth Transfer Terbesar Sepanjang Sejarah Sudah Mulai",
+    desc: "Membaca peta AGI dari Jensen Huang — dan kenapa 2027 bisa jadi titik balik buat semua orang.",
+    read: "8 menit baca",
+    date: "5 Mei 2026",
+    urgensi: 5,
+  },
+
+  {
     id: "ai-2022-vs-2026-shift",
     file: "ai-2022-vs-2026-shift.html",
     badge: "AI & Teknologi",
