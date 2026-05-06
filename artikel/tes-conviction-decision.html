@@ -156,7 +156,7 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relativ
     <a href="../#resources">Resources</a>
     <a href="../#community">Community</a>
   </div>
-  <a href="../#hero-email" class="nav-cta">Join Gratis</a>
+  <a href="https://trakteer.id/cognithink" class="nav-cta" target="_blank">Trakteer Artikel</a>
 </nav>
 
 <div class="page-header">
@@ -240,11 +240,11 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relativ
     </div>
 
     <div class="cta-subscribe">
-      <h3>DAPAT KONTEN LANJUTAN — GRATIS</h3>
-      <p>Subscribe dan dapatkan notifikasi tiap konten baru. No spam.</p>
+      <h3>ARTIKEL SELANJUTNYA</h3>
+      <p>Dapatkan notifikasi tiap ada analisis baru. No spam.</p>
       <div class="cta-form">
         <input type="email" id="sub-email" placeholder="email lu...">
-        <button class="btn-sub" id="sub-btn">Subscribe</button>
+        <button class="btn-sub" id="sub-btn">Notify Me</button>
       </div>
     </div>
 
@@ -476,7 +476,7 @@ async function subscribe(email,btn,orig){
   finally{btn.disabled=false;setTimeout(()=>{btn.textContent=orig;btn.style.background='';},3000);}
 }
 document.getElementById('sub-btn').addEventListener('click',()=>{
-  subscribe(document.getElementById('sub-email').value.trim(),document.getElementById('sub-btn'),'Subscribe');
+  subscribe(document.getElementById('sub-email').value.trim(),document.getElementById('sub-btn'),'Notify Me');
 });
 
 const bgC=document.getElementById('neural-canvas');

@@ -118,7 +118,7 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relativ
     <a href="../#resources">Resources</a>
     <a href="../#community">Community</a>
   </div>
-  <a href="../#hero-email" class="nav-cta">Join Gratis</a>
+  <a href="https://trakteer.id/cognithink" class="nav-cta" target="_blank">Trakteer Artikel</a>
 </nav>
 
 <div class="artikel-header">
@@ -273,11 +273,11 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:40px;position:relativ
   <hr class="divider">
 
   <div class="cta-subscribe">
-    <h3>ARTIKEL SELANJUTNYA — GRATIS</h3>
-    <p>Daftar dan dapatkan notifikasi tiap ada artikel baru. No spam.</p>
+    <h3>ARTIKEL SELANJUTNYA</h3>
+    <p>Dapatkan notifikasi tiap ada analisis baru. No spam.</p>
     <div class="cta-form">
       <input type="email" id="art-email" placeholder="email lu...">
-      <button class="btn-primary" id="art-btn">Subscribe</button>
+      <button class="btn-primary" id="art-btn">Notify Me</button>
     </div>
   </div>
 
@@ -318,7 +318,7 @@ async function subscribe(email,btn,orig){
   catch{btn.textContent='✗ Coba lagi';btn.style.background='#ef4444';}
   finally{btn.disabled=false;setTimeout(()=>{btn.textContent=orig;btn.style.background='';},3000);}
 }
-document.getElementById('art-btn').addEventListener('click',()=>{subscribe(document.getElementById('art-email').value.trim(),document.getElementById('art-btn'),'Subscribe');});
+document.getElementById('art-btn').addEventListener('click',()=>{subscribe(document.getElementById('art-email').value.trim(),document.getElementById('art-btn'),'Notify Me');});
 </script>
 </body>
 </html>
