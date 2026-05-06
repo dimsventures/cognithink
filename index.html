@@ -104,7 +104,7 @@ section{position:relative;z-index:1;padding:90px 40px;}
 .why-desc{font-size:15px;color:rgba(255,255,255,0.55);line-height:1.6;}
 
 /* ── ARTIKEL SECTION (bukan resources duplikat) ── */
-.artikel-section{}
+.artikel-section{position:relative;z-index:1;}
 .artikel-section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px;}
 .artikel-section-header .sec-title{margin-bottom:0;text-align:left;}
 .artikel-section-header .sec-label{text-align:left;}
@@ -144,13 +144,35 @@ section{position:relative;z-index:1;padding:90px 40px;}
 .res-soon-title{font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1.1;margin-bottom:10px;color:rgba(255,255,255,0.7);}
 .res-soon-desc{font-size:13px;color:rgba(255,255,255,0.35);line-height:1.6;}
 
+/* ── ACTIVE PRODUCT CARD ── */
+.res-product-card{background:var(--dark);border:1px solid rgba(220,30,30,0.25);padding:32px;position:relative;overflow:hidden;display:flex;flex-direction:column;transition:all 0.4s;}
+.res-product-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--red),var(--orange));}
+.res-product-card::after{content:'LIVE';position:absolute;top:16px;right:16px;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:3px;color:#fff;background:var(--red);padding:4px 10px;animation:pulse-live 2s ease-in-out infinite;}
+@keyframes pulse-live{0%,100%{box-shadow:0 0 0 0 rgba(220,30,30,0.5)}50%{box-shadow:0 0 0 6px rgba(220,30,30,0)}}
+.res-product-card:hover{transform:translateY(-6px);border-color:var(--red);box-shadow:0 16px 36px rgba(220,30,30,0.18);}
+.res-product-card .res-icon-wrap{border-color:var(--red);color:var(--red);}
+.res-product-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:10px;display:block;}
+.res-product-title{font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1.1;margin-bottom:10px;color:#fff;}
+.res-product-desc{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:18px;}
+.res-product-features{list-style:none;padding:0;margin:0 0 22px 0;display:flex;flex-direction:column;gap:6px;}
+.res-product-features li{font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.5px;display:flex;align-items:center;gap:8px;}
+.res-product-features li::before{content:'+';color:var(--red);font-weight:700;}
+.res-product-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.06);padding-top:18px;}
+.res-product-price{display:flex;flex-direction:column;line-height:1;}
+.res-product-price-num{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--red);letter-spacing:1px;}
+.res-product-price-label{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+.res-product-btn{background:var(--red);color:#fff;border:none;padding:11px 18px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+.res-product-btn:hover{background:var(--orange);transform:translateX(2px);}
+.res-product-btn .arrow{transition:transform 0.3s;}
+.res-product-btn:hover .arrow{transform:translateX(3px);}
+
 /* ── COMMUNITY SECTION ── */
-.community-section{}
+.community-section{position:relative;z-index:1;}
 .community-inner{border:1px solid rgba(255,255,255,0.06);padding:64px;position:relative;overflow:hidden;}
 .community-inner::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--orange),transparent);}
 .community-bg-text{position:absolute;right:-20px;bottom:-30px;font-family:'Bebas Neue',sans-serif;font-size:160px;color:rgba(220,30,30,0.04);letter-spacing:8px;pointer-events:none;line-height:1;white-space:nowrap;}
 .community-content{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-.community-left{}
+.community-left{flex:1;}
 .community-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:16px;}
 .community-title{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;margin-bottom:16px;}
 .community-desc{font-size:16px;color:rgba(255,255,255,0.5);line-height:1.7;}
@@ -159,7 +181,7 @@ section{position:relative;z-index:1;padding:90px 40px;}
 .social-link:hover{border-color:rgba(220,30,30,0.4);background:rgba(220,30,30,0.05);transform:translateX(6px);}
 .social-icon{width:44px;height:44px;border:1px solid rgba(220,30,30,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;transition:border-color 0.3s;}
 .social-link:hover .social-icon{border-color:var(--red);}
-.social-info{}
+.social-info{flex:1;}
 .social-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;margin-bottom:2px;}
 .social-handle{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.3);}
 .social-arrow{margin-left:auto;color:var(--red);font-size:18px;transition:transform 0.3s;}
@@ -387,16 +409,29 @@ footer{background:var(--dark);padding:50px 40px;border-top:1px solid rgba(255,25
 <!-- RESOURCES — PREMIUM SOON -->
 <section class="resources-section" id="resources">
   <div class="container">
-    <div class="sec-label reveal">Coming Soon</div>
+    <div class="sec-label reveal">Digital Products</div>
     <h2 class="sec-title reveal">PREMIUM <span>RESOURCES</span></h2>
-    <p style="text-align:center;font-size:15px;color:rgba(255,255,255,0.4);margin-top:-40px;margin-bottom:48px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;" class="reveal">Riset mendalam, tools eksklusif, dan playbook — khusus Inner Circle members.</p>
+    <p style="text-align:center;font-size:12px;color:rgba(255,255,255,0.4);margin-top:-40px;margin-bottom:48px;font-family:'Space Mono',monospace;letter-spacing:1px;" class="reveal">Template, tools, dan playbook yang langsung bisa lo pakai — disusun dari pengalaman, bukan teori.</p>
 
     <div class="resources-grid-soon reveal">
-      <div class="res-soon-card">
-        <div class="res-icon-wrap">&#128202;</div>
-        <span class="res-soon-badge">Market Intelligence</span>
-        <div class="res-soon-title">Weekly Market Digest</div>
-        <div class="res-soon-desc">Ringkasan kondisi market global tiap Senin — makro, on-chain, dan sentiment dalam 5 menit.</div>
+      <div class="res-product-card">
+        <div class="res-icon-wrap">&#128181;</div>
+        <span class="res-product-badge">Personal Finance</span>
+        <div class="res-product-title">Get Shit Thing to do — Personal Finance 1.01</div>
+        <div class="res-product-desc">Template Excel/Google Sheet untuk ngatur cashflow, budget, dan tracking aset lo dari nol. Plug-and-play, tinggal isi.</div>
+        <ul class="res-product-features">
+          <li>Cashflow & budget tracker bulanan</li>
+          <li>Net worth & asset breakdown</li>
+          <li>Auto-summary & visual chart</li>
+          <li>Update gratis ke versi berikutnya</li>
+        </ul>
+        <div class="res-product-foot">
+          <div class="res-product-price">
+            <span class="res-product-price-num">Rp 24K</span>
+            <span class="res-product-price-label">One-time payment</span>
+          </div>
+          <a class="res-product-btn" href="https://lynk.id/cognithink" target="_blank" rel="noopener">Beli di Lynk.id <span class="arrow">&rarr;</span></a>
+        </div>
       </div>
       <div class="res-soon-card">
         <div class="res-icon-wrap">&#129504;</div>
