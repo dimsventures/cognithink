@@ -238,7 +238,6 @@ footer{background:var(--dark);padding:50px 40px;border-top:1px solid rgba(255,25
     <a href="#resources">Resources</a>
     <a href="#community">Community</a>
   </div>
-  <button class="nav-cta" onclick="document.getElementById('hero-email').focus()">Join Gratis</button>
 </nav>
 
 <!-- HERO -->
@@ -257,8 +256,8 @@ footer{background:var(--dark);padding:50px 40px;border-top:1px solid rgba(255,25
         <span id="typed-text"></span><span class="typed-cursor">|</span>
       </p>
       <div class="hero-form">
-        <input type="email" id="hero-email" placeholder="email lu di sini...">
-        <button class="btn-primary" id="hero-btn">Daftar Gratis</button>
+        <input type="email" id="hero-email" placeholder="email lu disini untuk dapet update...">
+        <button class="btn-primary" id="hero-btn">Notify Me</button>
       </div>
       <div class="hero-stats">
         <div class="stat"><span class="stat-num">3</span><span class="stat-label">Pilar Utama</span></div>
@@ -281,7 +280,7 @@ footer{background:var(--dark);padding:50px 40px;border-top:1px solid rgba(255,25
 <section class="problem">
   <div class="container">
     <div class="sec-label reveal">Pain Points</div>
-    <h2 class="sec-title reveal">KENAPA LU <span>STUCK</span> DI SINI?</h2>
+    <h2 class="sec-title reveal">KENAPA LU <span>BISA NYANTOL</span> KE SINI?</h2>
     <div class="problem-grid reveal">
       <div class="problem-item">
         <div class="problem-num">01</div>
@@ -606,7 +605,7 @@ async function subscribeEmail(email,btn,originalText){
   catch(e){btn.textContent='✗ Coba lagi';btn.style.background='#ef4444';}
   finally{btn.disabled=false;setTimeout(()=>{btn.textContent=originalText;btn.style.background='';},3000);}
 }
-document.getElementById('hero-btn').addEventListener('click',()=>{const email=document.getElementById('hero-email').value.trim();if(!email){document.getElementById('hero-email').focus();return;}subscribeEmail(email,document.getElementById('hero-btn'),'Daftar Gratis');});
+document.getElementById('hero-btn').addEventListener('click',()=>{const email=document.getElementById('hero-email').value.trim();if(!email){document.getElementById('hero-email').focus();return;}subscribeEmail(email,document.getElementById('hero-btn'),'Notify Me');});
 document.getElementById('soon-btn').addEventListener('click',()=>{const email=document.getElementById('soon-email').value.trim();if(!email){document.getElementById('soon-email').focus();return;}subscribeEmail(email,document.getElementById('soon-btn'),'Notify Me');});
 </script>
 
