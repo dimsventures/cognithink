@@ -14,6 +14,19 @@
 
 const ARTIKEL_DATA = [
   {
+    id: "pola-revolusi-teknologi-ai",
+    file: "pola-revolusi-teknologi-ai.html",
+    badge: "AI & Teknologi",
+    cat: "ai",
+    icon: "&#128293;",
+    title: "Lu Pikir AI Bakal Gantiin Lu? Sejarah Udah Ngejawab 2.000 Tahun Lalu",
+    desc: "Setiap revolusi teknologi melakukan 3 hal yang sama persis. Pahami polanya, atau jadi statistik berikutnya.",
+    read: "14 menit baca",
+    date: "8 Mei 2026",
+    urgensi: 5,
+  },
+
+  {
     id: "agi-wealth-transfer",
     file: "agi-wealth-transfer.html",
     badge: "Artificial Intelligence",
